@@ -1,0 +1,17 @@
+{% extends "layouts/app.html" %}
+
+{% load static %}
+
+{% block title %}
+<title>Tabla empleado</title>
+{% endblock title %}
+
+{% block opciones_tabla %}
+<h1>Selecciona la opción que deseas:</h1>
+<div>
+  <a href="{% url " registrar_empleado" %}">Registrar empleado</a>
+</div>
+<div>
+  <a href="{% url " listar_empleados" %}">Listar empleados</a>
+</div>
+{% endblock opciones_tabla %}

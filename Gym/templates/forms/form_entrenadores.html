@@ -1,0 +1,57 @@
+<section class="seccion_formulario">
+  <article class="card">
+    <!-- template.html -->
+
+    <form action="{% url 'save_entrenador' %}" method="post">
+      {% csrf_token %}
+      <div class="control">
+        <label for="ficha_de_ingreso">Ficha de Ingreso:</label>
+        <input type="text" name="ficha_de_ingreso" id="ficha_de_ingreso" required>
+
+        <label for="documento">Documento:</label>
+        <input type="text" name="documento" id="documento" required>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" required>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" name="apellido" id="apellido" required>
+
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required>
+
+        <label for="genero">Género:</label>
+        <select name="genero" id="genero" required>
+          <option value="masculino">Masculino</option>
+          <option value="femenino">Femenino</option>
+          <option value="otro">Otro</option>
+        </select>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" name="telefono" id="telefono">
+
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" name="correo" id="correo" required>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" name="direccion" id="direccion" required>
+
+        <label for="anos_de_experiencia">Años de Experiencia:</label>
+        <input type="text" name="anos_de_experiencia" id="anos_de_experiencia" required>
+
+        <label for="conocimiento">Conocimiento:</label>
+        <textarea name="conocimiento" id="conocimiento" required></textarea>
+
+        <label for="horario_de_entrada">Horario de Entrada:</label>
+        <input type="time" name="horario_de_entrada" id="horario_de_entrada" required>
+
+        <label for="horario_de_salida">Horario de Salida:</label>
+        <input type="time" name="horario_de_salida" id="horario_de_salida" required>
+      </div>
+      <div>
+        <button type="submit">Registrar</button>
+      </div>
+    </form>
+
+  </article>
+</section>

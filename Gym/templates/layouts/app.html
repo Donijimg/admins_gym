@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block title %}{% endblock title %}
+</head>
+
+<body>
+  <header>
+    <div class="header__menu">
+      {% include "layouts/partials/texto_menu.html" %}
+      {% include "layouts/partials/menu.html" %}
+    </div>
+  </header>
+  <main>
+    {% block opciones_tabla %}{% endblock opciones_tabla %}
+    {% block card_title %}{% endblock card_title %}
+    {% block form %}{% endblock form %}
+    {% block lista %}{% endblock lista %}
+  </main>
+</body>
+
+</html>
