@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,21 +7,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% block title %}{% endblock title %}
+  <link rel="stylesheet" href="{% static 'main.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
-  <header>
-    <div class="header__menu">
-      {% include "layouts/partials/texto_menu.html" %}
-      {% include "layouts/partials/menu.html" %}
-    </div>
+  <header class="header">
+    {% include "layouts/partials/menu.html" %}
+
   </header>
-  <main>
-    {% block opciones_tabla %}{% endblock opciones_tabla %}
+  <main class="main_inicio">
+    {% include "layouts/partials/main.html"%}
+    <!-- {% block opciones_tabla %}{% endblock opciones_tabla %}
     {% block card_title %}{% endblock card_title %}
     {% block form %}{% endblock form %}
-    {% block lista %}{% endblock lista %}
+    {% block lista %}{% endblock lista %} -->
   </main>
+  <section class="cards_entrenadores">
+    {% include "layouts/partials/card_entrenador.html"%}
+  </section>
+  <section class="busqueda">
+    {% include "layouts/partials/bar_busqueda.html"%}
+  </section>
+  <section class="content_fiml">
+    {% include "layouts/partials/content_fiml.html"%}
+  </section>
+  <section class="Torneos_1">
+    {% include "layouts/partials/torneos_1.html"%}
+  </section>
+  <footer class="footer">
+  </footer>
 </body>
 
 </html>
