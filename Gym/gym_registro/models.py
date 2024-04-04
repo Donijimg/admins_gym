@@ -2,18 +2,14 @@ from django.db import models
 
 class AdminOficial(models.Model):
 #este tabla y login y registro solo sera accedido po url para seguridad de que el usuario no autorizado no acceda
+    identificacion_propietario = models.IntegerField(blank=False, null=False)
     documento = models.IntegerField(blank=False, null=False)
-    nombre = models.CharField(max_length=15, blank=False, null=False)
-    apellido = models.CharField(max_length=15, blank=False, null=False)
-    fecha_nacimiento = models.DateField()
-    telefono = models.CharField(max_length=20, blank=True, null=True)
+    nombre_admin = models.CharField(max_length=15, blank=False, null=False, unique=True)
+    apellido_admin = models.CharField(max_length=30, blank=False, null=False)
+    contrasena_admin = models.CharField(max_length=40, blank=False, null=False)
     correo = models.EmailField(max_length=75, blank=False, null=False)
-    direccion = models.TextField(null=False)
-    #para loguearse se pedira el nombreuser y contrasena y el numeroIP que se genera al registarse 
-    nombre_usuario = models.CharField(max_length=50, blank=False, null=False, unique=True)
-    contrasena = models.CharField(max_length=128, blank=False, null=False)
-    identificacion_propietario = models.CharField(max_length=20, blank=True, null=True)
-    # adicional depues de loguearse
+    telefono = models.CharField(max_length=14, blank=False, null=False)
+    direccion = models.CharField(max_length=75, blank=False, null=False)
     redes_sociales = models.URLField(max_length=200, blank=True, null=True)
 
 
@@ -24,20 +20,26 @@ class Entrenador(models.Model):
 # para cuando "signup entrenador"=registres el entrenador
 #datos por llenar
     documento = models.IntegerField(blank=False, null=False)
-    nombre = models.CharField(max_length=15, blank=False, null=False)
-    apellido = models.CharField(max_length=15, blank=False, null=False)
+    nombre = models.CharField(max_length=30, blank=False, null=False)
+    apellido = models.CharField(max_length=30, blank=False, null=False)
     fecha_nacimiento = models.DateField()
-    genero = models.CharField(max_length=10, blank=False, null=False)
-    telefono = models.CharField(max_length=20, blank=True, null=True)
+    GENERO_CHOICES = (
+        ('Masculino', 'Masculino'),
+        ('Femenino', 'Femenino'),
+        ('Otro', 'Otro'),
+    )
+    genero = models.CharField(max_length=10, choices=GENERO_CHOICES, blank=False, null=False)
+    telefono = models.CharField(max_length=10, blank=True, null=True)
     correo = models.EmailField(max_length=75, blank=False, null=False)
-    direccion = models.TextField(null=False)
-    anos_de_experiencia = models.IntegerField(blank=False, null=False)
+    direccion = models.CharField(max_length=75, blank=False, null=False)
+    experiencia = models.IntegerField(blank=False, null=False)
     conocimiento = models.TextField(null=False)
+    # foto_perfil = models.ImageField(upload_to='foto_perfil/', blank=True, null=True)
     horario_de_entrada = models.TimeField()#esto sera un opcion
     horario_de_salida = models.TimeField()#esto sera un opcion
 # para registrar y logear
-    nombre_usuario = models.CharField(max_length=50, blank=False, null=False, unique=True)
-    contrasena = models.CharField(max_length=128, blank=False, null=False)
+    nombre_usuario = models.CharField(max_length=15, blank=False, null=False, unique=True)
+    contrasena = models.CharField(max_length=40, blank=False, null=False)
 #una ves iniciada seccion puedes agregar datos adicionales
     redes_sociales = models.URLField(max_length=200, blank=True, null=True)    
 #se generara al registrarse una ficha al logearse se te sera pedida

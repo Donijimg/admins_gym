@@ -6,27 +6,52 @@ def index(request):
     return render(request, 'index.html', {})
 
 
+def signup_opcion(request):
+    return render(request, 'signup_opcion.html', {})
+
+def login_opcion(request):
+    return render(request, 'login_opcion.html', {})
+
+
+def signup_ad(request):
+     if request.method == 'POST':
+         # Si el método de solicitud es POST, guarda el entrenador
+         return save_admin(request)
+     else:
+         # Si el método de solicitud es GET, muestra el formulario de registro
+         administradores = AdminOficial.objects.all()
+         return render(request, 'signup_administrador.html', {'administradores': administradores})
+     
+
+def save_admin(request,):
+  DNI_propietario = request.POST.get('identificacion_propietario')
+  documento = request.POST.get('documento')
+  nombre_admin = request.POST.get('nombre_admin')
+  nombre_apellido = request.POST.get('apellido')
+  telefono = request.POST.get('telefono')
+  correo = request.POST.get('correo')
+  direccion = request.POST.get('direccion')
+  contrasena = request.POST.get('contrasena_admin')
+ 
+ 
+  nuevo_entrenador = Entrenador.objects.create(DNI_propietario=DNI_propietario,documento=documento,nombre_admin=nombre_admin,
+  nombre_apellido=nombre_apellido,telefono=telefono,correo=correo,direccion=direccion,contrasena=contrasena,)
+  return HttpResponse(f"Se registró el Entrenador {nuevo_entrenador}.")
+
+
+
+
+
+
+    
+
 
 # views del del admin total
 
-# def signup_ad():
-    
-
-# def login_ad():
-    
-
-# def signup_en():
-    
-
-# def login_en():
-
-# def signup_cl():
-    
-
-# def login_cl():
-    
+# def signup_ad(request):
 
 
+  
     
 
 # def listar_entrenadores_admin(request):
@@ -73,72 +98,35 @@ def index(request):
 
 # #login y sing up del entrenador 
 
-# def registrar_entrenador(request):
-#     if request.method == 'POST':
-#         # Si el método de solicitud es POST, guarda el entrenador
-#         return save_entrenador(request)
-#     else:
-#         # Si el método de solicitud es GET, muestra el formulario de registro
-#         entrenadores = Entrenador.objects.all()
-#         return render(request, 'SignUp_entrenador.html', {'entrenadores': entrenadores})
+def signup_en(request):
+    if request.method == 'POST':
+        return save_entrenador(request)
+    return render(request, 'signup_entrenador.html', {})
 
-# def save_entrenador(request, entrenador=None):
-#     if request.method == 'POST':
-#         # Procesa los datos del formulario
-#         ficha_de_ingreso = request.POST.get('ficha_de_ingreso')
-#         documento = request.POST.get('documento')
-#         nombre = request.POST.get('nombre')
-#         apellido = request.POST.get('apellido')
-#         fecha_nacimiento = request.POST.get('fecha_nacimiento')
-#         genero = request.POST.get('genero')
-#         telefono = request.POST.get('telefono')
-#         correo = request.POST.get('correo')
-#         direccion = request.POST.get('direccion')
-#         anos_de_experiencia = request.POST.get('anos_de_experiencia')
-#         conocimiento = request.POST.get('conocimiento')
-#         horario_de_entrada = request.POST.get('horario_de_entrada')
-#         horario_de_salida = request.POST.get('horario_de_salida')
+def save_entrenador(request,):
+  ficha_de_ingreso = request.POST.get('ficha_de_ingreso')
+  documento = request.POST.get('documento')
+  nombre = request.POST.get('nombre')
+  apellido = request.POST.get('apellido')
+  fecha_nacimiento = request.POST.get('fecha_nacimiento')
+  genero = request.POST.get('genero')
+  telefono = request.POST.get('telefono')
+  correo = request.POST.get('correo')
+  direccion = request.POST.get('direccion')
+  anos_de_experiencia = request.POST.get('anos_de_experiencia')
+  conocimiento = request.POST.get('conocimiento')
+  horario_de_entrada = request.POST.get('horario_de_entrada')
+  horario_de_salida = request.POST.get('horario_de_salida')
+  nuevo_entrenador = Entrenador.objects.create(ficha_de_ingreso=ficha_de_ingreso,documento=documento,nombre=nombre,
+  apellido=apellido,fecha_nacimiento=fecha_nacimiento,genero=genero,telefono=telefono,correo=correo,direccion=direccion,
+  anos_de_experiencia=anos_de_experiencia,conocimiento=conocimiento,horario_de_entrada=horario_de_entrada,
+  horario_de_salida=horario_de_salida)
+  return HttpResponse(f"Se registró el Entrenador {nuevo_entrenador}.")
 
-#         if entrenador is None:
-#             # Si no se proporciona un entrenador existente, se crea uno nuevo
-#             nuevo_entrenador = Entrenador.objects.create(
-#                 ficha_de_ingreso=ficha_de_ingreso,
-#                 documento=documento,
-#                 nombre=nombre,
-#                 apellido=apellido,
-#                 fecha_nacimiento=fecha_nacimiento,
-#                 genero=genero,
-#                 telefono=telefono,
-#                 correo=correo,
-#                 direccion=direccion,
-#                 anos_de_experiencia=anos_de_experiencia,
-#                 conocimiento=conocimiento,
-#                 horario_de_entrada=horario_de_entrada,
-#                 horario_de_salida=horario_de_salida
-#             )
 
-#             return HttpResponse(f"Se registró el Entrenador {nuevo_entrenador}.")
-#         else:
-#             # Si se proporciona un entrenador existente, se actualizan sus datos
-#             entrenador.ficha_de_ingreso = ficha_de_ingreso
-#             entrenador.documento = documento
-#             entrenador.nombre = nombre
-#             entrenador.apellido = apellido
-#             entrenador.fecha_nacimiento = fecha_nacimiento
-#             entrenador.genero = genero
-#             entrenador.telefono = telefono
-#             entrenador.correo = correo
-#             entrenador.direccion = direccion
-#             entrenador.anos_de_experiencia = anos_de_experiencia
-#             entrenador.conocimiento = conocimiento
-#             entrenador.horario_de_entrada = horario_de_entrada
-#             entrenador.horario_de_salida = horario_de_salida
-#             save_entrenador(entrenador)
 
-#             return HttpResponse(f"Se actualizaron los datos del Entrenador {entrenador}.")
-
-#     return HttpResponse("El método de solicitud no es POST.")
-
+def signup_cl(request):
+    return render(request, 'signup_cliente.html', {})
 
 
 # def editar_entrenador(request, entrenador_id):

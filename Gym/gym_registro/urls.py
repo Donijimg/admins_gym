@@ -5,9 +5,15 @@ from . import views
 
 urlpatterns = [
 
-    path('index/', views.index, name="index"),
-    path('registrar_entrenador/', views.registrar_entrenador, name='registrar_entrenador'),
+    path('', views.index, name="index"),
+    path('signup_opcion/',views.signup_opcion,name='signup_opcion'),
+    # path('login_opcion/index',views.login_opcion,name='login_opcion'),
+    path('signup_en/signup_opcion/', views.signup_en, name='signup_en'),
     path('save_entrenador/', views.save_entrenador, name='save_entrenador'),  # URL para save_entrenador
+    path('signup_ad/signup_opcion/',views.signup_ad,name='signup_ad'),
+    path('signup_cl/signup_opcion/',views.signup_ad,name='signup_cl'),
+
+    
 
     # path('listar_paises/', views.listar_paises, name="listar_paises"),
 

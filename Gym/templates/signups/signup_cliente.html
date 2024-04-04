@@ -1,27 +1,17 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro</title>
-  <link rel="stylesheet" href="registro.css">
-</head>
-
 <body>
   <main>
     <section>
+
+      <!-- clases 
+      div class="container"
+    form class=bloquesito 
+  <input class="input_uni">-->
       <div class="container">
-        <form class=bloquesito action="index.html" method="get">
+        <form class=bloquesito action="{% url 'signup_cl' %}" method=" get">
           <h3>Registro</h3>
-          <label for="Nombre">Nombre:</label>
-          <input type="text" placeholder="Nombre" id="Nombre" class="input_uni">
-          <label for="Apellido">Apellido:</label>
-          <input type="text" placeholder="Apellido" id="Apellido" class="input_uni">
-          <label for="username">Username:</label>
-          <input type="text" placeholder="Nombre de usuario" id="username" class="input_uni">
-          <label for="email">E-mail:</label>
-          <input type="email" placeholder="E-mail" id="username" class="input_uni">
+
+
+
           <label for="password">contraseña:</label>
           <input type="password" id="pass" name="password" minlength="8" required placeholder="contraseña" id="password"
             class="input_uni" />
@@ -83,5 +73,3 @@
     </section>
   </main>
 </body>
-
-</html> -->
