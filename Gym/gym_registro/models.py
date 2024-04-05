@@ -2,8 +2,8 @@ from django.db import models
 
 class AdminOficial(models.Model):
 #este tabla y login y registro solo sera accedido po url para seguridad de que el usuario no autorizado no acceda
-    identificacion_propietario = models.IntegerField(blank=False, null=False)
-    documento = models.IntegerField(blank=False, null=False)
+    identificacion_propietario = models.CharField(max_length=7, blank=False, null=False)
+    documento = models.CharField(max_length=10, blank=False, null=False)
     nombre_admin = models.CharField(max_length=15, blank=False, null=False, unique=True)
     apellido_admin = models.CharField(max_length=30, blank=False, null=False)
     contrasena_admin = models.CharField(max_length=40, blank=False, null=False)

@@ -1,3 +1,5 @@
+
+/*  */
 * {
     margin: 0;
     padding: 0;
@@ -6,84 +8,85 @@
 
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-@keyframes move-it {
-  0% {
-    background-position: initial;
-  }
-  100% {
-    background-position: 100px 0px;
-  }
-}
-
-
-body {
-  background: linear-gradient(196deg,#ffff00,#0097ff,#000000);
-  background-size: 180% 180%;
-  animation: gradient-animation 3s ease infinite;
-}
-
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-
-
-main {
-    padding: 20px;
-    
+   
 }
 
 
 
 .container{
-display: flex;
-align-items: center;
-flex-direction: column;
-width: 400px;;
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-image: url("https://images.pexels.com/photos/6551074/pexels-photo-6551074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  
+}
+
+
+
+.p_bloque{
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  background-color:#000000b6;
+  border-radius: 50px;
+  color: aliceblue;
+
+
 
 }
+
+
 .bloquesito{
-width: 600px;
-background-color:#000000;
-margin-top: 50px;
-padding: 30px;
-border: none;
-border-radius: 50px;
-color: aliceblue;
 display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
 text-align: center;
-gap:15px;
+
 }
 
+.block2{
 
+  display: flex;
+
+
+}
+
+.block2 div{
+  flex-direction: column;
+  display:flex;
+
+
+
+}
+
+.block {
+    flex: 1;  
+
+}
+.block div{
+  flex-direction: column;
+  display:flex;
+  align-items: center;
+  width:250px;
+  justify-content: center;
+}
 
 .input_uni {
-margin: 2%;
-width:400px;
-height:40px;
+margin: 20px 0px 20px 0px;
+padding:0px 5px 0px 5px;; 
+width:200px;
+height:30px;
 border-radius:10px;
+border: none;
 }
 
-a{
-  color: #349FFF;
-}
+
 .button:hover {
   background-color:#ffff00;
 }
@@ -97,19 +100,12 @@ a{
   cursor: pointer;
 
 }
-.Gener{
-  display: flex;
-  gap:20px;
-}
+ .textarea{
 
-.Gener input{
-  width:20px;
-  height:20px;
-}
-
-.date{
-  margin: 2%;
-width:400px;
-height:40px;
+margin: 20px 0px 20px 0px;
+padding:0px 5px 0px 5px;; 
+width:700px;
+height:30px;
 border-radius:10px;
+border: none;
 }

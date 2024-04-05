@@ -1,54 +1,57 @@
 <body>
-  <main>
-    <section>
-      <div class="container">
+  <main class="container">
+    <form action="{% url 'signup_ad' %}" method="post"><!--enctype="multipart/form-data" -->
+      <div class=p_bloque>
+        <h3 class="title">signup Administrador</h3>
+        <div class=bloquesito>
 
-        <h3>Registro</h3>
-        <form action="{% url 'signup_ad' %}" method="post"><!--enctype="multipart/form-data" -->
-          <div class=p_bloque>
-            <div class=bloquesito>
-              {% csrf_token %}
-              <div class="uno">
-                <label for="DNI_propietario">Identificación del Propietario:</label>
-                <input type="text" id="DNI_propietario" placeholder="identificacion propietario" maxlength="7"
-                  minlength="7" class="input_uni" required>
+          {% csrf_token %}
+          <div class="block">
+            <div>
+              <label for="DNI_propietario">Identificación del Propietario:</label>
+              <input type="text" id="identificacion_propietario" name="identificacion_propietario"
+                placeholder="identificacion propietario" maxlength="7" minlength="7" class="input_uni" required>
 
-                <label for="Documento">Documento:</label>
-                <input type="text" id="Documento" placeholder="Numero de Documento" maxlength="10" class="input_uni"
-                  minlength="10" required>
+              <label for="Documento">Documento:</label>
+              <input type="text" id="documento" name="documento" placeholder="Numero de Documento" maxlength="10"
+                class="input_uni" minlength="10" required>
 
-                <label for="Nombre_admin">Nombre de Administrador:</label>
-                <input type="text" placeholder="Nombre de Administrador" id="Nombre_admin" class="input_uni"
-                  maxlength="15" minlength="6" required>
+              <label for="Nombre_admin">Nombre:</label>
+              <input type="text" placeholder="Nombre de Administrador" name="nombre_admin" id="nombre_admin"
+                class="input_uni" maxlength="15" minlength="6" required>
 
 
-                <label for="Apellido_admin">Apellido:</label>
-                <input type="text" placeholder="Apellido" id="Apellido_admin" class="input_uni" maxlength="30" required>
-              </div>
-              <div class="dos">
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" placeholder="Numero de telefono" id="telefono" class="input_uni" maxlength="14"
-                  minlength="10" required>
-
-                <label for="correo">Correo Electrónico:</label>
-                <input type="email" placeholder="E-mail" id="correo" class="input_uni" maxlength="75" minlength="20"
-                  required>
-
-                <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" placeholder="Direccion" class="input_uni" maxlength="75"
-                  minlength="10" required>
-
-                <label for="contrasena_admin">Contraseña de Administrador:</label>
-                <input type="password" placeholder="Contraseña de Administrador" id="contrasena_admin" maxlength="40"
-                  minlength="8" class="input_uni" required>
-              </div>
+              <label for="apellido_admin">Apellido:</label>
+              <input type="text" placeholder="Apellido" id="apellido_admin" name="apellido_admin" class="input_uni"
+                maxlength="30" required>
             </div>
-
-            <button type="submit" class="button">Registrarse</button>
-
           </div>
-        </form>
+          <div class="block">
+            <div>
+              <label for="telefono">Teléfono:</label>
+              <input type="tel" placeholder="Numero de telefono" id="telefono" name="telefono" class="input_uni"
+                maxlength="14" minlength="10" required>
+
+              <label for="direccion">Dirección:</label>
+              <input type="text" id="direccion" placeholder="Direccion" name="direccion" class="input_uni"
+                maxlength="75" minlength="10" required>
+
+              <label for="correo">Correo Electrónico:</label>
+              <input type="email" placeholder="E-mail" id="correo" name="correo" class="input_uni" maxlength="75"
+                minlength="20" required>
+
+
+
+              <label for="contrasena_admin">Contraseña de Administrador:</label>
+              <input type="password" placeholder="Contraseña de Administrador" id="contrasena" maxlength="40"
+                minlength="8" class="input_uni" name="contrasena_admin" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="button">Registrarse</button>
+
       </div>
-    </section>
+    </form>
   </main>
 </body>

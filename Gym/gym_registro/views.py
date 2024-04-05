@@ -19,24 +19,24 @@ def signup_ad(request):
          return save_admin(request)
      else:
          # Si el método de solicitud es GET, muestra el formulario de registro
-         administradores = AdminOficial.objects.all()
-         return render(request, 'signup_administrador.html', {'administradores': administradores})
+         nuevo_admin = AdminOficial.objects.all()
+         return render(request, 'signup_administrador.html', {'nuevo_admin': nuevo_admin})
      
 
 def save_admin(request,):
-  DNI_propietario = request.POST.get('identificacion_propietario')
+  identificacion_propietario = request.POST.get('identificacion_propietario')
   documento = request.POST.get('documento')
   nombre_admin = request.POST.get('nombre_admin')
-  nombre_apellido = request.POST.get('apellido')
+  apellido_admin  = request.POST.get('apellido_admin')
   telefono = request.POST.get('telefono')
   correo = request.POST.get('correo')
   direccion = request.POST.get('direccion')
-  contrasena = request.POST.get('contrasena_admin')
+  contrasena_admin = request.POST.get('contrasena_admin')
  
  
-  nuevo_entrenador = Entrenador.objects.create(DNI_propietario=DNI_propietario,documento=documento,nombre_admin=nombre_admin,
-  nombre_apellido=nombre_apellido,telefono=telefono,correo=correo,direccion=direccion,contrasena=contrasena,)
-  return HttpResponse(f"Se registró el Entrenador {nuevo_entrenador}.")
+  admin_guardado = AdminOficial.objects.create(identificacion_propietario=identificacion_propietario,documento=documento,nombre_admin=nombre_admin,
+  apellido_admin=apellido_admin,telefono=telefono,correo=correo,direccion=direccion,contrasena_admin=contrasena_admin,)
+  return render(request, 'bienvenido.html', {'admin_guardado': admin_guardado})
 
 
 
