@@ -90,7 +90,6 @@ def save_cliente(request):
 
 
 
-# views.py
 
 def login_ad(request):
     if request.method == 'POST':
@@ -118,7 +117,23 @@ def login_en(request):
         try:
             entrenador = Entrenador.objects.get(documento=documento, contrasena=contrasena)
             # Si las credenciales son válidas, renderizar la página de bienvenida
-            return render(request, 'bienvenido.html', {'entrenador': entrenador})
+            return render(request, 'bienvenido.html')
+        except Entrenador.DoesNotExist:
+            # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
+            return render(request, 'login_entrenador.html', {'error': True})
+
+    return render(request, 'login_entrenador.html', {})
+
+def login_en(request):
+    if request.method == 'POST':
+        documento = request.POST.get('documento')
+        contrasena = request.POST.get('contrasena')
+
+        # Verificar las credenciales del entrenador
+        try:
+            entrenador = Entrenador.objects.get(documento=documento, contrasena=contrasena)
+            # Si las credenciales son válidas, renderizar la página de bienvenida
+            return render(request, 'bienvenido.html')
         except Entrenador.DoesNotExist:
             # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
             return render(request, 'login_entrenador.html', {'error': True})
@@ -126,21 +141,24 @@ def login_en(request):
     return render(request, 'login_entrenador.html', {})
 
 
-def login_cl(request):
-    if request.method == 'POST':
-        nombre_usuario = request.POST.get('nombre_usuario')
-        contrasena = request.POST.get('contrasena')
 
-        # Verificar las credenciales del cliente
-        try:
-            cliente = InscripcionCliente.objects.get(nombre_usuario=nombre_usuario, contrasena=contrasena)
-            # Si las credenciales son válidas, se puede redirigir o mostrar un mensaje de éxito
-            return render(request, 'bienvenido.html')
-        except InscripcionCliente.DoesNotExist:
-            # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
-            return render(request, 'login_cliente.html', {'error': True})
 
-    return render(request, 'login_cliente.html', {})
+
+# def login_cl(request):
+#     if request.method == 'POST':
+#         nombre_usuario = request.POST.get('nombre_usuario')
+#         contrasena = request.POST.get('contrasena')
+
+#         # Verificar las credenciales del cliente
+#         try:
+#             cliente = InscripcionCliente.objects.get(nombre_usuario=nombre_usuario, contrasena=contrasena)
+#             # Si las credenciales son válidas, se puede redirigir o mostrar un mensaje de éxito
+#             return render(request, 'bienvenido.html')
+#         except InscripcionCliente.DoesNotExist:
+#             # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
+#             return render(request, 'login_cliente.html', {'error': True})
+
+#     return render(request, 'login_cliente.html', {})
 
 
 

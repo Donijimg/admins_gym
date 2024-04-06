@@ -39,7 +39,7 @@ class Entrenador(models.Model):
     horario_de_salida = models.TimeField(null=True)
 
 # para registrar y logear
-    nombre_usuario = models.CharField(max_length=15, blank=False, null=False, unique=True)
+    nombre_usuario = models.CharField(max_length=15, blank=False, null=False)
     contrasena = models.CharField(max_length=40, blank=False, null=False)
 #una ves iniciada seccion puedes agregar datos adicionales
     redes_sociales = models.URLField(max_length=200, blank=True, null=True)    
