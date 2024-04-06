@@ -5,6 +5,9 @@ from .models import AdminOficial,Entrenador,InscripcionCliente,RutinaCliente
 def index(request):
     return render(request, 'index.html', {})
 
+def index_logeado(request):
+    return render(request, 'index_logeado.html', {})
+
 
 def signup_opcion(request):
     return render(request, 'signup_opcion.html', {})
@@ -21,7 +24,7 @@ def signup_ad(request):
          return render(request, 'signup_administrador.html', {'nuevo_admin': nuevo_admin})
      
 
-def save_admin(request,):
+def save_admin(request):
   identificacion_propietario = request.POST.get('identificacion_propietario')
   documento = request.POST.get('documento')
   nombre_admin = request.POST.get('nombre_admin')
@@ -44,7 +47,7 @@ def signup_en(request):
     return save_entrenador(request)
   return render(request, 'signup_entrenador.html', {})
 
-def save_entrenador(request,):
+def save_entrenador(request):
   ficha_de_ingreso = request.POST.get('ficha_de_ingreso')
   documento = request.POST.get('documento')
   nombre = request.POST.get('nombre')
@@ -56,14 +59,90 @@ def save_entrenador(request,):
   experiencia = request.POST.get('experiencia')
   conocimiento = request.POST.get('conocimiento')
 
-
   entrenador_guardado =Entrenador.objects.create(ficha_de_ingreso=ficha_de_ingreso,documento=documento,nombre=nombre,apellido=apellido,fecha_nacimiento=fecha_nacimiento,telefono=telefono,correo=correo,direccion=direccion,experiencia=experiencia,conocimiento=conocimiento)
   return render(request, 'bienvenido.html', {'entrenador_guardado':entrenador_guardado})
+
+# entrenadores_con_mismo_nombre = Entrenador.objects.filter(nombre_usuario=nombre_usuario)
+#     if entrenadores_con_mismo_nombre.exists():
+#         # Informar al usuario que el nombre de usuario ya está en uso
+#         return render(request, 'signup_entrenador.html', {'error_message': 'El nombre de usuario ya está en uso. Por favor, elija otro nombre de usuario.'})
+
+
 
 
 
 def signup_cl(request):
+    if request.method == 'POST':
+        return save_cliente(request)
     return render(request, 'signup_cliente.html', {})
+
+def save_cliente(request):
+    nombre = request.POST.get('nombre')
+    apellido = request.POST.get('apellido')
+    edad = request.POST.get('edad')
+    genero = request.POST.get('genero')
+    telefono = request.POST.get('telefono')
+    contrasena = request.POST.get('contrasena')
+
+    nuevo_cliente = InscripcionCliente.objects.create(nombre=nombre, apellido=apellido, edad=edad, genero=genero, telefono=telefono, contrasena=contrasena)
+    return render(request, 'bienvenido.html', {'nuevo_cliente': nuevo_cliente})
+
+
+
+
+# views.py
+
+def login_ad(request):
+    if request.method == 'POST':
+        identificacion_propietario = request.POST.get('identificacion_propietario')
+        contrasena_admin = request.POST.get('contrasena_admin')
+
+        # Verificar las credenciales del administrador
+        try:
+            admin = AdminOficial.objects.get(identificacion_propietario=identificacion_propietario, contrasena_admin=contrasena_admin)
+            # Si las credenciales son válidas, se puede redirigir o mostrar un mensaje de éxito
+            return render(request, 'bienvenido.html')
+        except AdminOficial.DoesNotExist:
+            # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
+            return render(request, 'login_administrador.html', {'error': True})
+
+    return render(request, 'login_administrador.html', {})
+
+
+def login_en(request):
+    if request.method == 'POST':
+        documento = request.POST.get('documento')
+        contrasena = request.POST.get('contrasena')
+
+        # Verificar las credenciales del entrenador
+        try:
+            entrenador = Entrenador.objects.get(documento=documento, contrasena=contrasena)
+            # Si las credenciales son válidas, renderizar la página de bienvenida
+            return render(request, 'bienvenido.html', {'entrenador': entrenador})
+        except Entrenador.DoesNotExist:
+            # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
+            return render(request, 'login_entrenador.html', {'error': True})
+
+    return render(request, 'login_entrenador.html', {})
+
+
+def login_cl(request):
+    if request.method == 'POST':
+        nombre_usuario = request.POST.get('nombre_usuario')
+        contrasena = request.POST.get('contrasena')
+
+        # Verificar las credenciales del cliente
+        try:
+            cliente = InscripcionCliente.objects.get(nombre_usuario=nombre_usuario, contrasena=contrasena)
+            # Si las credenciales son válidas, se puede redirigir o mostrar un mensaje de éxito
+            return render(request, 'bienvenido.html')
+        except InscripcionCliente.DoesNotExist:
+            # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
+            return render(request, 'login_cliente.html', {'error': True})
+
+    return render(request, 'login_cliente.html', {})
+
+
 
 
 # def editar_entrenador(request, entrenador_id):

@@ -1,25 +1,17 @@
-<!-- <!DOCTYPE html>
-  
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="login.css">
-</head>
-
 <body>
   <main>
-    <form action="index.html" method="get">
+    <form action="{% url 'login_ad' %}" method="post">
       <div class="container">
         <div class="bloquesito">
+          {% csrf_token %}
           <div>
-            <label>Usuario:<input type="text" id="Usuario" name="Usuario" placeholder="Usuario" required
-                minlength="8"></label> <br>
-            <label>Contraseña<input type="password" id="Contraseña" name="Contraseña" required
-                minlength="8"></label><br>
-
+            <label for="DNI_propietario">Identificación del Propietario:
+              <input type="text" id="identificacion_propietario" name="identificacion_propietario"
+                placeholder="identificacion propietario" maxlength="7" minlength="7" class="input_uni" required>
+            </label><br>
+            <label for="contrasena_admin">Contraseña de Administrador:
+              <input type="password" placeholder="Contraseña de Administrador" id="contrasena" maxlength="40"
+                minlength="8" class="input_uni" name="contrasena_admin" required></label>
           </div>
           <select name="Rol" id="">Rol
             <option value="admin">admin</option>
@@ -31,13 +23,9 @@
           <br>
           <label><a href="reset-password.html">¿Olvidaste tu contraseña?</a></label>
           <br>
-          <a href="SignUp.html" .html">Registrar</a>
-          <br>
           <button type="submit" class="button">Iniciar Sesion</button>
         </div>
       </div>
     </form>
   </main>
 </body>
-
-</html> -->

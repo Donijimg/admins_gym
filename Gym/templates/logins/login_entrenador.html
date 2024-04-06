@@ -1,24 +1,17 @@
-<!-- <!DOCTYPE html>
-  
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="login.css">
-</head>
-
 <body>
   <main>
-    <form action="index.html" method="get">
+    <form action="{% url 'login_en' %}" method="post">
       <div class="container">
         <div class="bloquesito">
+          {% csrf_token %}
           <div>
-            <label>Usuario:<input type="text" id="Usuario" name="Usuario" placeholder="Usuario" required
-                minlength="8"></label> <br>
-            <label>Contraseña<input type="password" id="Contraseña" name="Contraseña" required
-                minlength="8"></label><br>
+            <label for="documento">Documento:
+              <input type="text" id="documento" name="documento" placeholder="Numero de Documento" maxlength="10"
+                class="input_uni" required></label> <br>
+
+            <label for="contrasena">Contraseña:
+              <input type="password" placeholder="Contraseña" id="contrasena" name="contrasena" maxlength="40"
+                class="input_uni" required></label><br>
 
           </div>
           <select name="Rol" id="">Rol
@@ -39,5 +32,3 @@
     </form>
   </main>
 </body>
-
-</html> -->

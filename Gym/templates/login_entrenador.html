@@ -1,0 +1,18 @@
+{% load static %}
+
+{% block title %}
+<title>login entrenador</title>
+{% endblock title %}
+
+<link rel="stylesheet" href="{% static 'login_entrenador.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+  rel="stylesheet">
+
+{% block card_title %}
+{% endblock card_title %}
+
+{% block form %}
+{% include "logins/login_entrenador.html" %}
+{% endblock form %}

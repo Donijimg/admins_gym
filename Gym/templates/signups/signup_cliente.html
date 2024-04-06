@@ -1,65 +1,64 @@
 <body>
-  <main>
-    <section>
-      <div class="container">
-        <form class="bloquesito" action="{% url 'signup_cl' %}" method=" get">
+  <main class="container">
+    <form class="bloquesito" action="{% url 'signup_cl' %}" method="post"> <!-- Cambiado 'get' a 'post' -->
 
-          <div class=p_bloque>
-            <h3 class="title">signup de usurio</h3>
-            <div class="bloquesito">
-              {% csrf_token %}
-              <div class="block">
-                <div>
-                  <label for="nombre">nombre:</label>
-                  <input type="text" id="nombre" name="nombre" minlength="8" maxlength=15 placeholder="nombre"
-                    id="password" class="input_uni" required />
+      <div class=p_bloque>
+        <h3 class="title">signup de usuario</h3> <!-- Cambiado 'signup de usurio' a 'signup de usuario' -->
+        <div class="bloquesito">
+          {% csrf_token %}
+          <div class="block">
+            <div>
+              <label for="nombre">Nombre:</label> <!-- Cambiado 'nombre' a 'Nombre' -->
+              <input type="text" id="nombre" name="nombre" minlength="8" maxlength="15" placeholder="Nombre"
+                class="input_uni" required /> <!-- Agregado maxlength y cambiado id de password a nombre -->
 
-                  <label for="apellido">apellido:</label>
-                  <input type="text" id="apellido" name="apellido" maxlength=15 minlength="8" placeholder="apellido"
-                    class="input_uni" required />
+              <label for="apellido">Apellido:</label> <!-- Cambiado 'apellido' a 'Apellido' -->
+              <input type="text" id="apellido" name="apellido" maxlength="15" minlength="8" placeholder="Apellido"
+                class="input_uni" required /> <!-- Agregado maxlength -->
 
-
-                </div>
-              </div>
-              <div class="block">
-                <div>
-                  <label for="numero">Numero de telefono:</label>
-                  <input type="tel" name="numero" minlength="8" maxlength=10 placeholder="Numero de telefono"
-                    id="numero " class="input_uni" required>
-
-                  <label for="edad">Edad:</label>
-                  <input type="text" name="edad" maxlength="2" placeholder="Edad" id="edad" class="input_uni" required>
-                </div>
-              </div>
             </div>
-
-            <label for="password">contraseña:</label>
-            <input type="password" name="password" minlength="8" placeholder="contraseña" id="password"
-              class="input_uni" required />
-            <label for="password">repita contraseña:</label>
-            <input type="password" name="password" minlength="8" placeholder="contraseña" id="password"
-              class="input_uni" required />
-
-            <P>Genero:</P>
-            <div class="block2">
-
-              <div>
-
-                <div class="Gener">
-                  <input name="botoncito" type="radio" value="" id="Hombre" />
-                  <label for="Hombre">Hombre</label>
-                  <input name="botoncito" type="radio" value="" id="Mujer" />
-                  <label for="Mujer">Mujer</label>
-                  <input name="botoncito" type="radio" value="" id="Otro" />
-                  <label for="Otro">Otro</label>
-                </div>
-              </div>
-            </div>
-
-
-            <button type="submit" class="button">Registrarse</button>
-
           </div>
-        </form>
+          <div class="block">
+            <div>
+              <label for="numero">Numero de telefono:</label> <!-- Cambiado 'Numero de telefono' a 'numero' -->
+              <input type="tel" name="telefono" minlength="8" maxlength="10" placeholder="Numero de telefono"
+                id="numero" class="input_uni" required> <!-- Cambiado name a telefono y agregado maxlength -->
+
+              <label for="edad">Edad:</label> <!-- Cambiado 'Edad' a 'edad' -->
+              <input type="text" name="edad" maxlength="2" placeholder="Edad" id="edad" class="input_uni" required>
+              <!-- Cambiado type a number -->
+            </div>
+          </div>
+        </div>
+
+        <label for="contrasena">Contraseña:</label> <!-- Cambiado 'contrasena' a 'contraseña' -->
+        <input type="password" name="contrasena" minlength="8" placeholder="Contraseña" id="contrasena"
+          class="input_uni" required /> <!-- Cambiado 'contrasena' a 'contraseña' y agregado id -->
+        <!-- 
+        <label for="contrasena2">Repita Contraseña:</label> Cambiado 'contrasena' a 'contraseña'
+        <input type="password" name="contrasena2" minlength="8" placeholder="Repita contraseña" id="contrasena2"
+          class="input_uni" required /> Cambiado 'contrasena' a 'contraseña' y agregado id -->
+
+        <p>Género:</p> <!-- Cambiado 'Genero' a 'Género' -->
+        <div class="block2">
+          <div>
+            <div class="Gener">
+              <input name="genero" type="radio" value="Masculino" id="Hombre" />
+              <!-- Agregado value y cambiado id a genero -->
+              <label for="Hombre">Hombre</label>
+              <input name="genero" type="radio" value="Femenino" id="Mujer" />
+              <!-- Agregado value y cambiado id a genero -->
+              <label for="Mujer">Mujer</label>
+              <input name="genero" type="radio" value="Otro" id="Otro" />
+              <!-- Agregado value y cambiado id a genero -->
+              <label for="Otro">Otro</label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="button">Registrarse</button>
+
+      </div>
+    </form>
   </main>
 </body>

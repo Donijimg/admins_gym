@@ -35,8 +35,9 @@ class Entrenador(models.Model):
     experiencia = models.IntegerField(blank=False, null=False)
     conocimiento = models.TextField(null=False)
     # foto_perfil = models.ImageField(upload_to='foto_perfil/', blank=True, null=True)
-    horario_de_entrada = models.TimeField()#esto sera un opcion
-    horario_de_salida = models.TimeField()#esto sera un opcion
+    horario_de_entrada = models.TimeField(null=True)
+    horario_de_salida = models.TimeField(null=True)
+
 # para registrar y logear
     nombre_usuario = models.CharField(max_length=15, blank=False, null=False, unique=True)
     contrasena = models.CharField(max_length=40, blank=False, null=False)
@@ -53,16 +54,22 @@ class InscripcionCliente(models.Model):
     nombre = models.CharField(max_length=15, blank=False, null=False)
     apellido = models.CharField(max_length=15, blank=False, null=False)
     edad = models.IntegerField(blank=False, null=False)
-    genero = models.CharField(max_length=10, blank=False, null=False)
+    GENERO_CHOICES = (
+        ('Masculino', 'Masculino'),
+        ('Femenino', 'Femenino'),
+        ('Otro', 'Otro'),
+    )
+    genero = models.CharField(max_length=10, choices=GENERO_CHOICES, blank=False, null=False)
     telefono = models.CharField(max_length=10, blank=False, null=False)
-    rutina_actual = models.TextField(null=False)
-    historial_lesiones = models.TextField(null=False)
-    peso = models.DecimalField(max_digits=5, decimal_places=2)
-    estatura = models.DecimalField(max_digits=4, decimal_places=2)
-    imc = models.DecimalField(max_digits=5, decimal_places=2)
-    objetivos = models.TextField(null=False)
-    inscripcion = models.BooleanField(default=False)
-    entrenador = models.ForeignKey(Entrenador, on_delete=models.CASCADE)
+    contrasena=models.CharField(max_length=40, blank=False, null=False)
+    # rutina_actual = models.TextField(null=False)
+    # historial_lesiones = models.TextField(null=False)
+    # peso = models.DecimalField(max_digits=5, decimal_places=2)
+    # estatura = models.DecimalField(max_digits=4, decimal_places=2)
+    # imc = models.DecimalField(max_digits=5, decimal_places=2)
+    # objetivos = models.TextField(null=False)
+    # inscripcion = models.BooleanField(default=False)
+    # entrenador = models.ForeignKey(Entrenador, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"

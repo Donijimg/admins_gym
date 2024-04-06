@@ -1,19 +1,9 @@
-<!-- <!DOCTYPE html>
-  
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="login.css">
-</head>
-
 <body>
   <main>
-    <form action="index.html" method="get">
+    <form action="{% url 'login_cl' %}" method="post">
       <div class="container">
         <div class="bloquesito">
+          {% csrf_token %}
           <div>
             <label>Usuario:<input type="text" id="Usuario" name="Usuario" placeholder="Usuario" required
                 minlength="8"></label> <br>
@@ -39,5 +29,3 @@
     </form>
   </main>
 </body>
-
-</html> -->
