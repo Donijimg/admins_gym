@@ -9,17 +9,17 @@
           <div class="block">
             <div>
               <label for="documento">Documento:</label>
-              <input type="text" id="documento" placeholder="Numero de Documento" maxlength="10" class="input_uni"
+              <input type="text" id="documento" name="documento" placeholder="Numero de Documento" maxlength="10" class="input_uni"
                 required>
 
               <label for="nombre">Nombre:</label>
-              <input type="text" placeholder="Nombre" id="nombre" maxlength="15" class="input_uni" required>
+              <input type="text" placeholder="Nombre"name="nombre" id="nombre" maxlength="15" class="input_uni" required>
 
               <label for="apellido">Apellido:</label>
-              <input type="text" placeholder="Apellido" id="apellido" class="input_uni" maxlength="15" required>
+              <input type="text" placeholder="Apellido" name="apellido"id="apellido" class="input_uni" maxlength="15" required>
 
               <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" placeholder="Direccion" class="input_uni" maxlength="75" required>
+              <input type="text" id="direccion" placeholder="Direccion" name="direccion" class="input_uni" maxlength="75" required>
             </div>
           </div>
 
@@ -27,15 +27,15 @@
             <div>
 
               <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-              <input type="date" id="fecha_nacimiento" class="input_uni" required name="trip-start" value="2018-07-22"
+              <input type="date" id="fecha_nacimiento" class="input_uni" required name="fecha_nacimiento" value="2018-07-22"
                 min="2018-01-01" max="2018-12-31" class="date">
 
               <label for="telefono">Teléfono:</label>
-              <input type="tel" placeholder="Numero de telefono" id="telefono" class="input_uni" maxlength="10"
+              <input type="tel" placeholder="Numero de telefono" id="telefono" name="telefono" class="input_uni" maxlength="10"
                 required>
 
               <label for="correo">Correo Electrónico:</label>
-              <input type="email" placeholder="E-mail" id="correo" class="input_uni" maxlength="75" required>
+              <input type="email" placeholder="E-mail" id="correo" class="input_uni"name="correo" maxlength="75" required>
 
             </div>
           </div>
@@ -43,15 +43,11 @@
           <div class="block">
             <div>
 
-              <label for="nombre_usuario">Nombre de Usuario:</label>
-              <input type="text" placeholder="Nombre de Usuario" id="nombre_usuario" class="input_uni" maxlength="15"
-                required>
-
               <label for="contrasena">Contraseña:</label>
-              <input type="password" placeholder="Contraseña" id="contrasena" maxlength="40" class="input_uni" required>
+              <input type="password" placeholder="Contraseña" id="contrasena"name="contrasena" maxlength="40" class="input_uni" required>
 
               <label for="ficha_de_ingreso">Ficha de Entrenador:</label>
-              <input type="text" id="ficha_de_ingreso" placeholder="Ficha de Entrenador:" maxlength="7"
+              <input type="text" id="ficha_de_ingreso" name="ficha_de_ingreso" placeholder="Ficha de Entrenador:" maxlength="7"
                 class="input_uni" required>
             </div>
           </div>
@@ -64,10 +60,10 @@
 
 
             <label for="experiencia">Experiencia:</label>
-            <input type="text" id="experiencia" placeholder="Experiencia" maxlength="2" class="textarea" required>
+            <input type="text" id="experiencia" name="experiencia" placeholder="Experiencia" maxlength="2" class="textarea" required>
 
             <label for="conocimiento">Conocimiento:</label>
-            <textarea id="conocimiento" placeholder="Conocimiento" class="textarea" maxlength="255" required></textarea>
+            <textarea id="conocimiento" placeholder="Conocimiento" name="conocimiento" class="textarea" maxlength="255" required></textarea>
 
 
 

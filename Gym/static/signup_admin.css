@@ -17,7 +17,7 @@ body {
   background-size: cover;
   background-attachment: fixed;
   background-image: url("https://images.pexels.com/photos/4164766/pexels-photo-4164766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -84,3 +84,4 @@ border: none;
   cursor: pointer;
 
 }
+

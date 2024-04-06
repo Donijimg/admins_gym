@@ -1,75 +1,65 @@
 <body>
   <main>
     <section>
-
-      <!-- clases 
-      div class="container"
-    form class=bloquesito 
-  <input class="input_uni">-->
       <div class="container">
-        <form class=bloquesito action="{% url 'signup_cl' %}" method=" get">
-          <h3>Registro</h3>
+        <form class="bloquesito" action="{% url 'signup_cl' %}" method=" get">
+
+          <div class=p_bloque>
+            <h3 class="title">signup de usurio</h3>
+            <div class="bloquesito">
+              {% csrf_token %}
+              <div class="block">
+                <div>
+                  <label for="nombre">nombre:</label>
+                  <input type="text" id="nombre" name="nombre" minlength="8" maxlength=15 placeholder="nombre"
+                    id="password" class="input_uni" required />
+
+                  <label for="apellido">apellido:</label>
+                  <input type="text" id="apellido" name="apellido" maxlength=15 minlength="8" placeholder="apellido"
+                    class="input_uni" required />
 
 
+                </div>
+              </div>
+              <div class="block">
+                <div>
+                  <label for="numero">Numero de telefono:</label>
+                  <input type="tel" name="numero" minlength="8" maxlength=10 placeholder="Numero de telefono"
+                    id="numero " class="input_uni" required>
 
-          <label for="password">contraseña:</label>
-          <input type="password" id="pass" name="password" minlength="8" required placeholder="contraseña" id="password"
-            class="input_uni" />
-          <label for="Numero">Numero de telefono:</label>
-          <input type="tel" placeholder="Numero de telefono" id="Numero" class="input_uni">
-          <label for="Direccion">Direccion:</label>
-          <input type="text" placeholder="Direccion" id="Direccion" class="input_uni">
-          <label for="Ciudad">Ciudad:</label>
-          <select id="Ciudad" class="input_uni">
-            <option value="">-</option>
-            <option value="Arauca">Arauca</option>
-            <option value="Armenia">Armenia</option>
-            <option value="Barranquilla">Barranquilla</option>
-            <option value="Bogotá">Bogotá</option>
-            <option value="Bucaramanga">Bucaramanga</option>
-            <option value="Cali">Cali</option>
-            <option value="Cartagena">Cartagena</option>
-            <option value="Cúcuta">Cúcuta</option>
-            <option value="Florencia">Florencia</option>
-            <option value="Ibagué">Ibagué</option>
-            <option value="Leticia">Leticia</option>
-            <option value="Manizales">Manizales</option>
-            <option value="Medellín">Medellín</option>
-            <option value="Mitú">Mitú</option>
-            <option value="Mocoa">Mocoa</option>
-            <option value="Montería">Montería</option>
-            <option value="Neiva">Neiva</option>
-            <option value="Pasto">Pasto</option>
-            <option value="Pereira">Pereira</option>
-            <option value="Popayán">Popayán</option>
-            <option value="Puerto Carreño">Puerto Carreño</option>
-            <option value="Puerto Inírida">Puerto Inírida</option>
-            <option value="Quibdó">Quibdó</option>
-            <option value="Riohacha">Riohacha</option>
-            <option value="San Andrés">San Andrés</option>
-            <option value="San José del Guaviare">San José del Guaviare</option>
-            <option value="Santa Marta">Santa Marta</option>
-            <option value="Sincelejo">Sincelejo</option>
-            <option value="Tunja">Tunja</option>
-            <option value="Valledupar">Valledupar</option>
-            <option value="Villavicencio">Villavicencio</option>
-            <option value="Yopal">Yopal</option>
-          </select>
-          <P>Genero:</P>
-          <div class="Gener">
-            <input name="botoncito" type="radio" value="" id="Hombre" />
-            <label for="Hombre">Hombre</label>
-            <input name="botoncito" type="radio" value="" id="Mujer" />
-            <label for="Mujer">Mujer</label>
-            <input name="botoncito" type="radio" value="" id="Otro" />
-            <label for="Otro">Otro</label>
+                  <label for="edad">Edad:</label>
+                  <input type="text" name="edad" maxlength="2" placeholder="Edad" id="edad" class="input_uni" required>
+                </div>
+              </div>
+            </div>
+
+            <label for="password">contraseña:</label>
+            <input type="password" name="password" minlength="8" placeholder="contraseña" id="password"
+              class="input_uni" required />
+            <label for="password">repita contraseña:</label>
+            <input type="password" name="password" minlength="8" placeholder="contraseña" id="password"
+              class="input_uni" required />
+
+            <P>Genero:</P>
+            <div class="block2">
+
+              <div>
+
+                <div class="Gener">
+                  <input name="botoncito" type="radio" value="" id="Hombre" />
+                  <label for="Hombre">Hombre</label>
+                  <input name="botoncito" type="radio" value="" id="Mujer" />
+                  <label for="Mujer">Mujer</label>
+                  <input name="botoncito" type="radio" value="" id="Otro" />
+                  <label for="Otro">Otro</label>
+                </div>
+              </div>
+            </div>
+
+
+            <button type="submit" class="button">Registrarse</button>
+
           </div>
-          <label for="Fecha">Fecha de nacimiento:</label>
-          <input type="date" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" id="Fecha"
-            class="date" />
-          <button type="submit" value="registrar" class="button">Regitro</button>
         </form>
-      </div>
-    </section>
   </main>
 </body>

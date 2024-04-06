@@ -15,10 +15,8 @@ def login_opcion(request):
 
 def signup_ad(request):
      if request.method == 'POST':
-         # Si el método de solicitud es POST, guarda el entrenador
          return save_admin(request)
      else:
-         # Si el método de solicitud es GET, muestra el formulario de registro
          nuevo_admin = AdminOficial.objects.all()
          return render(request, 'signup_administrador.html', {'nuevo_admin': nuevo_admin})
      
@@ -35,73 +33,16 @@ def save_admin(request,):
  
  
   admin_guardado = AdminOficial.objects.create(identificacion_propietario=identificacion_propietario,documento=documento,nombre_admin=nombre_admin,
-  apellido_admin=apellido_admin,telefono=telefono,correo=correo,direccion=direccion,contrasena_admin=contrasena_admin,)
+  apellido_admin=apellido_admin,telefono=telefono,correo=correo,direccion=direccion,contrasena_admin=contrasena_admin)
   return render(request, 'bienvenido.html', {'admin_guardado': admin_guardado})
 
 
 
 
-
-
-    
-
-
-# views del del admin total
-
-# def signup_ad(request):
-
-
-  
-    
-
-# def listar_entrenadores_admin(request):
-#     filtro_nombre= request.GET.get('nombre_campo')
-#     repite lo mismo para los demas campos
-
-#     objeto = modelo.objects.all()
-# llama las tablas para poder acceder a sus datos 
-
-#     if filtro_nombre:
-#         objeto = objeto.filter(nombre_campo__icontains=filtro_nombre)
-
-#     return render(request, 'listar_modelo.html', {'objeto': objeto, })
-#     def tabla_modelo(request):
-
-# def listar_clientes_admin(request):
-#     filtro_nombre= request.GET.get('nombre_campo')
-#     repite lo mismo para los demas campos
-
-#     objeto = modelo.objects.all()
-# llama las tablas para poder acceder a sus datos 
-
-#     if filtro_nombre:
-#         objeto = objeto.filter(nombre_campo__icontains=filtro_nombre)
-
-#     return render(request, 'listar_modelo.html', {'objeto': objeto, })
-#     def tabla_modelo(request):
-
-# def tabla_modelo(request):
-#     return render(request, 'tabla_modelo.html', {})
-
-# def recuperar_modelo(request):
-#     objeto_id = request.GET['id']
-#     objeto = modelo.objects.get(id=objeto_id)
-#     save_modelo(objeto)
-#     return render(request, 'recuperar_modelo.html', {'objeto': objeto})
-
-# def eliminar_modelo(request):
-#     objeto_id = request.GET['id']
-#     objeto=modelo.objects.get(id=objeto_id).delete()
-#     save_modelo(pais)
-#     return render(request, 'eliminar_modelo.html',{'objeto': objeto})
-
-
-# #login y sing up del entrenador 
-
 def signup_en(request):
-    if request.method == 'POST':
-        return save_entrenador(request)
-    return render(request, 'signup_entrenador.html', {})
+  if request.method == 'POST':
+    return save_entrenador(request)
+  return render(request, 'signup_entrenador.html', {})
 
 def save_entrenador(request,):
   ficha_de_ingreso = request.POST.get('ficha_de_ingreso')
@@ -109,19 +50,15 @@ def save_entrenador(request,):
   nombre = request.POST.get('nombre')
   apellido = request.POST.get('apellido')
   fecha_nacimiento = request.POST.get('fecha_nacimiento')
-  genero = request.POST.get('genero')
   telefono = request.POST.get('telefono')
   correo = request.POST.get('correo')
   direccion = request.POST.get('direccion')
-  anos_de_experiencia = request.POST.get('anos_de_experiencia')
+  experiencia = request.POST.get('experiencia')
   conocimiento = request.POST.get('conocimiento')
-  horario_de_entrada = request.POST.get('horario_de_entrada')
-  horario_de_salida = request.POST.get('horario_de_salida')
-  nuevo_entrenador = Entrenador.objects.create(ficha_de_ingreso=ficha_de_ingreso,documento=documento,nombre=nombre,
-  apellido=apellido,fecha_nacimiento=fecha_nacimiento,genero=genero,telefono=telefono,correo=correo,direccion=direccion,
-  anos_de_experiencia=anos_de_experiencia,conocimiento=conocimiento,horario_de_entrada=horario_de_entrada,
-  horario_de_salida=horario_de_salida)
-  return HttpResponse(f"Se registró el Entrenador {nuevo_entrenador}.")
+
+
+  entrenador_guardado =Entrenador.objects.create(ficha_de_ingreso=ficha_de_ingreso,documento=documento,nombre=nombre,apellido=apellido,fecha_nacimiento=fecha_nacimiento,telefono=telefono,correo=correo,direccion=direccion,experiencia=experiencia,conocimiento=conocimiento)
+  return render(request, 'bienvenido.html', {'entrenador_guardado':entrenador_guardado})
 
 
 
@@ -199,6 +136,57 @@ def signup_cl(request):
 
 
 
+# views del del admin total
+
+# def signup_ad(request):
+
+
+  
+    
+
+# def listar_entrenadores_admin(request):
+#     filtro_nombre= request.GET.get('nombre_campo')
+#     repite lo mismo para los demas campos
+
+#     objeto = modelo.objects.all()
+# llama las tablas para poder acceder a sus datos 
+
+#     if filtro_nombre:
+#         objeto = objeto.filter(nombre_campo__icontains=filtro_nombre)
+
+#     return render(request, 'listar_modelo.html', {'objeto': objeto, })
+#     def tabla_modelo(request):
+
+# def listar_clientes_admin(request):
+#     filtro_nombre= request.GET.get('nombre_campo')
+#     repite lo mismo para los demas campos
+
+#     objeto = modelo.objects.all()
+# llama las tablas para poder acceder a sus datos 
+
+#     if filtro_nombre:
+#         objeto = objeto.filter(nombre_campo__icontains=filtro_nombre)
+
+#     return render(request, 'listar_modelo.html', {'objeto': objeto, })
+#     def tabla_modelo(request):
+
+# def tabla_modelo(request):
+#     return render(request, 'tabla_modelo.html', {})
+
+# def recuperar_modelo(request):
+#     objeto_id = request.GET['id']
+#     objeto = modelo.objects.get(id=objeto_id)
+#     save_modelo(objeto)
+#     return render(request, 'recuperar_modelo.html', {'objeto': objeto})
+
+# def eliminar_modelo(request):
+#     objeto_id = request.GET['id']
+#     objeto=modelo.objects.get(id=objeto_id).delete()
+#     save_modelo(pais)
+#     return render(request, 'eliminar_modelo.html',{'objeto': objeto})
+
+
+# #login y sing up del entrenador 
 
 
 

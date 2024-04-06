@@ -7,11 +7,13 @@ urlpatterns = [
 
     path('', views.index, name="index"),
     path('signup_opcion/',views.signup_opcion,name='signup_opcion'),
-    # path('login_opcion/index',views.login_opcion,name='login_opcion'),
-    path('signup_en/signup_opcion/', views.signup_en, name='signup_en'),
-    path('save_admin/signup_ad/', views.save_admin, name='save_admin'),  # URL para save_entrenador
+    # path('login_opcion/index',views.login_opcion,name='login_opcion')
+
+    path('save_entrenador/signup_ad/', views.save_entrenador, name='save_entrenador'),
+    path('save_admin/signup_ad/', views.save_admin, name='save_admin'), 
     path('signup_ad/signup_opcion/',views.signup_ad,name='signup_ad'),
-    path('signup_cl/signup_opcion/',views.signup_ad,name='signup_cl'),
+    path('signup_cl/signup_opcion/',views.signup_cl,name='signup_cl'),
+    path('signup_en/signup_opcion/', views.signup_en, name='signup_en'),
 
     
 
