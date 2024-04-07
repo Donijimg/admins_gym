@@ -1,6 +1,41 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import AdminOficial,Entrenador,InscripcionCliente,RutinaCliente
+from .form_signup import SignupAdminPartOne, SignupAdminPartTwo
+from .models import AdminOficial,Entrenador,InscripcionCliente
+
+def signup_ad(request):
+    if request.method == 'POST':
+        admin_part_one = SignupAdminPartOne(request.POST)
+        admin_part_two = SignupAdminPartTwo(request.POST)
+        if admin_part_one.is_valid() and admin_part_two.is_valid():
+            # Procesa los datos del formulario y guarda el administrador
+            identificacion_propietario = admin_part_one.cleaned_data['DNI_propietario']
+            documento = admin_part_one.cleaned_data['Documento']
+            nombre_admin = admin_part_one.cleaned_data['Nombre_admin']
+            apellido_admin = admin_part_one.cleaned_data['Apellido_admin']
+            telefono = admin_part_two.cleaned_data['telefono']
+            correo = admin_part_two.cleaned_data['correo']
+            direccion = admin_part_two.cleaned_data['direccion']
+            contrasena_admin = admin_part_two.cleaned_data['contrasena_admin']
+            
+            # Guarda el administrador en la base de datos
+            admin_save = AdminOficial.objects.create(
+                identificacion_propietario=identificacion_propietario,
+                documento=documento,
+                nombre_admin=nombre_admin,
+                apellido_admin=apellido_admin,
+                telefono=telefono,
+                correo=correo,
+                direccion=direccion,
+                contrasena_admin=contrasena_admin
+            )
+            
+            return render(request, 'bienvenido.html', {'admin_save': admin_save})
+    else:
+        admin_part_one = SignupAdminPartOne()
+        admin_part_two = SignupAdminPartTwo()
+    
+    return render(request, 'signup_administrador.html', {'admin_part_one': admin_part_one, 'admin_part_two': admin_part_two})
+
 
 def index(request):
     return render(request, 'index.html', {})
@@ -16,28 +51,28 @@ def login_opcion(request):
     return render(request, 'login_opcion.html', {})
 
 
-def signup_ad(request):
-     if request.method == 'POST':
-         return save_admin(request)
-     else:
-         nuevo_admin = AdminOficial.objects.all()
-         return render(request, 'signup_administrador.html', {'nuevo_admin': nuevo_admin})
+# def signup_ad(request):
+#      if request.method == 'POST':
+#          return save_admin(request)
+#      else:
+#          nuevo_admin = AdminOficial.objects.all()
+#          return render(request, 'signup_administrador.html', {'nuevo_admin': nuevo_admin})
      
 
-def save_admin(request):
-  identificacion_propietario = request.POST.get('identificacion_propietario')
-  documento = request.POST.get('documento')
-  nombre_admin = request.POST.get('nombre_admin')
-  apellido_admin  = request.POST.get('apellido_admin')
-  telefono = request.POST.get('telefono')
-  correo = request.POST.get('correo')
-  direccion = request.POST.get('direccion')
-  contrasena_admin = request.POST.get('contrasena_admin')
+# def save_admin(request):
+#   identificacion_propietario = request.POST.get('identificacion_propietario')
+#   documento = request.POST.get('documento')
+#   nombre_admin = request.POST.get('nombre_admin')
+#   apellido_admin  = request.POST.get('apellido_admin')
+#   telefono = request.POST.get('telefono')
+#   correo = request.POST.get('correo')
+#   direccion = request.POST.get('direccion')
+#   contrasena_admin = request.POST.get('contrasena_admin')
  
  
-  admin_guardado = AdminOficial.objects.create(identificacion_propietario=identificacion_propietario,documento=documento,nombre_admin=nombre_admin,
-  apellido_admin=apellido_admin,telefono=telefono,correo=correo,direccion=direccion,contrasena_admin=contrasena_admin)
-  return render(request, 'bienvenido.html', {'admin_guardado': admin_guardado})
+#   admin_guardado = AdminOficial.objects.create(identificacion_propietario=identificacion_propietario,documento=documento,nombre_admin=nombre_admin,
+#   apellido_admin=apellido_admin,telefono=telefono,correo=correo,direccion=direccion,contrasena_admin=contrasena_admin)
+#   return render(request, 'bienvenido.html', {'admin_guardado': admin_guardado})
 
 
 

@@ -1,11 +1,13 @@
-<div class="">
-  <h2>¿ que rol asumes?</h2>
-  <ul>
-    <li>
-      <a href="{% url 'login_ad' %}">Administrador</a>
-    </li>
-    <li>
-      <a href="{% url 'login_en' %}">Entrenador</a>
-    </li>
-  </ul>
-</div>
+<body>
+  <main class="container">
+    <div class=p_bloque>
+      <h3 class="title">¿ que rol asumes?</h3>
+      <div class=bloquesito>
+        {% csrf_token %}
+        <a class="border1" href="{% url 'login_ad' %}">Administrador</a>
+        <a href="{% url 'login_en' %}">Entrenador</a>
+        <a class="border2" href="">cliente</a>
+      </div>
+    </div>
+  </main>
+</body>

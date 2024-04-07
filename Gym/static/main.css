@@ -222,7 +222,18 @@ height: 150px;
 .button {
   width: 88px;
   height: 44px;
-  background-color: #ffffff;
+  background-color: #060606;
+  border-radius: 8px;
+  color: #ffff;
+  border-style: none;
+  cursor: pointer;
+
+}
+
+.button2 {
+  width: 88px;
+  height: 44px;
+  background-color: #ffff;
   border-radius: 8px;
   color: #060606;
   border-style: none;
@@ -230,10 +241,13 @@ height: 150px;
 
 }
 
-
-
 .button:hover {
-  background-color: #FF7A00;
+  background-color:crimson;
+  color: #060606;
+}
+
+.button2:hover {
+  background-color: crimson;
 }
 
 .busqueda {
@@ -364,7 +378,7 @@ color:#ff7a00;
 }
 
 .img_3 {
-  /* position: absolute; */
+
   background-color: #FFf;
   padding: 50px;
   border-radius: 100%;
@@ -373,7 +387,7 @@ color:#ff7a00;
 }
 
 .img_4 {
-  /* position:absolute;  */
+
   background-color:rgb(182, 182, 182);
   padding: 50px;
   border-radius: 100%;
@@ -390,7 +404,7 @@ color:#ff7a00;
   gap: 25px;
 }
 
-.content_tex_buttom {
+.content_tex_button {
   display: flex;
   justify-content: center;
   width: 452px;
@@ -438,15 +452,5 @@ color:#ff7a00;
 
 
 
-/* 
-resgister */
 
-@keyframes move-it {
-  0% {
-    background-position: initial;
-  }
-  100% {
-    background-position: 100px 0px;
-  }
-}
 

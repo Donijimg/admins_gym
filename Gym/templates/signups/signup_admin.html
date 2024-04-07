@@ -6,46 +6,39 @@
         <div class="bloquesito">
           {% csrf_token %}
           <div class="block">
-            <div>
-              <label for="DNI_propietario">Identificación del Propietario:</label>
-              <input type="text" id="identificacion_propietario" name="identificacion_propietario"
-                placeholder="identificacion propietario" maxlength="7" minlength="7" class="input_uni" required>
+            <div class="SignupAdminPartOne">
+              {{ admin_part_one.DNI_propietario.label_tag }}
+              {{ admin_part_one.DNI_propietario }}
 
-              <label for="Documento">Documento:</label>
-              <input type="text" id="documento" name="documento" placeholder="Numero de Documento" maxlength="10"
-                class="input_uni" minlength="10" required>
+              {{ admin_part_one.Documento.label_tag }}
+              {{ admin_part_one.Documento }}
 
-              <label for="Nombre_admin">Nombre:</label>
-              <input type="text" placeholder="Nombre de Administrador" name="nombre_admin" id="nombre_admin"
-                class="input_uni" maxlength="15" minlength="6" required>
+              {{ admin_part_one.Nombre_admin.label_tag }}
+              {{ admin_part_one.Nombre_admin }}
 
-
-              <label for="apellido_admin">Apellido:</label>
-              <input type="text" placeholder="Apellido" id="apellido_admin" name="apellido_admin" class="input_uni"
-                maxlength="30" required>
+              {{ admin_part_one.Apellido_admin.label_tag }}
+              {{ admin_part_one.Apellido_admin }}
             </div>
           </div>
+
           <div class="block">
-            <div>
-              <label for="telefono">Teléfono:</label>
-              <input type="tel" placeholder="Numero de telefono" id="telefono" name="telefono" class="input_uni"
-                maxlength="14" minlength="10" required>
+            <div class="SignupAdminPartTwo">
+              {{ admin_part_two.telefono.label_tag }}
+              {{ admin_part_two.telefono }}
 
-              <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" placeholder="Direccion" name="direccion" class="input_uni"
-                maxlength="75" minlength="10" required>
+              {{ admin_part_two.direccion.label_tag }}
+              {{ admin_part_two.direccion }}
 
-              <label for="correo">Correo Electrónico:</label>
-              <input type="email" placeholder="E-mail" id="correo" name="correo" class="input_uni" maxlength="75"
-                minlength="20" required>
+              {{ admin_part_two.correo.label_tag }}
+              {{ admin_part_two.correo }}
 
-
-
-              <label for="contrasena_admin">Contraseña de Administrador:</label>
-              <input type="password" placeholder="Contraseña de Administrador" id="contrasena" maxlength="40"
-                minlength="8" class="input_uni" name="contrasena_admin" required>
+              {{ admin_part_two.contrasena_admin.label_tag }}
+              {{ admin_part_two.contrasena_admin }}
             </div>
           </div>
+
+
+
         </div>
 
         <button type="submit" class="button">Registrarse</button>
