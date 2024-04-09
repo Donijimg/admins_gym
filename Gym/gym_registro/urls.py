@@ -6,17 +6,27 @@ from . import views
 urlpatterns = [
 
     path('', views.index, name="index"),
+    path('index/list/coachs/fitness/', views.list_coachs_fitness, name='list_coachs_fitness'),
+    path('detalle/entrenador/fitness/<int:coach_id>/', views.detalle_coachs_fitness, name='detalle_coachs_fitness'),
     path('signup_opcion/index/',views.signup_opcion,name='signup_opcion'),
     path('login_opcion/index/',views.login_opcion,name='login_opcion'),
-    path('save_cliente/signup_cl/', views.save_cliente, name='save_cliente'),
-    path('save_entrenador/signup_en/', views.save_entrenador, name='save_entrenador'),
-    # path('save_admin/signup_ad/', views.save_admin, name='save_admin'), 
-    path('signup_ad/signup_opcion/',views.signup_ad,name='signup_ad'),
-    path('signup_cl/signup_opcion/',views.signup_cl,name='signup_cl'),
-    path('signup_en/signup_opcion/', views.signup_en, name='signup_en'),
+    path('signup_opcion/signup/ad/',views.signup_ad,name='signup_ad'),
+    path('signup_opcion/signup/cl/',views.signup_cl,name='signup_cl'),
+    path('signup_opcion/signup/en/', views.signup_en, name='signup_en'),
+
     path('login_ad/login_opcion/', views.login_ad, name='login_ad'),
     path('login_en/login_opcion/', views.login_en, name='login_en'),
-    path('index_logeado/', views.index_logeado, name='index_logeado'), 
+    path('login_cl/login_opcion/', views.login_cl, name='login_cl'),
+    path('logeado_ad/', views.logeado_ad, name='logeado_ad'), 
+    path('logeado_en/', views.logeado_en, name='logeado_en'), 
+    path('logeado_cl/', views.logeado_cl, name='logeado_cl'),
+    path('inscribirse/', views.inscribirse, name='inscribirse'),
+    path('inscribirse_clase/', views.inscribirse_clase, name='inscribirse_clase'),
+    path('dietas/', views.dietas, name='dietas'),
+    path('vista_ampliada/', views.vista_ampliada, name='vista_ampliada'),
+
+
+
 
    
 ]

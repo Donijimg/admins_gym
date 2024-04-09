@@ -1,24 +1,66 @@
-from django.shortcuts import render
-from .form_signup import SignupAdminPartOne, SignupAdminPartTwo
-from .models import AdminOficial,Entrenador,InscripcionCliente
+from django.shortcuts import render,get_object_or_404
+from django.http import HttpResponse
+from .form_signup import SignupAdmin,SignupCoach,SignupUser
+
+from .models import Admin,Coach,UserRegistration
+
+
+
+def signup_cl(request):
+    if request.method == 'POST':
+        user = SignupUser(request.POST)
+        if user.is_valid():
+            # Verificar si las contraseñas coinciden
+            contraseña = user.cleaned_data['contraseña']
+            contraseña2 = user.cleaned_data['contraseña2']
+            if contraseña != contraseña2:
+                user.add_error('contraseña2', 'Las contraseñas no coinciden')
+            else:
+                # Procesar y guardar los datos del formulario
+                documento = user.cleaned_data['documento']
+                nombre = user.cleaned_data['nombre']
+                apellido = user.cleaned_data['apellido']
+                telefono = user.cleaned_data['telefono']
+                edad = user.cleaned_data['edad']
+                contraseña = user.cleaned_data['contraseña']
+                genero = user.cleaned_data['genero']
+                
+                # Guardar el usuario en la base de datos
+                user_save = UserRegistration.objects.create(
+                    documento=documento,
+                    nombre=nombre,
+                    apellido=apellido,
+                    telefono=telefono,
+                    edad=edad,
+                    contraseña=contraseña,
+                    genero=genero
+                )
+                
+                return render(request, 'welcome/welcome_cl.html', {'user_save': user_save})
+    else:
+        user = SignupUser()
+    
+    return render(request, 'signups/signup_cliente.html', {'user': user})
+
+
+
 
 def signup_ad(request):
     if request.method == 'POST':
-        admin_part_one = SignupAdminPartOne(request.POST)
-        admin_part_two = SignupAdminPartTwo(request.POST)
-        if admin_part_one.is_valid() and admin_part_two.is_valid():
+        admin = SignupAdmin(request.POST)
+        if admin.is_valid():
             # Procesa los datos del formulario y guarda el administrador
-            identificacion_propietario = admin_part_one.cleaned_data['DNI_propietario']
-            documento = admin_part_one.cleaned_data['Documento']
-            nombre_admin = admin_part_one.cleaned_data['Nombre_admin']
-            apellido_admin = admin_part_one.cleaned_data['Apellido_admin']
-            telefono = admin_part_two.cleaned_data['telefono']
-            correo = admin_part_two.cleaned_data['correo']
-            direccion = admin_part_two.cleaned_data['direccion']
-            contrasena_admin = admin_part_two.cleaned_data['contrasena_admin']
+            identificacion_propietario = admin.cleaned_data['identificacion_propietario']
+            documento = admin.cleaned_data['documento']
+            nombre_admin = admin.cleaned_data['nombre_admin']
+            apellido_admin = admin.cleaned_data['apellido_admin']
+            telefono = admin.cleaned_data['telefono']
+            correo = admin.cleaned_data['correo']
+            direccion = admin.cleaned_data['direccion']
+            contrasena_admin = admin.cleaned_data['contrasena_admin']
             
             # Guarda el administrador en la base de datos
-            admin_save = AdminOficial.objects.create(
+            admin_save = Admin.objects.create(
                 identificacion_propietario=identificacion_propietario,
                 documento=documento,
                 nombre_admin=nombre_admin,
@@ -29,75 +71,201 @@ def signup_ad(request):
                 contrasena_admin=contrasena_admin
             )
             
-            return render(request, 'bienvenido.html', {'admin_save': admin_save})
+            return render(request, 'welcome/welcome_ad.html', {'admin_save': admin_save})
     else:
-        admin_part_one = SignupAdminPartOne()
-        admin_part_two = SignupAdminPartTwo()
+        admin = SignupAdmin()
+
     
-    return render(request, 'signup_administrador.html', {'admin_part_one': admin_part_one, 'admin_part_two': admin_part_two})
-
-
-def index(request):
-    return render(request, 'index.html', {})
-
-def index_logeado(request):
-    return render(request, 'index_logeado.html', {})
-
-
-def signup_opcion(request):
-    return render(request, 'signup_opcion.html', {})
-
-def login_opcion(request):
-    return render(request, 'login_opcion.html', {})
-
-
-# def signup_ad(request):
-#      if request.method == 'POST':
-#          return save_admin(request)
-#      else:
-#          nuevo_admin = AdminOficial.objects.all()
-#          return render(request, 'signup_administrador.html', {'nuevo_admin': nuevo_admin})
-     
-
-# def save_admin(request):
-#   identificacion_propietario = request.POST.get('identificacion_propietario')
-#   documento = request.POST.get('documento')
-#   nombre_admin = request.POST.get('nombre_admin')
-#   apellido_admin  = request.POST.get('apellido_admin')
-#   telefono = request.POST.get('telefono')
-#   correo = request.POST.get('correo')
-#   direccion = request.POST.get('direccion')
-#   contrasena_admin = request.POST.get('contrasena_admin')
- 
- 
-#   admin_guardado = AdminOficial.objects.create(identificacion_propietario=identificacion_propietario,documento=documento,nombre_admin=nombre_admin,
-#   apellido_admin=apellido_admin,telefono=telefono,correo=correo,direccion=direccion,contrasena_admin=contrasena_admin)
-#   return render(request, 'bienvenido.html', {'admin_guardado': admin_guardado})
-
-
+    return render(request, 'signups/signup_administrador.html', {'admin': admin})
 
 
 def signup_en(request):
-  if request.method == 'POST':
-    return save_entrenador(request)
-  return render(request, 'signup_entrenador.html', {})
+    if request.method == 'POST':
+        coach = SignupCoach(request.POST)
+        
+        if coach.is_valid():
+            # Procesar y guardar los datos del formulario
+            documento = coach.cleaned_data['documento']
+            nombre = coach.cleaned_data['nombre']
+            apellido = coach.cleaned_data['apellido']
+            direccion = coach.cleaned_data['direccion']
+            edad = coach.cleaned_data['edad']
+            telefono = coach.cleaned_data['telefono']
+            correo = coach.cleaned_data['correo']
+            genero = coach.cleaned_data['genero']
+            contrasena = coach.cleaned_data['contrasena']
+            ficha_de_ingreso = coach.cleaned_data['ficha_de_ingreso']
+            experiencia = coach.cleaned_data['experiencia']
+            especializacion = coach.cleaned_data['especializacion']
+            horarios = coach.cleaned_data['horarios']
+            
+            # Guardar el entrenador en la base de datos
+            coach_save = Coach.objects.create(
+                documento=documento,
+                nombre=nombre,
+                apellido=apellido,
+                direccion=direccion,
+                edad=edad,
+                telefono=telefono,
+                correo=correo,
+                genero=genero,
+                contrasena=contrasena,
+                ficha_de_ingreso=ficha_de_ingreso,
+                experiencia=experiencia,
+                especializacion=especializacion,
+                horarios=horarios
+            )
+            
+            return render(request, 'welcome/welcome_en.html', {'coach_save': coach_save})
+    else:
+        coach = SignupCoach()
+    
+    return render(request, 'signups/signup_entrenador.html', {
+        'coach': coach,
+    })
 
-def save_entrenador(request):
-  ficha_de_ingreso = request.POST.get('ficha_de_ingreso')
-  documento = request.POST.get('documento')
-  nombre = request.POST.get('nombre')
-  apellido = request.POST.get('apellido')
-  fecha_nacimiento = request.POST.get('fecha_nacimiento')
-  telefono = request.POST.get('telefono')
-  correo = request.POST.get('correo')
-  direccion = request.POST.get('direccion')
-  experiencia = request.POST.get('experiencia')
-  conocimiento = request.POST.get('conocimiento')
+def index(request):
+    return render(request, 'layouts/app.html', {})
 
-  entrenador_guardado =Entrenador.objects.create(ficha_de_ingreso=ficha_de_ingreso,documento=documento,nombre=nombre,apellido=apellido,fecha_nacimiento=fecha_nacimiento,telefono=telefono,correo=correo,direccion=direccion,experiencia=experiencia,conocimiento=conocimiento)
-  return render(request, 'bienvenido.html', {'entrenador_guardado':entrenador_guardado})
+def logeado_ad(request):
+    coachs = Coach.objects.all()
+    clientes = UserRegistration.objects.all()
+    
+    # Renderizar la plantilla 'logeado/logeado_en.html' con los entrenadores en el contexto
+    return render(request, 'logeado_ad/logeado_ad.html', {'coachs': coachs, 'clientes': clientes})
 
-# entrenadores_con_mismo_nombre = Entrenador.objects.filter(nombre_usuario=nombre_usuario)
+
+def logeado_en(request):
+    # Obtener todos los entrenadores de la base de datos
+    coachs = Coach.objects.all()
+    clientes = UserRegistration.objects.all()
+    # Renderizar la plantilla 'logeado/logeado_en.html' con los entrenadores en el contexto
+    return render(request, 'logeado_en/logeado_en.html', {'clientes': clientes,'coachs': coachs,})
+
+
+
+def logeado_cl(request):
+  coachs = Coach.objects.all()
+  # Renderizar la plantilla 'logeado/logeado_en.html' con los entrenadores en el contexto
+  return render(request, 'logeado_cl/logeado_cl.html', {'coachs': coachs})
+    
+    
+
+
+def signup_opcion(request):
+    return render(request, 'opcions/signup_opcion.html', {})
+
+def login_opcion(request):
+    return render(request, 'opcions/login_opcion.html', {})
+
+
+
+#vista user listas de entrenadores por area
+
+def list_coachs_fitness(request):
+    coachs = Coach.objects.filter(especializacion='Fitness')
+    return render(request, 'list/list_coachs_fitness.html', {'coachs': coachs})
+
+
+
+
+def detalle_coachs_fitness(request, especialization, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
+    return render(request, 'list/detalle_coachs_fitness.html', {'coach': coach})
+
+
+
+
+
+def list_coachs_pilates(request):
+    coachs = Coach.objects.all()
+    return render(request, 'list/list_coachs_pilates.html', {'coachs': coachs})
+
+def list_coachs_rehabilitacion(request):
+    coachs = Coach.objects.all()
+    return render(request, 'list/list_coachs_rehabilitacion.html', {'coachs': coachs})
+
+def list_coachs_mayores(request):
+    coachs = Coach.objects.all()
+    return render(request, 'list/list_coachs_mayores.html', {'coachs': coachs})
+
+def list_coachs_yoga(request):
+    coachs = Coach.objects.all()
+    return render(request, 'list/list_coachs_yoga.html', {'coachs': coachs})
+
+def list_coachs_gimnasia(request):
+    coachs = Coach.objects.all()
+    return render(request, 'list/list_coachs_gimnasia.html', {'coachs': coachs})
+
+
+
+def detalle_coachs_pilates(request, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id)
+    return render(request, 'list/detalle_coachs_pilates.html', {'coach': coach})
+
+def detalle_coachs_rehabilitacion(request, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id)
+    return render(request, 'list/detalle_coachs_rehabilitacion.html', {'coach': coach})
+
+def detalle_coachs_mayores(request, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id)
+    return render(request, 'list/detalle_coachs_mayores.html', {'coach': coach})
+
+def detalle_coachs_yoga(request, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id)
+    return render(request, 'list/detalle_coachs_yoga.html', {'coach': coach})
+
+def detalle_coachs_gimnasia(request, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id)
+    return render(request, 'list/detalle_coachs_gimnasia.html', {'coach': coach})
+
+
+#vista entrenador 
+def detalle_user_fitness(request, user_id):
+    user = get_object_or_404(UserRegistration, pk=user_id)
+    return render(request, 'list/detalle_users_fitness.html', {'user': user})
+
+def detalle_user_pilates(request, user_id):
+    user = get_object_or_404(UserRegistration, pk=user_id)
+    return render(request, 'list/detalle_users_pilates.html', {'user': user})
+
+def detalle_user_rehabilitacion(request, user_id):
+    user = get_object_or_404(UserRegistration, pk=user_id)
+    return render(request, 'list/detalle_users_rehabilitacion.html', {'user': user})
+
+def detalle_user_mayores(request, user_id):
+    user = get_object_or_404(UserRegistration, pk=user_id)
+    return render(request, 'list/detalle_users_mayores.html', {'user': user})
+
+def detalle_user_yoga(request, user_id):
+    user = get_object_or_404(UserRegistration, pk=user_id)
+    return render(request, 'list/detalle_users_yoga.html', {'user': user})
+
+def detalle_user_gimnasia(request, user_id):
+    user = get_object_or_404(UserRegistration, pk=user_id)
+    return render(request, 'list/detalle_users_gimnasia.html', {'user': user})
+
+
+def inscribirse(request):
+    return render(request, 'list/horarios.html', {})
+
+def inscribirse_clase(request):
+    if request.method == 'POST':
+        coach_id = request.POST.get('coach_id')
+        horario = request.POST.get('horario')
+    return HttpResponse(f"Te has inscrito a la clase del entrenador {coach_id} en el horario de {horario}")
+
+
+def dietas(request):
+    return render(request,'dietas.html',{})
+
+
+def vista_ampliada(request):
+    return render(request, 'vista_ampliada.html',{})
+
+
+
+# entrenadores_con_mismo_nombre = Coach.objects.filter(nombre_usuario=nombre_usuario)
 #     if entrenadores_con_mismo_nombre.exists():
 #         # Informar al usuario que el nombre de usuario ya está en uso
 #         return render(request, 'signup_entrenador.html', {'error_message': 'El nombre de usuario ya está en uso. Por favor, elija otro nombre de usuario.'})
@@ -106,21 +274,7 @@ def save_entrenador(request):
 
 
 
-def signup_cl(request):
-    if request.method == 'POST':
-        return save_cliente(request)
-    return render(request, 'signup_cliente.html', {})
 
-def save_cliente(request):
-    nombre = request.POST.get('nombre')
-    apellido = request.POST.get('apellido')
-    edad = request.POST.get('edad')
-    genero = request.POST.get('genero')
-    telefono = request.POST.get('telefono')
-    contrasena = request.POST.get('contrasena')
-
-    nuevo_cliente = InscripcionCliente.objects.create(nombre=nombre, apellido=apellido, edad=edad, genero=genero, telefono=telefono, contrasena=contrasena)
-    return render(request, 'bienvenido.html', {'nuevo_cliente': nuevo_cliente})
 
 
 
@@ -133,14 +287,14 @@ def login_ad(request):
 
         # Verificar las credenciales del administrador
         try:
-            admin = AdminOficial.objects.get(identificacion_propietario=identificacion_propietario, contrasena_admin=contrasena_admin)
+            admin = Admin.objects.get(identificacion_propietario=identificacion_propietario, contrasena_admin=contrasena_admin)
             # Si las credenciales son válidas, se puede redirigir o mostrar un mensaje de éxito
-            return render(request, 'bienvenido.html')
-        except AdminOficial.DoesNotExist:
+            return render(request, 'welcome/welcome_ad.html')
+        except Admin.DoesNotExist:
             # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
-            return render(request, 'login_administrador.html', {'error': True})
+            return render(request, 'logins/login_administrador.html', {'error': True})
 
-    return render(request, 'login_administrador.html', {})
+    return render(request, 'logins/login_administrador.html', {})
 
 
 def login_en(request):
@@ -150,64 +304,37 @@ def login_en(request):
 
         # Verificar las credenciales del entrenador
         try:
-            entrenador = Entrenador.objects.get(documento=documento, contrasena=contrasena)
+            coach = Coach.objects.get(documento=documento, contrasena=contrasena)
             # Si las credenciales son válidas, renderizar la página de bienvenida
-            return render(request, 'bienvenido.html')
-        except Entrenador.DoesNotExist:
+            return render(request, 'welcome/welcome_en.html')
+        except Coach.DoesNotExist:
             # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
-            return render(request, 'login_entrenador.html', {'error': True})
+            return render(request, 'logins/login_entrenador.html', {'error': True})
 
-    return render(request, 'login_entrenador.html', {})
+    return render(request, 'logins/login_entrenador.html', {})
 
-def login_en(request):
+
+
+
+
+
+def login_cl(request):
     if request.method == 'POST':
-        documento = request.POST.get('documento')
+        nombre_usuario = request.POST.get('nombre_usuario')
         contrasena = request.POST.get('contrasena')
 
-        # Verificar las credenciales del entrenador
+        # Verificar las credenciales del cliente
         try:
-            entrenador = Entrenador.objects.get(documento=documento, contrasena=contrasena)
-            # Si las credenciales son válidas, renderizar la página de bienvenida
-            return render(request, 'bienvenido.html')
-        except Entrenador.DoesNotExist:
+            user = UserRegistration.objects.get(nombre_usuario=nombre_usuario, contrasena=contrasena)
+            # Si las credenciales son válidas, se puede redirigir o mostrar un mensaje de éxito
+            return render(request, 'welcome/welcome_cl.html')
+        except UserRegistration.DoesNotExist:
             # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
-            return render(request, 'login_entrenador.html', {'error': True})
+            return render(request, 'logins/login_cliente.html', {'error': True})
 
-    return render(request, 'login_entrenador.html', {})
-
-
+    return render(request, 'logins/login_cliente.html', {})
 
 
-
-# def login_cl(request):
-#     if request.method == 'POST':
-#         nombre_usuario = request.POST.get('nombre_usuario')
-#         contrasena = request.POST.get('contrasena')
-
-#         # Verificar las credenciales del cliente
-#         try:
-#             cliente = InscripcionCliente.objects.get(nombre_usuario=nombre_usuario, contrasena=contrasena)
-#             # Si las credenciales son válidas, se puede redirigir o mostrar un mensaje de éxito
-#             return render(request, 'bienvenido.html')
-#         except InscripcionCliente.DoesNotExist:
-#             # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
-#             return render(request, 'login_cliente.html', {'error': True})
-
-#     return render(request, 'login_cliente.html', {})
-
-
-
-
-# def editar_entrenador(request, entrenador_id):
-#     try:
-#         entrenador = Entrenador.objects.get(id=entrenador_id)
-#     except Entrenador.DoesNotExist:
-#         return HttpResponse("El entrenador que intentas editar no existe.")
-
-#     if request.method == 'POST':
-#         return save_entrenador(request, entrenador)
-#     else:
-#         return render(request, 'editar_entrenador.html', {'entrenador': entrenador})
 
 
 #views del entrenador
@@ -265,60 +392,6 @@ def login_en(request):
 
 
 
-
-
-
-# views del del admin total
-
-# def signup_ad(request):
-
-
-  
-    
-
-# def listar_entrenadores_admin(request):
-#     filtro_nombre= request.GET.get('nombre_campo')
-#     repite lo mismo para los demas campos
-
-#     objeto = modelo.objects.all()
-# llama las tablas para poder acceder a sus datos 
-
-#     if filtro_nombre:
-#         objeto = objeto.filter(nombre_campo__icontains=filtro_nombre)
-
-#     return render(request, 'listar_modelo.html', {'objeto': objeto, })
-#     def tabla_modelo(request):
-
-# def listar_clientes_admin(request):
-#     filtro_nombre= request.GET.get('nombre_campo')
-#     repite lo mismo para los demas campos
-
-#     objeto = modelo.objects.all()
-# llama las tablas para poder acceder a sus datos 
-
-#     if filtro_nombre:
-#         objeto = objeto.filter(nombre_campo__icontains=filtro_nombre)
-
-#     return render(request, 'listar_modelo.html', {'objeto': objeto, })
-#     def tabla_modelo(request):
-
-# def tabla_modelo(request):
-#     return render(request, 'tabla_modelo.html', {})
-
-# def recuperar_modelo(request):
-#     objeto_id = request.GET['id']
-#     objeto = modelo.objects.get(id=objeto_id)
-#     save_modelo(objeto)
-#     return render(request, 'recuperar_modelo.html', {'objeto': objeto})
-
-# def eliminar_modelo(request):
-#     objeto_id = request.GET['id']
-#     objeto=modelo.objects.get(id=objeto_id).delete()
-#     save_modelo(pais)
-#     return render(request, 'eliminar_modelo.html',{'objeto': objeto})
-
-
-# #login y sing up del entrenador 
 
 
 

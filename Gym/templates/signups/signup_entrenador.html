@@ -1,3 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar entrenador</title>
+  <link rel="stylesheet" href="{% static 'signup_entrenador.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
 <body>
   <main class="container">
     <form action="{% url 'signup_en' %}" method="post">
@@ -8,88 +23,68 @@
           {% csrf_token %}
           <div class="block">
             <div>
-              <label for="documento">Documento:</label>
-              <input type="text" id="documento" name="documento" placeholder="Numero de Documento" maxlength="10" class="input_uni"
-                required>
+              {{ coach.documento.label_tag }}
+              {{ coach.documento }}
 
-              <label for="nombre">Nombre:</label>
-              <input type="text" placeholder="Nombre"name="nombre" id="nombre" maxlength="15" class="input_uni" required>
+              {{ coach.nombre.label_tag }}
+              {{ coach.nombre }}
 
-              <label for="apellido">Apellido:</label>
-              <input type="text" placeholder="Apellido" name="apellido"id="apellido" class="input_uni" maxlength="15" required>
+              {{ coach.apellido.label_tag }}
+              {{ coach.apellido }}
 
-              <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" placeholder="Direccion" name="direccion" class="input_uni" maxlength="75" required>
+              {{ coach.direccion.label_tag }}
+              {{ coach.direccion }}
             </div>
           </div>
 
           <div class="block">
             <div>
+              {{ coach.edad.label_tag }}
+              {{ coach.edad }}
 
-              <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-              <input type="date" id="fecha_nacimiento" class="input_uni" required name="fecha_nacimiento" value="2018-07-22"
-                min="2018-01-01" max="2018-12-31" class="date">
+              {{ coach.telefono.label_tag }}
+              {{ coach.telefono }}
 
-              <label for="telefono">Teléfono:</label>
-              <input type="tel" placeholder="Numero de telefono" id="telefono" name="telefono" class="input_uni" maxlength="10"
-                required>
-
-              <label for="correo">Correo Electrónico:</label>
-              <input type="email" placeholder="E-mail" id="correo" class="input_uni"name="correo" maxlength="75" required>
-
+              {{ coach.correo.label_tag }}
+              {{ coach.correo }}
             </div>
           </div>
 
           <div class="block">
             <div>
+              {{ coach.genero.label_tag }}
+              {{ coach.genero }}
 
-              <label for="contrasena">Contraseña:</label>
-              <input type="password" placeholder="Contraseña" id="contrasena"name="contrasena" maxlength="40" class="input_uni" required>
+              {{ coach.contrasena.label_tag }}
+              {{ coach.contrasena }}
 
-              <label for="ficha_de_ingreso">Ficha de Entrenador:</label>
-              <input type="text" id="ficha_de_ingreso" name="ficha_de_ingreso" placeholder="Ficha de Entrenador:" maxlength="7"
-                class="input_uni" required>
+              {{ coach.ficha_de_ingreso.label_tag }}
+              {{ coach.ficha_de_ingreso }}
             </div>
           </div>
 
-
-        </div>
-        <div class="block2">
-          <div>
-
-
-
-            <label for="experiencia">Experiencia:</label>
-            <input type="text" id="experiencia" name="experiencia" placeholder="Experiencia" maxlength="2" class="textarea" required>
-
-            <label for="conocimiento">Conocimiento:</label>
-            <textarea id="conocimiento" placeholder="Conocimiento" name="conocimiento" class="textarea" maxlength="255" required></textarea>
+          <div class="block">
+            <div>
+              {{ coach.experiencia.label_tag }}
+              {{ coach.experiencia }}
 
 
 
+              {{ coach.horarios.label_tag }}
+              {{ coach.horarios }}
 
+            </div>
+            <div class="block">
+              {{ coach.especializacion.label_tag }}
+              {{ coach.especializacion }}
+              <div>
+              </div>
+
+            </div>
+            <button type="submit" class="button">Registrarse</button>
           </div>
-        </div>
-
-        <button type="submit" class="button">Registrarse</button>
-
-      </div>
     </form>
   </main>
 </body>
 
-<!-- <label for="id_genero_0">Masculino:</label>
-              <input type="radio" name="genero" value="Masculino" required id="id_genero_0">
-              <label for="id_genero_1">Femenino:</label>
-              <input type="radio" name="genero" value="Femenino" required id="id_genero_1">
-              <label for="id_genero_2">Otro:</label>
-              <input type="radio" name="genero" value="Otro" required id="id_genero_2"> -->
-
-<!-- <label for="foto_perfil">Foto de Perfil:</label><br>
-                                        <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*" class="input_uni" required><br>
-                          
-                                        <label for="horario_de_entrada">Horario de Entrada:</label><br>
-                                        <input type="time" id="horario_de_entrada" name="horario_de_entrada" class="input_uni" required><br>
-                          
-                                        <label for="horario_de_salida">Horario de Salida:</label><br>
-                                        <input type="time" id="horario_de_salida" name="horario_de_salida" class="input_uni" required><br> -->
+</html>

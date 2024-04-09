@@ -1,35 +1,51 @@
-<h3 id="productos">New products</h3>
+<h1>Lista de Entrenadores</h1>
 <div class="galeria_de_productos">
   <div class="card">
-    <img class="img_galerie" src="" alt="">
-    <h2>Persona 1</h2>
-    <p>Edad: 25 años</p>
-    <p>Profesión: Desarrollador web</p>
-    <p>Ciudad: Ciudad de Ejemplo</p>
+    {% for coach in coach_save %}
+    <p>Nombre: {{ coach.nombre }}</p>
+    {% endfor %}
   </div>
   <div class="card">
-    <img class="img_galerie" src="" alt="">
-    <h2>Persona 1</h2>
-    <p>Edad: 25 años</p>
-    <p>Profesión: Desarrollador web</p>
-    <p>Ciudad: Ciudad de Ejemplo</p>
+
+    {% for coach in coach_save %}
+    <p>Nombre: {{ coach.nombre }}</p>
+    {% endfor %}
   </div>
   <div class="card">
-    <img class="img_galerie" src="" alt="">
-    <h2>Persona 1</h2>
-    <p>Edad: 25 años</p>
-    <p>Profesión: Desarrollador web</p>
-    <p>Ciudad: Ciudad de Ejemplo</p>
+
+    {% for coach in coach_save %}
+    <p>Nombre: {{ coach.nombre }}</p>
+    {% endfor %}
   </div>
   <div class="card">
-    <img class="img_galerie" src="" alt="">
-    <h2>Persona 1</h2>
-    <p>Edad: 25 años</p>
-    <p>Profesión: Desarrollador web</p>
-    <p>Ciudad: Ciudad de Ejemplo</p>
+
+    {% for coach in coach_save %}
+    <p>Nombre: {{ coach.nombre }}</p>
+    {% endfor %}
   </div>
 </div>
 
 <div class="content_button">
-  <button class="button">Ver más</button>
+  <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver más entrenadores
+  </button>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        para acceder a la imformacion debe iniciar seccion:
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{% url 'login_opcion' %}">iniciar seccion</a>
+        <a href="{% url 'signup_opcion' %}">registrarte</a>
+      </div>
+    </div>
+  </div>
 </div>

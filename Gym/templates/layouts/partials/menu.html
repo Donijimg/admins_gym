@@ -1,5 +1,12 @@
+{% load static %}
+
 <nav class="log_in">
-  <a href="{% url 'signup_opcion' %}">Sign Up</a>
-  <span class="boder-right"></span>
-  <a href="{% url 'login_opcion' %}">Log In</a>
+  <div class="logotipo">
+    <img src="{% static 'images/gym.png' %}" alt="">
+  </div>
+  <div class="">
+    <a href="{% url 'signup_opcion' %}">Sign Up</a>
+    <span class="boder-right"></span>
+    <a href="{% url 'login_opcion' %}">Log In</a>
+  </div>
 </nav>

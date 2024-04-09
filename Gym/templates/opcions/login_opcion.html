@@ -1,3 +1,15 @@
+{% load static %}
+
+{% block title %}
+<title>opcions</title>
+{% endblock title %}
+
+<link rel="stylesheet" href="{% static 'login_opcion.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+  rel="stylesheet">
+
 <body>
   <main class="container">
     <div class=p_bloque>
@@ -6,7 +18,7 @@
         {% csrf_token %}
         <a class="border1" href="{% url 'login_ad' %}">Administrador</a>
         <a href="{% url 'login_en' %}">Entrenador</a>
-        <a class="border2" href="">cliente</a>
+        <a class="border2" href="{% url 'login_cl' %}">cliente</a>
       </div>
     </div>
   </main>

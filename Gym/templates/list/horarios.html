@@ -1,0 +1,14 @@
+<body>
+  <form action="{% url 'inscribirse_clase' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="entrenador_id" value="{{ entrenador.id }}">
+    <label for="horario">Seleccionar horario:</label>
+    <select name="horario" id="horario">
+      <option value="mañana">Mañana (5:00am - 8:00am)</option>
+      <option value="tarde">Tarde (2:00pm - 5:00pm)</option>
+      <option value="noche">Noche (6:00pm - 9:00pm)</option>
+      <option value="madrugada">Madrugada (10:00pm - 1:00am)</option>
+    </select>
+    <button type="submit">Inscribirse</button>
+  </form>
+</body>

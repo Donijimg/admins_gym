@@ -1,57 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar cliente</title>
+  <link rel="stylesheet" href="{% static 'signup_cliente.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
 <body>
   <main class="container">
-    <form class="bloquesito" action="{% url 'signup_cl' %}" method="post"> <!-- Cambiado 'get' a 'post' -->
-
+    <form action="{% url 'signup_cl' %}" method="post">
       <div class=p_bloque>
-        <h3 class="title">signup de usuario</h3> <!-- Cambiado 'signup de usurio' a 'signup de usuario' -->
+        <h3 class="title">signup de usuario</h3>
         <div class="bloquesito">
           {% csrf_token %}
           <div class="block">
             <div>
-              <label for="nombre">Nombre:</label> <!-- Cambiado 'nombre' a 'Nombre' -->
-              <input type="text" id="nombre" name="nombre" minlength="8" maxlength="15" placeholder="Nombre"
-                class="input_uni" required /> <!-- Agregado maxlength y cambiado id de password a nombre -->
+              {{ user.nombre.label_tag }}
+              {{ user.nombre }}
 
-              <label for="apellido">Apellido:</label> <!-- Cambiado 'apellido' a 'Apellido' -->
-              <input type="text" id="apellido" name="apellido" maxlength="15" minlength="8" placeholder="Apellido"
-                class="input_uni" required /> <!-- Agregado maxlength -->
+
+              {{ user.apellido.label_tag }}
+              {{ user.apellido }}
+
+
+              {{ user.telefono.label_tag }}
+              {{ user.telefono }}
 
             </div>
           </div>
           <div class="block">
             <div>
-              <label for="numero">Numero de telefono:</label> <!-- Cambiado 'Numero de telefono' a 'numero' -->
-              <input type="tel" name="telefono" minlength="8" maxlength="10" placeholder="Numero de telefono"
-                id="numero" class="input_uni" required> <!-- Cambiado name a telefono y agregado maxlength -->
 
-              <label for="edad">Edad:</label> <!-- Cambiado 'Edad' a 'edad' -->
-              <input type="text" name="edad" maxlength="2" placeholder="Edad" id="edad" class="input_uni" required>
-              <!-- Cambiado type a number -->
+              {{ user.edad.label_tag }}
+              {{ user.edad }}
+
+
+
+
             </div>
           </div>
         </div>
+        {{ user.contraseña.label_tag }}
+        {{ user.contraseña }}
 
-        <label for="contrasena">Contraseña:</label> <!-- Cambiado 'contrasena' a 'contraseña' -->
-        <input type="password" name="contrasena" minlength="8" placeholder="Contraseña" id="contrasena"
-          class="input_uni" required /> <!-- Cambiado 'contrasena' a 'contraseña' y agregado id -->
-        <!-- 
-        <label for="contrasena2">Repita Contraseña:</label> Cambiado 'contrasena' a 'contraseña'
-        <input type="password" name="contrasena2" minlength="8" placeholder="Repita contraseña" id="contrasena2"
-          class="input_uni" required /> Cambiado 'contrasena' a 'contraseña' y agregado id -->
 
-        <p>Género:</p> <!-- Cambiado 'Genero' a 'Género' -->
+        {{ user.contraseña2.label_tag }}
+        {{ user.contraseña2 }}
+
+
+
+        <p>Género:</p>
         <div class="block2">
           <div>
             <div class="Gener">
-              <input name="genero" type="radio" value="Masculino" id="Hombre" />
-              <!-- Agregado value y cambiado id a genero -->
-              <label for="Hombre">Hombre</label>
-              <input name="genero" type="radio" value="Femenino" id="Mujer" />
-              <!-- Agregado value y cambiado id a genero -->
-              <label for="Mujer">Mujer</label>
-              <input name="genero" type="radio" value="Otro" id="Otro" />
-              <!-- Agregado value y cambiado id a genero -->
-              <label for="Otro">Otro</label>
+              {{ user.genero.label_tag }}
+              {{ user.genero }}
+
+
             </div>
           </div>
         </div>
@@ -62,3 +74,5 @@
     </form>
   </main>
 </body>
+
+</html>

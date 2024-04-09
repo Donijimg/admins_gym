@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Administrador</title>
+  <link rel="stylesheet" href="{% static 'signup_admin.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
+    <form action="{% url 'signup_ad' %}" method="post">
+      <div class=p_bloque>
+        <h3 class="title">signup Administrador</h3>
+        <div class="bloquesito">
+          {% csrf_token %}
+          <div class="block">
+            {{ admin.identificacion_propietario.label_tag }}
+            {{ admin.identificacion_propietario }}
+
+            {{ admin.documento.label_tag }}
+            {{ admin.documento }}
+
+            {{ admin.nombre_admin.label_tag }}
+            {{ admin.nombre_admin }}
+
+            {{ admin.apellido_admin.label_tag }}
+            {{ admin.apellido_admin}}
+          </div>
+          <div class="block">
+            {{ admin.telefono.label_tag }}
+            {{ admin.telefono }}
+
+            {{ admin.correo.label_tag }}
+            {{ admin.correo }}
+
+            {{ admin.direccion.label_tag }}
+            {{ admin.direccion }}
+
+            {{ admin.contrasena_admin.label_tag }}
+            {{ admin.contrasena_admin }}
+          </div>
+        </div>
+        <button type="submit" class="button">Registrarse</button>
+      </div>
+    </form>
+  </main>
+</body>
+
+</html>
