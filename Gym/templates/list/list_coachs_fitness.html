@@ -13,7 +13,7 @@
     {% for coach in coachs %}
 
 
-    <li><a href="{% url 'detalle_coachs_fitness' coach.id %}">{{ coach.nombre }}</a></li>
+    <a href="{% url 'detalle_coachs_fitness' especialization='Fitness' coach_id=coach.id %}">{{coach.nombre }}</a>
 
 
 

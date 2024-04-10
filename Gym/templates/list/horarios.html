@@ -1,14 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmación de Inscripción</title>
+</head>
+
 <body>
-  <form action="{% url 'inscribirse_clase' %}" method="post">
-    {% csrf_token %}
-    <input type="hidden" name="entrenador_id" value="{{ entrenador.id }}">
-    <label for="horario">Seleccionar horario:</label>
-    <select name="horario" id="horario">
-      <option value="mañana">Mañana (5:00am - 8:00am)</option>
-      <option value="tarde">Tarde (2:00pm - 5:00pm)</option>
-      <option value="noche">Noche (6:00pm - 9:00pm)</option>
-      <option value="madrugada">Madrugada (10:00pm - 1:00am)</option>
-    </select>
-    <button type="submit">Inscribirse</button>
-  </form>
+  <h1>Confirmación de Inscripción</h1>
+  <p>Te has inscrito en la clase de <strong>{{ coach.nombre }}</strong> del área de
+    <strong>{{ coach.especializacion }}</strong> en el horario de <strong>{{ coach.horarios }}</strong>.
+  </p>
 </body>
+
+</html>

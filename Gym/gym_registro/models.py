@@ -55,11 +55,6 @@ class UserRegistration(models.Model):
     telefono = models.CharField(max_length=14, blank=False, null=False)
     contrasena=models.CharField(max_length=40, blank=False, null=False)
     #vista inscrisiones
-    historial_lesiones = models.TextField(null=False)
-    peso = models.DecimalField(max_digits=5, decimal_places=2)
-    estatura = models.DecimalField(max_digits=4, decimal_places=2)
-    imc = models.DecimalField(max_digits=5, decimal_places=2)
-    objetivos = models.TextField(null=False)
     inscripcion = models.BooleanField(default=False)
     entrenador = models.ForeignKey(Coach, on_delete=models.CASCADE)
 
@@ -68,15 +63,16 @@ class UserRegistration(models.Model):
 
 #vista del entrenador para registrear seciones de entrenamiento
 class ClientRoutine(models.Model):
+    peso = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    estatura = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+    imc = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     rutina = models.TextField(null=False)
-    complicaciones = models.TextField(null=False)
-    rendimiento = models.TextField(null=False)
     dieta = models.TextField(null=False)
-    faltas = models.IntegerField(blank=False, null=False)
-    pago_membresia =models.BooleanField(default=False)
-    avances = models.TextField(null=False)
-    horario_asignado = models.CharField(max_length=100)
+    pago_membresia = models.BooleanField(default=False ,null=True)
     entrenador = models.ForeignKey(Coach, on_delete=models.CASCADE)
+    horarios = models.CharField(max_length=20, blank=True, null=True)
+
+
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
@@ -88,3 +84,5 @@ class Diets(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+

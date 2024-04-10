@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from .form_signup import SignupAdmin,SignupCoach,SignupUser
 
-from .models import Admin,Coach,UserRegistration
+from .models import Admin,Coach,UserRegistration,ClientRoutine
 
 
 
@@ -166,58 +166,84 @@ def list_coachs_fitness(request):
     coachs = Coach.objects.filter(especializacion='Fitness')
     return render(request, 'list/list_coachs_fitness.html', {'coachs': coachs})
 
-
-
-
 def detalle_coachs_fitness(request, especialization, coach_id):
     coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
     return render(request, 'list/detalle_coachs_fitness.html', {'coach': coach})
 
-
-
-
-
 def list_coachs_pilates(request):
-    coachs = Coach.objects.all()
+    coachs = Coach.objects.filter(especializacion='Pilates')
     return render(request, 'list/list_coachs_pilates.html', {'coachs': coachs})
 
+def detalle_coachs_pilates(request, especialization, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
+    return render(request, 'list/detalle_coachs_pilates.html', {'coach': coach})
+
 def list_coachs_rehabilitacion(request):
-    coachs = Coach.objects.all()
+    coachs = Coach.objects.filter(especializacion='Rehabilitacion fisica')
     return render(request, 'list/list_coachs_rehabilitacion.html', {'coachs': coachs})
 
+
+def detalle_coachs_rehabilitacion(request, especialization, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
+    return render(request, 'list/detalle_coachs_rehabilitacion.html', {'coach': coach})
+
+# En el archivo views.py
+# En tu archivo views.py
+
+
+
+def inscribirse(request, especializacion, id):
+    coach = get_object_or_404(Coach, pk=id, especializacion=especializacion)
+    cliente = ClientRoutine(entrenador=coach, horarios=coach.horarios)
+    cliente.save()
+    return render(request, 'list/horarios.html', {'coach': coach})
+
+
+
+
+
+
+
+
+
+
+
+
+
 def list_coachs_mayores(request):
-    coachs = Coach.objects.all()
+    coachs = Coach.objects.filter(especializacion='Plan para mayores')
     return render(request, 'list/list_coachs_mayores.html', {'coachs': coachs})
 
+def detalle_coachs_mayores(request, especialization, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
+    return render(request, 'list/detalle_coachs_mayores.html', {'coach': coach})
+
+
 def list_coachs_yoga(request):
-    coachs = Coach.objects.all()
+    coachs = Coach.objects.filter(especializacion='Yoga')
     return render(request, 'list/list_coachs_yoga.html', {'coachs': coachs})
 
+
+def detalle_coachs_yoga(request, especialization, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
+    return render(request, 'list/detalle_coachs_yoga.html', {'coach': coach})
+
+
 def list_coachs_gimnasia(request):
-    coachs = Coach.objects.all()
+    coachs = Coach.objects.filter(especializacion='Gimnasia')
     return render(request, 'list/list_coachs_gimnasia.html', {'coachs': coachs})
 
 
-
-def detalle_coachs_pilates(request, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id)
-    return render(request, 'list/detalle_coachs_pilates.html', {'coach': coach})
-
-def detalle_coachs_rehabilitacion(request, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id)
-    return render(request, 'list/detalle_coachs_rehabilitacion.html', {'coach': coach})
-
-def detalle_coachs_mayores(request, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id)
-    return render(request, 'list/detalle_coachs_mayores.html', {'coach': coach})
-
-def detalle_coachs_yoga(request, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id)
-    return render(request, 'list/detalle_coachs_yoga.html', {'coach': coach})
-
-def detalle_coachs_gimnasia(request, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id)
+def detalle_coachs_gimnasia(request, especialization, coach_id):
+    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
     return render(request, 'list/detalle_coachs_gimnasia.html', {'coach': coach})
+
+
+
+
+
+
+
 
 
 #vista entrenador 
@@ -246,14 +272,8 @@ def detalle_user_gimnasia(request, user_id):
     return render(request, 'list/detalle_users_gimnasia.html', {'user': user})
 
 
-def inscribirse(request):
-    return render(request, 'list/horarios.html', {})
 
-def inscribirse_clase(request):
-    if request.method == 'POST':
-        coach_id = request.POST.get('coach_id')
-        horario = request.POST.get('horario')
-    return HttpResponse(f"Te has inscrito a la clase del entrenador {coach_id} en el horario de {horario}")
+
 
 
 def dietas(request):
