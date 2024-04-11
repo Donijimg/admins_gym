@@ -4,15 +4,15 @@ from django import forms
 class SignupAdmin(forms.Form):
     identificacion_propietario = forms.IntegerField(
         label="Identificación del Propietario:",
-        max_value=9999999,
-        min_value=1000000,
+        max_value=10,
+        min_value=7,
         widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Identificación del Propietario'}),
         required=True
     )
     documento = forms.IntegerField(
         label="Documento:",
-        max_value=9999999999,
-        min_value=1000000,
+        max_value=10,
+        min_value=7,
         widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de Documento'}),
         required=True
     )
@@ -62,15 +62,15 @@ class SignupAdmin(forms.Form):
 class SignupCoach(forms.Form):
     documento = forms.IntegerField(
         label="Documento:",
-        max_value=9999999999,
-        min_value=1000000,
+        max_value=10,
+        min_value=7,
         widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Numero de Documento'}),
         required=True
     )
     nombre = forms.CharField(
         label="Nombre:",
-        max_length=40,
-        min_length=3,
+        max_length=10,
+        min_length=7,
         widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Nombre'}),
         required=True
     )
@@ -175,8 +175,8 @@ class SignupCoach(forms.Form):
 class SignupUser(forms.Form):
     documento = forms.IntegerField(
         label="Documento:",
-        max_value=9999999999,
-        min_value=1000000,
+        max_value=10,
+        min_value=7,
         widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Numero de Documento'}),
         required=True
         )

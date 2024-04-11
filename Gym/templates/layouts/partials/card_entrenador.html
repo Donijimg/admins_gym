@@ -1,36 +1,23 @@
-<h1>Lista de Entrenadores</h1>
+{% load static %}
+<h1 class="ambientes">Galeria de Ambientes</h1>
 <div class="galeria_de_productos">
   <div class="card">
-    {% for coach in coach_save %}
-    <p>Nombre: {{ coach.nombre }}</p>
-    {% endfor %}
+    <img src="{% static 'images/gym2.png' %}" alt="">
   </div>
   <div class="card">
-
-    {% for coach in coach_save %}
-    <p>Nombre: {{ coach.nombre }}</p>
-    {% endfor %}
+    <img src="{% static 'images/gym2.png' %}" alt="">
   </div>
   <div class="card">
-
-    {% for coach in coach_save %}
-    <p>Nombre: {{ coach.nombre }}</p>
-    {% endfor %}
+    <img src="{% static 'images/gym2.png' %}" alt="">
   </div>
   <div class="card">
-
-    {% for coach in coach_save %}
-    <p>Nombre: {{ coach.nombre }}</p>
-    {% endfor %}
+    <img src="{% static 'images/gym2.png' %}" alt="">
   </div>
 </div>
-
 <div class="content_button">
-  <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver más entrenadores
+  <button type="button" class="button_galeria"data-bs-toggle="modal" data-bs-target="#exampleModal">Ver más entrenadores
   </button>
 </div>
-
-
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

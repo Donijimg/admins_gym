@@ -2,7 +2,7 @@ from django.db import models
 
 class Admin(models.Model):
 
-    identificacion_propietario = models.IntegerField(max_length=9999999, blank=False, null=False)
+    identificacion_propietario = models.IntegerField(max_length=10, blank=False, null=False)
     documento = models.IntegerField(max_length=10, blank=False, null=False)
     nombre_admin = models.CharField(max_length=40, blank=False, null=False, unique=True)
     apellido_admin = models.CharField(max_length=40, blank=False, null=False)
@@ -18,7 +18,7 @@ class Admin(models.Model):
 
 
 class Coach(models.Model):
-    documento = models.IntegerField(max_length=9999999999, blank=False, null=False)
+    documento = models.IntegerField(max_length=10, blank=False, null=False)
     nombre = models.CharField(max_length=40, blank=False, null=False)
     apellido = models.CharField(max_length=40, blank=False, null=False)
     edad= models.IntegerField(max_length=90, blank=False, null=False)
@@ -42,7 +42,7 @@ class Coach(models.Model):
 
 
 class UserRegistration(models.Model):
-    documento= models.IntegerField(max_length=9999999999, blank=False, null=False)
+    documento= models.IntegerField(max_length=10, blank=False, null=False)
     nombre = models.CharField(max_length=40, blank=False, null=False)
     apellido = models.CharField(max_length=40, blank=False, null=False)
     edad = models.IntegerField(max_length=90,blank=False, null=False)

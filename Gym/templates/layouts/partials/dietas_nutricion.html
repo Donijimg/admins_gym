@@ -1,8 +1,16 @@
+{%load static%}
 <h3>Rutas Dieteticas</h3>
 <div class="dietas_nutricion">
-  <div><img src="" alt="fitness"></div>
-  <div><img src="" alt=""></div>
-  <div><img src="" alt=""></div>
-  <div><img src="" alt=""></div>
+
+  <div><img src="{% static 'images/foot1.jpg' %}" alt=""></div>
+  <div><img src="{% static 'images/foot2.jpg' %}" alt=""></div>
+  <div><img src="{% static 'images/foot3.jpg' %}" alt=""></div>
+  <div><img src="{% static 'images/foot4.jpg' %}" alt=""></div>
 </div>
-<a href="{% url 'dietas' %}">Ver Dietas</a>
+<div class="content_button">
+<a  class="button3" href="{% url 'dietas' %}">Ver Dietas</a>
+</div>
+
+
+
+
