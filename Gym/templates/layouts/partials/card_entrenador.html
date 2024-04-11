@@ -1,38 +1,36 @@
 {% load static %}
-<h1 class="ambientes">Galeria de Ambientes</h1>
-<div class="galeria_de_productos">
-  <div class="card">
-    <img src="{% static 'images/gym2.png' %}" alt="">
+<h3>Rutas Dieteticas</h3>
+<div class="galeria">
+
+  <div class="galeria_ambientes">
+    <a href="{% url 'dietas' %}">
+      <img class="img_ambientes" src="{% static 'images/ambiente1.png' %}" alt="">
+      <div class="overlay3">ver</div>
+    </a>
   </div>
-  <div class="card">
-    <img src="{% static 'images/gym2.png' %}" alt="">
+
+  <div class="galeria_ambientes">
+    <a href="{% url 'dietas' %}">
+      <img class="img_ambientes" src="{% static 'images/ambiente2.png' %}" alt="">
+      <div class="overlay3">Ver</div>
+    </a>
   </div>
-  <div class="card">
-    <img src="{% static 'images/gym2.png' %}" alt="">
+
+  <div class="galeria_ambientes">
+    <a href="{% url 'dietas' %}">
+      <img class="img_ambientes" src="{% static 'images/ambiente3.png' %}" alt="">
+      <div class="overlay3">Ver</div>
+    </a>
   </div>
-  <div class="card">
-    <img src="{% static 'images/gym2.png' %}" alt="">
+  <div class="galeria_ambientes">
+    <a href="{% url 'dietas' %}">
+      <img class="img_ambientes" src="{% static 'images/ambiente4.png' %}" alt="">
+      <div class="overlay3">ver</div>
+    </a>
   </div>
-</div>
-<div class="content_button">
-  <button type="button" class="button_galeria"data-bs-toggle="modal" data-bs-target="#exampleModal">Ver más entrenadores
-  </button>
-</div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        para acceder a la imformacion debe iniciar seccion:
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="{% url 'login_opcion' %}">iniciar seccion</a>
-        <a href="{% url 'signup_opcion' %}">registrarte</a>
-      </div>
-    </div>
+  <div class="galeria_ambientes">
+    <a href="{% url 'dietas' %}">
+      <img class="img_ambientes" src="{% static 'images/ambiente5.png' %}" alt="">
+      <div class="overlay3">ver</div>
+    </a>
   </div>
-</div>

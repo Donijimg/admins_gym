@@ -1,3 +1,16 @@
+:root {
+  /* Tamaños de las cartas */
+  --card-width: 300px;
+  --card-height: 400px;
+
+  /* Colores */
+  --main-bg-color: #000000;
+  --text-color: #ffffff;
+  --primary-color: #db0e0e;
+  --secondary-color: #ffffff;
+  --button-bg-color: #f93232;
+  --button-hover-color: #c41212;
+}
 * {
     margin: 0;
     padding: 0;
@@ -9,35 +22,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-
-@keyframes move-it {
-  0% {
-    background-position: initial;
-  }
-  100% {
-    background-position: 100px 0px;
-  }
-}
-
-
-body {
-  background: linear-gradient(196deg,#ffff00,#0097ff,#000000);
-  background-size: 180% 180%;
-  animation: gradient-animation 3s ease infinite;
-}
-
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 

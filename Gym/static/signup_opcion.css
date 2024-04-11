@@ -1,4 +1,18 @@
-      * {
+:root {
+  /* Tamaños de las cartas */
+  --card-width: 300px;
+  --card-height: 400px;
+
+  /* Colores */
+  --main-bg-color: #000000;
+  --text-color: #ffffff;
+  --primary-color: #db0e0e;
+  --secondary-color: #ffffff;
+  --button-bg-color: #f93232;
+  --button-hover-color: #c41212;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;

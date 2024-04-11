@@ -1,20 +1,18 @@
 from django.db import models
 
 class Admin(models.Model):
-
-    identificacion_propietario = models.IntegerField(max_length=10, blank=False, null=False)
-    documento = models.IntegerField(max_length=10, blank=False, null=False)
-    nombre_admin = models.CharField(max_length=40, blank=False, null=False, unique=True)
+    identificacion_propietario = models.IntegerField(blank=False, null=False)  # Eliminando max_length
+    documento = models.IntegerField(blank=False, null=False)  # Eliminando max_length
+    nombre_admin = models.CharField(max_length=40, blank=False, null=False)  # Eliminando unique=True
     apellido_admin = models.CharField(max_length=40, blank=False, null=False)
     contrasena_admin = models.CharField(max_length=40, blank=False, null=False)
     correo = models.EmailField(max_length=75, blank=False, null=False)
     telefono = models.CharField(max_length=14, blank=False, null=False)
     direccion = models.CharField(max_length=75, blank=False, null=False)
     redes_sociales = models.URLField(max_length=200, blank=True, null=True)
-
-
+    
     def __str__(self):
-        return f"{self.nombre} {self.apellido}"
+        return f"{self.identificacion_propietario} {self.documento}"
 
 
 class Coach(models.Model):
@@ -72,11 +70,8 @@ class ClientRoutine(models.Model):
     entrenador = models.ForeignKey(Coach, on_delete=models.CASCADE)
     horarios = models.CharField(max_length=20, blank=True, null=True)
 
-
-
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
-
 
 class Diets(models.Model):
     nombre = models.CharField(max_length=100)

@@ -10,14 +10,12 @@ urlpatterns = [
     path('detalle/entrenador/fitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_fitness, name='detalle_coachs_fitness'),
     path('index/list/coachs/pilates/', views.list_coachs_pilates, name='list_coachs_pilates'),
     path('detalle/entrenador/pilatesfitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_pilates, name='detalle_coachs_pilates'),
-    
     path('index/list/coachs/mayores/', views.list_coachs_mayores, name='list_coachs_mayores'),
     path('detalle/entrenador/mayoresfitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_mayores, name='detalle_coachs_mayores'),
     path('index/list/coachs/yoga/', views.list_coachs_yoga, name='list_coachs_yoga'),
     path('detalle/entrenador/yogafitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_yoga, name='detalle_coachs_yoga'),
     path('index/list/coachs/gimnasia/', views.list_coachs_gimnasia, name='list_coachs_gimnasia'),
     path('detalle/entrenador/gimnasiafitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_gimnasia, name='detalle_coachs_gimnasia'),
-  
     path('signup_opcion/index/',views.signup_opcion,name='signup_opcion'),
     path('login_opcion/index/',views.login_opcion,name='login_opcion'),
     path('signup_opcion/signup/ad/',views.signup_ad,name='signup_ad'),
@@ -29,19 +27,20 @@ urlpatterns = [
     path('logeado_ad/', views.logeado_ad, name='logeado_ad'), 
     path('logeado_en/', views.logeado_en, name='logeado_en'), 
     path('logeado_cl/', views.logeado_cl, name='logeado_cl'),
-
     path('index/list/coachs/rehabilitacion/', views.list_coachs_rehabilitacion, name='list_coachs_rehabilitacion'),
     path('detalle/entrenador/rehabilitacionfitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_rehabilitacion, name='detalle_coachs_rehabilitacion'),
-
-    
     path('inscribirse/<str:especializacion>/<int:id>/', views.inscribirse, name='inscribirse'),
     path('dietas/', views.dietas, name='dietas'),
     path('vista_ampliada/', views.vista_ampliada, name='vista_ampliada'),
+    path('profile_ad/', views.profile_ad, name='profile_ad'),
+    path('profile_en/', views.profile_en, name='profile_en'),
+    path('profile_cl/', views.profile_cl, name='profile_cl'),
+    path('galeria_one/', views.galeria_one, name='galeria_one'),
+    path('galeria_two/', views.galeria_two, name='galeria_two'),
+    path('galeria_three/', views.galeria_three, name='galeria_three'),
+    path('galeria_four/', views.galeria_four, name='galeria_four'),
+    path('galeria_five/', views.galeria_five, name='galeria_five'),
 
-
-
-
-   
 ]
 
     # path('listar_paises/', views.listar_paises, name="listar_paises"),

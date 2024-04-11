@@ -29,34 +29,30 @@
               {{ user.apellido.label_tag }}
               {{ user.apellido }}
 
-
-              {{ user.telefono.label_tag }}
-              {{ user.telefono }}
+               {{ user.edad.label_tag }}
+              {{ user.edad }} 
+             
 
             </div>
           </div>
           <div class="block">
             <div>
 
-              {{ user.edad.label_tag }}
-              {{ user.edad }}
+             
+              {{ user.telefono.label_tag }}
+              {{ user.telefono }}
+              
+              {{ user.contrasena.label_tag }}
+              {{ user.contrasena }}
 
-
+              {% comment %} {{ user.contraseña2.label_tag }}
+              {{ user.contraseña2 }} {% endcomment %}
 
 
             </div>
           </div>
         </div>
-        {{ user.contraseña.label_tag }}
-        {{ user.contraseña }}
 
-
-        {{ user.contraseña2.label_tag }}
-        {{ user.contraseña2 }}
-
-
-
-        <p>Género:</p>
         <div class="block2">
           <div>
             <div class="Gener">
@@ -76,3 +72,4 @@
 </body>
 
 </html>
+

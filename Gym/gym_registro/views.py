@@ -1,7 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from .form_signup import SignupAdmin,SignupCoach,SignupUser
-
 from .models import Admin,Coach,UserRegistration,ClientRoutine
 
 
@@ -10,37 +9,69 @@ def signup_cl(request):
     if request.method == 'POST':
         user = SignupUser(request.POST)
         if user.is_valid():
-            # Verificar si las contraseñas coinciden
-            contraseña = user.cleaned_data['contraseña']
-            contraseña2 = user.cleaned_data['contraseña2']
-            if contraseña != contraseña2:
-                user.add_error('contraseña2', 'Las contraseñas no coinciden')
-            else:
-                # Procesar y guardar los datos del formulario
-                documento = user.cleaned_data['documento']
-                nombre = user.cleaned_data['nombre']
-                apellido = user.cleaned_data['apellido']
-                telefono = user.cleaned_data['telefono']
-                edad = user.cleaned_data['edad']
-                contraseña = user.cleaned_data['contraseña']
-                genero = user.cleaned_data['genero']
-                
-                # Guardar el usuario en la base de datos
-                user_save = UserRegistration.objects.create(
-                    documento=documento,
-                    nombre=nombre,
-                    apellido=apellido,
-                    telefono=telefono,
-                    edad=edad,
-                    contraseña=contraseña,
-                    genero=genero
-                )
-                
-                return render(request, 'welcome/welcome_cl.html', {'user_save': user_save})
+            # Procesar y guardar los datos del formulario
+            documento = user.cleaned_data['documento']
+            nombre = user.cleaned_data['nombre']
+            apellido = user.cleaned_data['apellido']
+            telefono = user.cleaned_data['telefono']
+            edad = user.cleaned_data['edad']
+            contrasena = user.cleaned_data['contrasena']  # Cambiado de 'contraseña' a 'contrasena'
+            genero = user.cleaned_data['genero']
+            
+            # Guardar el usuario en la base de datos
+            user_save = UserRegistration.objects.create(
+                documento=documento,
+                nombre=nombre,
+                apellido=apellido,
+                telefono=telefono,
+                edad=edad,
+                contrasena=contrasena,  # Cambiado de 'contraseña' a 'contrasena'
+                genero=genero
+            )
+            
+            return render(request, 'welcome/welcome_cl.html', {'user_save': user_save})
     else:
         user = SignupUser()
     
     return render(request, 'signups/signup_cliente.html', {'user': user})
+
+
+
+# def signup_cl(request):
+#     if request.method == 'POST':
+#         user = SignupUser(request.POST)
+#         if user.is_valid():
+#             # Verificar si las contraseñas coinciden
+#             contraseña = user.cleaned_data['contraseña']
+#             contraseña2 = user.cleaned_data['contraseña']
+#             if contraseña != contraseña2:
+#                 user.add_error('contraseña2', 'Las contraseñas no coinciden')
+#             else:
+#                 # Procesar y guardar los datos del formulario
+#                 documento = user.cleaned_data['documento']
+#                 nombre = user.cleaned_data['nombre']
+#                 apellido = user.cleaned_data['apellido']
+#                 telefono = user.cleaned_data['telefono']
+#                 edad = user.cleaned_data['edad']
+#                 contraseña = user.cleaned_data['contraseña']
+#                 genero = user.cleaned_data['genero']
+                
+#                 # Guardar el usuario en la base de datos
+#                 user_save = UserRegistration.objects.create(
+#                     documento=documento,
+#                     nombre=nombre,
+#                     apellido=apellido,
+#                     telefono=telefono,
+#                     edad=edad,
+#                     contraseña=contraseña,
+#                     genero=genero
+#                 )
+                
+#                 return render(request, 'welcome/welcome_cl.html', {'user_save': user_save})
+#     else:
+#         user = SignupUser()
+    
+#     return render(request, 'signups/signup_cliente.html', {'user': user})
 
 
 
@@ -127,6 +158,21 @@ def signup_en(request):
 def index(request):
     return render(request, 'layouts/app.html', {})
 
+
+
+def profile_ad(request):
+    return render(request, 'profile/profile_ad.html', {})
+
+def profile_en(request):
+    return render(request, 'profile/profile_en.html', {})
+
+def profile_cl(request):
+    return render(request, 'profile/profile_cl.html', {})
+
+
+def galeria_ver(request):
+    return render(request, 'galeria_ver.html', {})
+
 def logeado_ad(request):
     coachs = Coach.objects.all()
     clientes = UserRegistration.objects.all()
@@ -201,15 +247,6 @@ def inscribirse(request, especializacion, id):
 
 
 
-
-
-
-
-
-
-
-
-
 def list_coachs_mayores(request):
     coachs = Coach.objects.filter(especializacion='Plan para mayores')
     return render(request, 'list/list_coachs_mayores.html', {'coachs': coachs})
@@ -277,12 +314,26 @@ def detalle_user_gimnasia(request, user_id):
 
 
 def dietas(request):
-    return render(request,'dietas.html',{})
+    return render(request,'dietas/dietas.html',{})
 
 
 def vista_ampliada(request):
     return render(request, 'vista_ampliada.html',{})
 
+def galeria_one(request):
+    return render(request,'galeria/galeria1.html',{})
+
+def galeria_two(request):
+    return render(request,'galeria/galeria2.html',{})
+
+def galeria_three(request):
+    return render(request,'galeria/galeria3.html',{})
+
+def galeria_four(request):
+    return render(request,'galeria/galeria4.html',{})
+
+def galeria_five(request):
+    return render(request,'galeria/galeria5.html',{})
 
 
 # entrenadores_con_mismo_nombre = Coach.objects.filter(nombre_usuario=nombre_usuario)
