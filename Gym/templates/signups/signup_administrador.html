@@ -15,42 +15,42 @@
 
 <body>
   <main class="container">
-    <form action="{% url 'signup_ad' %}" method="post">
-      <div class=p_bloque>
-        <h3 class="title">signup Administrador</h3>
-        <div class="bloquesito">
-          {% csrf_token %}
-          <div class="block">
-            {{ admin.identificacion_propietario.label_tag }}
-            {{ admin.identificacion_propietario }}
-
-            {{ admin.documento.label_tag }}
-            {{ admin.documento }}
-
-            {{ admin.nombre_admin.label_tag }}
-            {{ admin.nombre_admin }}
-
-            {{ admin.apellido_admin.label_tag }}
-            {{ admin.apellido_admin}}
-          </div>
-          <div class="block">
-            {{ admin.telefono.label_tag }}
-            {{ admin.telefono }}
-
-            {{ admin.correo.label_tag }}
-            {{ admin.correo }}
-
-            {{ admin.direccion.label_tag }}
-            {{ admin.direccion }}
-
-            {{ admin.contrasena_admin.label_tag }}
-            {{ admin.contrasena_admin }}
-          </div>
+  <form action="{% url 'signup_ad' %}" method="post">
+    <div class="p_bloque">
+      <h3 class="title">signup Administrador</h3>
+      <div class="bloquesito">
+        {% csrf_token %}
+        <div class="block">
+          {{ admin_form.identificacion_propietario.label_tag }}
+          {{ admin_form.identificacion_propietario }}
+          <br>
+          {{ admin_form.documento.label_tag }}
+          {{ admin_form.documento }}
+          <br>
+          {{ admin_form.nombre_admin.label_tag }}
+          {{ admin_form.nombre_admin }}
+          <br>
+          {{ admin_form.apellido_admin.label_tag }}
+          {{ admin_form.apellido_admin }}
         </div>
-        <button type="submit" class="button">Registrarse</button>
+        <div class="block">
+          {{ admin_form.telefono.label_tag }}
+          {{ admin_form.telefono }}
+          <br>
+          {{ admin_form.correo.label_tag }}
+          {{ admin_form.correo }}
+          <br>
+          {{ admin_form.direccion.label_tag }}
+          {{ admin_form.direccion }}
+          <br>
+          {{ admin_form.contrasena_admin.label_tag }}
+          {{ admin_form.contrasena_admin }}
+        </div>
       </div>
-    </form>
-  </main>
+      <button type="submit" class="button">Registrarse</button>
+    </div>
+  </form>
+</main>
 </body>
 
 </html>

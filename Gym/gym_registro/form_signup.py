@@ -193,13 +193,7 @@ class SignupUser(forms.Form):
         widget=forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Contraseña'}),
         required=True
     )
-    # contraseña2 = forms.CharField(
-    #     label="Repita contraseña:",
-    #     min_length=10,
-    #     max_length=40,
-    #     widget=forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Repita contraseña'}),
-    #     required=True
-    # )
+
     genero = forms.ChoiceField(
         label="Género:",
         choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino'), ('Otro', 'Otro')],

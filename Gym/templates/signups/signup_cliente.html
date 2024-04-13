@@ -16,7 +16,7 @@
 <body>
   <main class="container">
     <form action="{% url 'signup_cl' %}" method="post">
-      <div class=p_bloque>
+      <div class="p_bloque">
         <h3 class="title">signup de usuario</h3>
         <div class="bloquesito">
           {% csrf_token %}
@@ -24,52 +24,40 @@
             <div>
               {{ user.nombre.label_tag }}
               {{ user.nombre }}
-
-
               {{ user.apellido.label_tag }}
               {{ user.apellido }}
-
-               {{ user.edad.label_tag }}
+              {{ user.edad.label_tag }}
               {{ user.edad }} 
-             
-
+              
             </div>
           </div>
           <div class="block">
             <div>
-
-             
               {{ user.telefono.label_tag }}
               {{ user.telefono }}
-              
               {{ user.contrasena.label_tag }}
               {{ user.contrasena }}
-
-              {% comment %} {{ user.contraseña2.label_tag }}
-              {{ user.contraseña2 }} {% endcomment %}
-
-
+              <!-- Si hay confirmación de contraseña -->
+              <!--
+              {{ user.contrasena2.label_tag }}
+              {{ user.contrasena2 }}
+              -->{{ user.documento.label_tag }}
+              {{ user.documento }}
             </div>
           </div>
         </div>
-
         <div class="block2">
           <div>
             <div class="Gener">
               {{ user.genero.label_tag }}
               {{ user.genero }}
-
-
             </div>
           </div>
         </div>
-
         <button type="submit" class="button">Registrarse</button>
-
       </div>
     </form>
   </main>
 </body>
 
 </html>
-

@@ -2,8 +2,11 @@
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
+
+
+
+
 
     path('', views.index, name="index"),
     path('index/list/coachs/fitness/', views.list_coachs_fitness, name='list_coachs_fitness'),
@@ -16,6 +19,7 @@ urlpatterns = [
     path('detalle/entrenador/yogafitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_yoga, name='detalle_coachs_yoga'),
     path('index/list/coachs/gimnasia/', views.list_coachs_gimnasia, name='list_coachs_gimnasia'),
     path('detalle/entrenador/gimnasiafitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_gimnasia, name='detalle_coachs_gimnasia'),
+    
     path('signup_opcion/index/',views.signup_opcion,name='signup_opcion'),
     path('login_opcion/index/',views.login_opcion,name='login_opcion'),
     path('signup_opcion/signup/ad/',views.signup_ad,name='signup_ad'),
@@ -30,8 +34,25 @@ urlpatterns = [
     path('index/list/coachs/rehabilitacion/', views.list_coachs_rehabilitacion, name='list_coachs_rehabilitacion'),
     path('detalle/entrenador/rehabilitacionfitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_rehabilitacion, name='detalle_coachs_rehabilitacion'),
     path('inscribirse/<str:especializacion>/<int:id>/', views.inscribirse, name='inscribirse'),
+
+    path('dietas_cl/', views.dietas_cl, name='dietas_cl'),
+    path('vista_dietas_cl/', views.vista_dietas_cl, name='vista_dietas_cl'),
+
+    path('dietas_en', views.dietas_en, name='dietas_en'),
+    path('vista_dietas_en/', views.vista_dietas_en, name='vista_dietas_en'),
+
+    path('dietas_ad/', views.dietas_ad, name='dietas_ad'),
+    path('vista_dietas_ad/', views.vista_dietas_ad, name='vista_dietas_ad'),
+
     path('dietas/', views.dietas, name='dietas'),
-    path('vista_ampliada/', views.vista_ampliada, name='vista_ampliada'),
+    path('vista_dietas/', views.vista_dietas, name='vista_dietas'),
+
+    path('acercade/', views.acercade, name='acercade'),
+    path('acercade_ad/', views.acercade_ad, name='acercade_ad'),
+    path('acercade_cl/', views.acercade_cl, name='acercade_cl'),
+    path('acercade_en/', views.acercade_en, name='acercade_en'),
+    path('list_clientes_entrenador/', views.list_clientes_entrenador, name='list_clientes_entrenador'),
+    path('detalle_cliente_fitness/<int:coach_id>/', views.detalle_cliente_fitness, name='detalle_cliente_fitness'),
     path('profile_ad/', views.profile_ad, name='profile_ad'),
     path('profile_en/', views.profile_en, name='profile_en'),
     path('profile_cl/', views.profile_cl, name='profile_cl'),

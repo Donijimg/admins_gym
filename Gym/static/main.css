@@ -215,7 +215,11 @@ cursor: pointer;
 }
 
 .button2 {
+display: flex;
+justify-content: center;
+align-items:center;
 cursor: pointer;
+text-decoration: none;
 border: none;
 background-color: red;
 width: 300px;
