@@ -22,35 +22,35 @@
           {% csrf_token %}
           <div class="block">
             <div>
-              {{ user.nombre.label_tag }}
-              {{ user.nombre }}
-              {{ user.apellido.label_tag }}
-              {{ user.apellido }}
-              {{ user.edad.label_tag }}
-              {{ user.edad }} 
+              {{ user_form.nombre.label_tag }}
+              {{ user_form.nombre }}
+              {{ user_form.apellido.label_tag }}
+              {{ user_form.apellido }}
+              {{ user_form.edad.label_tag }}
+              {{ user_form.edad }} 
               
             </div>
           </div>
           <div class="block">
             <div>
-              {{ user.telefono.label_tag }}
-              {{ user.telefono }}
-              {{ user.contrasena.label_tag }}
-              {{ user.contrasena }}
+              {{ user_form.telefono.label_tag }}
+              {{ user_form.telefono }}
+              {{ user_form.contrasena.label_tag }}
+              {{ user_form.contrasena }}
               <!-- Si hay confirmación de contraseña -->
               <!--
               {{ user.contrasena2.label_tag }}
               {{ user.contrasena2 }}
-              -->{{ user.documento.label_tag }}
-              {{ user.documento }}
+              -->{{ user_form.documento.label_tag }}
+              {{ user_form.documento }}
             </div>
           </div>
         </div>
         <div class="block2">
           <div>
             <div class="Gener">
-              {{ user.genero.label_tag }}
-              {{ user.genero }}
+              {{ user_form.genero.label_tag }}
+              {{ user_form.genero }}
             </div>
           </div>
         </div>

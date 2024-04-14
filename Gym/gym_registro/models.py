@@ -1,14 +1,14 @@
 from django.db import models
 
 class Admin(models.Model):
-    identificacion_propietario = models.IntegerField(blank=True, null=True)  
-    documento = models.IntegerField(blank=True, null=True) 
-    nombre_admin = models.CharField(max_length=40)
-    apellido_admin = models.CharField(max_length=40)
-    contrasena_admin = models.CharField(max_length=40)
-    correo = models.EmailField(max_length=75)
-    telefono = models.CharField(max_length=14)
-    direccion = models.CharField(max_length=75)
+    identificacion_propietario = models.CharField(max_length=7, blank=True, null=True)  
+    documento = models.CharField(max_length=10, blank=True, null=True) 
+    nombre_admin = models.CharField(max_length=15, blank=False, null=False)
+    apellido_admin = models.CharField(max_length=15, blank=False, null=False)
+    contrasena_admin = models.CharField(max_length=10, blank=False, null=False)
+    correo = models.EmailField(max_length=20, blank=False, null=False)
+    telefono = models.CharField(max_length=10, blank=False, null=False)
+    direccion = models.CharField(max_length=10, blank=False, null=False)
     redes_sociales = models.URLField(max_length=200, blank=True, null=True)
 
     def __str__(self):

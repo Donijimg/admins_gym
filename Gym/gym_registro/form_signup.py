@@ -1,206 +1,86 @@
+# forms.py
 from django import forms
+from .models import Admin, Coach, UserRegistration
 
+class SignupAdmin(forms.ModelForm):
+    class Meta:
+        model = Admin
+        fields = ['identificacion_propietario', 'documento', 'nombre_admin', 'apellido_admin', 'telefono', 'direccion', 'correo', 'contrasena_admin']
+        labels = {
+            'identificacion_propietario': 'Identificación del Propietario:',
+            'documento': 'Documento:',
+            'nombre_admin': 'Nombre:',
+            'apellido_admin': 'Apellido:',
+            'telefono': 'Teléfono:',
+            'direccion': 'Dirección:',
+            'correo': 'Correo Electrónico:',
+            'contrasena_admin': 'Contraseña de Administrador:'
+        }
+        widgets = {
+            'identificacion_propietario': forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Identificación del Propietario'}),
+            'documento': forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Número de Documento'}),
+            'nombre_admin': forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Nombre de Administrador'}),
+            'apellido_admin': forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Apellido'}),
+            'telefono': forms.TextInput(attrs={'class': 'input_uni', 'placeholder': '+(57) --- --- ----'}),
+            'direccion': forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Dirección'}),
+            'correo': forms.EmailInput(attrs={'class': 'input_uni', 'placeholder': 'Correo Electrónico'}),
+            'contrasena_admin': forms.PasswordInput(attrs={'class': 'input_uni', 'placeholder': 'Contraseña de Administrador'}),
+        }
 
-class SignupAdmin(forms.Form):
-    identificacion_propietario = forms.IntegerField(
-        label="Identificación del Propietario:",
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Identificación del Propietario'}),
-        required=True
-    )
-    documento = forms.IntegerField(
-        label="Documento:",
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de Documento'}),
-        required=True
-    )
-    nombre_admin = forms.CharField(
-        label="Nombre:",
-        max_length=40,
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Nombre de Administrador'}),
-        required=True
-    )
-    apellido_admin = forms.CharField(
-        label="Apellido:",
-        max_length=40,
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Apellido'}),
-        required=True
-    )
-    telefono = forms.CharField(
-        label="Teléfono:",
-        max_length=14,
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'+(57) --- --- ----'}),
-        required=True
-    )
-    direccion = forms.CharField(
-        label="Dirección:",
-        max_length=75,
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Dirección'}),
-        required=True
-    )
-    correo = forms.EmailField(
-        label="Correo Electrónico:",
-        max_length=75,
-        widget=forms.EmailInput(attrs={'class':'input_uni', 'placeholder':'Correo Electrónico'}),
-        required=True
-    )
-    contrasena_admin = forms.CharField(
-        label="Contraseña de Administrador:",
-        min_length=10,  # Manteniendo la longitud mínima
-        max_length=40,  # Manteniendo la longitud máxima
-        widget=forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Contraseña de Administrador'}),
-        required=True
-    )
+class SignupCoach(forms.ModelForm):
+    class Meta:
+        model = Coach
+        fields = ['documento', 'nombre', 'apellido', 'direccion', 'edad', 'telefono', 'correo', 'genero', 'contrasena', 'ficha_de_ingreso', 'experiencia', 'especializacion', 'horarios']
+        labels = {
+            'documento': 'Documento:',
+            'nombre': 'Nombre:',
+            'apellido': 'Apellido:',
+            'direccion': 'Dirección:',
+            'edad': 'Edad:',
+            'telefono': 'Teléfono:',
+            'correo': 'Correo Electrónico:',
+            'genero': 'Género:',
+            'contrasena': 'Contraseña:',
+            'ficha_de_ingreso': 'Ficha de Entrenador:',
+            'experiencia': 'Experiencia:',
+            'especializacion': 'Especialización:',
+            'horarios': 'Horarios:',
+        }
+        widgets = {
+            'documento': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Numero de Documento'}),
+            'nombre': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Nombre'}),
+            'apellido': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Apellido'}),
+            'direccion': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Dirección'}),
+            'edad': forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Edad'}),
+            'telefono': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'+(57) --- --- ----'}),
+            'correo': forms.EmailInput(attrs={'class':'input_uni', 'placeholder':'E-mail'}),
+            'genero': forms.RadioSelect(attrs={'class': 'input_radio'}),
+            'contrasena': forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Contraseña'}),
+            'ficha_de_ingreso': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Ficha de Entrenador'}),
+            'experiencia': forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Experiencia'}),
+            'especializacion': forms.Select(attrs={'class':'input_uni'}),
+            'horarios': forms.Select(attrs={'class':'input_uni'}),
+        }
 
-class SignupCoach(forms.Form):
-    documento = forms.IntegerField(
-        label="Documento:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Numero de Documento'}),
-        required=True
-    )
-    nombre = forms.CharField(
-        label="Nombre:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Nombre'}),
-        required=True
-    )
-    apellido = forms.CharField(
-        label="Apellido:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Apellido'}),
-        required=True
-    )
-    direccion = forms.CharField(
-        label="Dirección:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Dirección'}),
-        required=True
-    )
-    edad = forms.CharField(
-        label="Edad:",
- 
-        widget=forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Edad'}),
-        required=True
-    )
-
-
-    telefono = forms.CharField(
-        label="Teléfono:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'+(57) --- --- ----'}),
-        required=True
-    )
-
-    correo = forms.EmailField(
-        label="Correo Electrónico:",
-
-        widget=forms.EmailInput(attrs={'class':'input_uni', 'placeholder':'E-mail'}),
-        required=True
-    )
-    genero_choices = [
-        ('Masculino', 'Masculino'),
-        ('Femenino', 'Femenino'),
-        ('Otro', 'Otro'),
-    ]    
-    genero = forms.ChoiceField(
-        label="Género:",
-        choices=genero_choices,
-        widget=forms.RadioSelect(attrs={'class': 'input_radio'}),
-        required=True
-    )
-
-    contrasena = forms.CharField(
-        label="Contraseña:",
-
-        widget=forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Contraseña'}),
-        required=True
-    )
-
-    ficha_de_ingreso = forms.CharField(
-        label="Ficha de Entrenador:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Ficha de Entrenador'}),
-        required=True
-    )
-    experiencia = forms.CharField(
-        label="Experiencia:",
- 
-        widget=forms.TextInput(attrs={'class': 'input_uni', 'placeholder': 'Experiencia'}),
-        required=True
-    )
-
-    especializacion = forms.ChoiceField(
-        label="Especialización:",
-        choices=(
-            ('', 'Seleccione su especialización'),  # Opción vacía por defecto
-            ('Fitness', 'Fitness'),
-            ('Pilates', 'Pilates'),
-            ('Rehabilitacion fisica', 'Rehabilitacion fisica'),
-            ('Plan para mayores', 'Plan para mayores'),
-            ('Yoga', 'Yoga'),
-            ('Gimnasia', 'Gimnasia')
-        ),
-        widget=forms.Select(attrs={'class':'input_uni'}),
-        required=True
-    )
-    horarios = forms.ChoiceField(
-        label="Horarios:",
-        choices=(
-            ('', 'Seleccione un horario'),  # Opción vacía por defecto
-            ('Mañana (5:00am - 8:00am)', 'Mañana (5:00am - 8:00am)'),
-            ('Tarde (2:00pm - 5:00pm)', 'Tarde (2:00pm - 5:00pm)'),
-            ('Noche (6:00pm - 9:00pm)', 'Noche (6:00pm - 9:00pm)'),
-            ('Madrugada (10:00pm - 1:00am)', 'Madrugada (10:00pm - 1:00am)')
-        ),
-        widget=forms.Select(attrs={'class':'input_uni'}),
-        required=True
-    )
-
-
-class SignupUser(forms.Form):
-    documento = forms.IntegerField(
-        label="Documento:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Numero de Documento'}),
-        required=True
-        )
-    nombre = forms.CharField(
-        label="Nombre:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Nombre'}),
-        required=True
-    )
-    apellido = forms.CharField(
-        label="Apellido:",
- 
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Apellido'}),
-        required=True
-    )
-    telefono = forms.CharField(
-        label="Número de teléfono:",
-
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de teléfono'}),
-        required=True
-    )
-    edad = forms.CharField(
-        label="Edad:",
-  
-        widget=forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Edad'}),
-        required=True
-    )
-    contrasena = forms.CharField(
-        label="Contraseña:",
-
-        widget=forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Contraseña'}),
-        required=True
-    )
-
-    genero = forms.ChoiceField(
-        label="Género:",
-        choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino'), ('Otro', 'Otro')],
-        widget=forms.RadioSelect(attrs={'class':'input_radio'}),
-        required=True
-    )
-
-
- 
-
+class SignupUser(forms.ModelForm):
+    class Meta:
+        model = UserRegistration
+        fields = ['documento', 'nombre', 'apellido', 'telefono', 'edad', 'contrasena', 'genero']
+        labels = {
+            'documento': 'Documento:',
+            'nombre': 'Nombre:',
+            'apellido': 'Apellido:',
+            'telefono': 'Número de teléfono:',
+            'edad': 'Edad:',
+            'contrasena': 'Contraseña:',
+            'genero': 'Género:',
+        }
+        widgets = {
+            'documento': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de Documento'}),
+            'nombre': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Nombre'}),
+            'apellido': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Apellido'}),
+            'telefono': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de teléfono'}),
+            'edad': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Edad'}),
+            'contrasena': forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Contraseña'}),
+            'genero': forms.RadioSelect(attrs={'class':'input_radio'}),
+        }
