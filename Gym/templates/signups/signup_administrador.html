@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,49 +8,45 @@
   <link rel="stylesheet" href="{% static 'signup_admin.css' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-
 <body>
   <main class="container">
-  <form action="{% url 'signup_admin' %}" method="post">
-  {% csrf_token %}
-    <div class="p_bloque">
-      <h3 class="title">signup Administrador</h3>
-      <div class="bloquesito">
-        <div class="block">
-
-          {{ admin_form.identificacion_propietario.label_tag }}
-          {{ admin_form.identificacion_propietario }}
-          <br>
-          {{ admin_form.documento.label_tag }}
-          {{ admin_form.documento }}
-          <br>
-          {{ admin_form.nombre_admin.label_tag }}
-          {{ admin_form.nombre_admin }}
-          <br>
-          {{ admin_form.apellido_admin.label_tag }}
-          {{ admin_form.apellido_admin }}
+    <form action="{% url 'signup_ad' %}" method="post">
+      {% csrf_token %}
+      <div class="p_bloque">
+        <h3 class="title">Signup Administrador</h3>
+        <div class="bloquesito">
+          <div class="block">
+            {{ admin_form.identificacion_propietario.label_tag }}
+            {{ admin_form.identificacion_propietario }}
+            <br>
+            {{ admin_form.documento.label_tag }}
+            {{ admin_form.documento }}
+            <br>
+            {{ admin_form.nombre_admin.label_tag }}
+            {{ admin_form.nombre_admin }}
+            <br>
+            {{ admin_form.apellido_admin.label_tag }}
+            {{ admin_form.apellido_admin }}
+          </div>
+          <div class="block">
+            {{ admin_form.telefono.label_tag }}
+            {{ admin_form.telefono }}
+            <br>
+            {{ admin_form.correo.label_tag }}
+            {{ admin_form.correo }}
+            <br>
+            {{ admin_form.direccion.label_tag }}
+            {{ admin_form.direccion }}
+            <br>
+            {{ admin_form.contrasena_admin.label_tag }}
+            {{ admin_form.contrasena_admin }}
+          </div>
         </div>
-        <div class="block">
-          {{ admin_form.telefono.label_tag }}
-          {{ admin_form.telefono }}
-          <br>
-          {{ admin_form.correo.label_tag }}
-          {{ admin_form.correo }}
-          <br>
-          {{ admin_form.direccion.label_tag }}
-          {{ admin_form.direccion }}
-          <br>
-          {{ admin_form.contrasena_admin.label_tag }}
-          {{ admin_form.contrasena_admin }}
-        </div>
+        <button type="submit" class="button">Registrarse</button>
       </div>
-      <button type="submit" class="button">Registrarse</button>
-    </div>
-  </form>
-</main>
+    </form>
+  </main>
 </body>
-
 </html>

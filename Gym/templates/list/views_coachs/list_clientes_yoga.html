@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Entrenadores Fitness</title>
+</head>
+<body>
+  <h1>Lista de Entrenadores Fitness</h1>
+  <ul>
+    {% for coach in coachs_yoga %}
+      <!-- Enlace para ver los detalles del entrenador -->
+      <li><a href="{% url 'detalle_cliente_yoga' coach_id=coach.id %}">{{ coach.nombre }} {{ coach.apellido }} - Yoga</a></li>
+    {% endfor %}
+  </ul>
+</body>

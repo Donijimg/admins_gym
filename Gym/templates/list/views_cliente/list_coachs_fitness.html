@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Entrenadores</title>
+</head>
+
+<body>
+  <h1>Lista de Entrenadores</h1>
+  <ul>
+    {% for coach in coachs %}
+    <a href="{% url 'detalle_coachs_fitness' especialization='Fitness' coach_id=coach.id %}">{{coach.nombre }}</a>
+    {% endfor %}
+  </ul>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Entrenadores Fitness</title>
+</head>
+<body>
+  <h1>Lista de Entrenadores Fitness</h1>
+<ul>
+        {% for usuario in usuarios_fitness %}
+        <li><a href="{% url 'detalle_cliente_fitness' inscripcion=usuario.id %}">{{ usuario.nombre }} {{ usuario.apellido }}</a></li>
+        {% endfor %}
+    </ul>
+</body>

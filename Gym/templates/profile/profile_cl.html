@@ -1,24 +1,64 @@
-{%load static%}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-    <link rel="stylesheet" href="{% static 'main.css' %}">
+  <title>Perfil del Coach</title>
+  <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
-
 <body>
-
-<body>
-  <div class="card_cn"> <!-- Corregido el error tipográfico "clas" por "class" -->
+  <div class="card_cn">
     <div class="card_one">
-      <p>Texto de ejemplo que describe la carta.</p>
-      <button class="button">editar</button>
-      <button class="button">eliminar cuenta</button>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if user %}
+        <h2>Información del Usuario</h2>
+        <p>Documento: {{ user.documento }}</p>
+        <p>Nombre: {{ user.nombre }}</p>
+        <p>Apellido: {{ user.apellido }}</p>
+        <p>Edad: {{ user.edad }}</p>
+        <p>Género: {{ user.genero }}</p>
+        <p>Teléfono: {{ user.telefono }}</p>
+        <p>Correo: {{ user.correo }}</p>
+        <p>Dirección: {{ user.direccion }}</p>
+        <p>Intereses: {{ user.intereses }}</p>
+        <h3>Eliminar Usuario</h3>
+        <form action="{% url 'eliminar_user' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="documento" value="{{ user.documento }}">
+          <button type="submit" name="eliminar_usuario" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">Eliminar Usuario</button>
+        </form>
+        <h3>Actualizar Información del Usuario</h3>
+        <form action="{% url 'actualizar_user' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="documento" value="{{ user.documento }}">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" value="{{ user.nombre }}" required>
+          <label for="apellido">Apellido:</label>
+          <input type="text" id="apellido" name="apellido" value="{{ user.apellido }}" required>
+          <button type="submit" class="button">Actualizar Información</button>
+        </form>
+        <a href="{% url 'regresar' pagina_anterior=request.META.HTTP_REFERER %}">Regresar</a>
+      {% else %}
+        <h2>Ingrese el ID del Usuario</h2>
+        <form action="{% url 'buscar_user' %}" method="post">
+          {% csrf_token %}
+          <label for="documento">Documento del Usuario:</label>
+          <input type="text" id="documento" name="documento" required>
+          <button class="button" type="submit">Mostrar información del Usuario</button>
+        </form>
+      {% endif %}
     </div>
   </div>
 </body>
-
 </html>
+
+
+
