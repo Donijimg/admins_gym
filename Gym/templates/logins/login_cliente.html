@@ -1,48 +1,20 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>login cliente</title>
-  <link rel="stylesheet" href="{% static 'login_cliente.css' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Cliente</title>
 </head>
-
 <body>
-  <main>
-    <form action="{% url 'login_cl' %}" method="post">
-      <div class="container">
-        <div class="bloquesito">
-          {% csrf_token %}
-          <div>
-            <label>Usuario:<input type="text" id="nombre" name="nombre" placeholder="Usuario" required
-               ></label> <br>
-            <label>Contraseña<input type="password" id="Contrasena" name="Contrasena" required
-               ></label><br>
-
-          </div>
-          <select name="Rol" id="">Rol
-            <option value="admin">admin</option>
-            <option value="entrenador">entrenador</option>
-            <option value="cliente">cliente</option>
-          </select>
-          <br>
-          <label>Recoradar datos:<input id="datos" name="datos" type="checkbox" checked></label>
-          <br>
-          <label><a href="reset-password.html">¿Olvidaste tu contraseña?</a></label>
-          <br>
-          <a href="SignUp.html">Registrar</a>
-          <br>
-          <button type="submit" class="button">Iniciar Sesion</button>
-        </div>
-      </div>
+    <h1>Login Cliente</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="nombre" placeholder="Nombre">
+        <input type="password" name="contrasena" placeholder="Contraseña">
+        <button type="submit">Iniciar sesión</button>
     </form>
-  </main>
+    {% if error %}
+        <p>Error: Las credenciales son inválidas. Por favor, inténtalo de nuevo.</p>
+    {% endif %}
 </body>
-
 </html>

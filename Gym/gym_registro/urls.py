@@ -31,23 +31,14 @@ urlpatterns = [
     path('welcome_en/', views.welcome_en, name='welcome_en'),
     path('welcome_cl/', views.welcome_cl, name='welcome_cl'),
     
-   
-    # path('inscribirse/<str:especializacion>/<int:id>/', views.inscribirse, name='inscribirse'),
+
+
+  path('especializaciones/<int:type_id>/',views.especializaciones, name='especializaciones'),
+  path('especializacion_detalle/<int:coach_id>/', views.especializacion_detalle, name='especializacion_detalle'),
 
 
 
-    path('clientes_fitness/', views.list_clientes_fitness, name='list_clientes_fitness'),
-
-
-    path('detalle_cliente_fitness/<int:inscripcion>/', views.detalle_cliente_fitness, name='detalle_cliente_fitness'),
-
-  #vistas para admin
-    path('admin_list_fitness/', views.list_all_fitness, name='list_all_fitness'),
-    path('admin_list_pilates/', views.list_all_pilates, name='list_all_pilates'),
-    path('admin_list_rehabilitacion/', views.list_all_rehabilitacion, name='list_all_rehabilitacion'),
-    path('admin_list_mayores/', views.list_all_mayores, name='list_all_mayores'),
-    path('admin_list_yoga/', views.list_all_yoga, name='list_all_yoga'),
-    path('admin_list_gimnacia/', views.list_all_gimnacia, name='list_all_gimnacia'),
+  #  path('inscribir_user/<int:coach_id>/', views.inscribir_user, name='inscribir_user'),
 
 
 
@@ -88,41 +79,7 @@ urlpatterns = [
 
       
   
-    
-    path('list_clientes_fitness/', views.list_clientes_fitness, name='list_clientes_fitness'),
-    path('list_clientes_pilates/', views.list_clientes_pilates, name='list_clientes_pilates'),
-    path('list_clientes_rehabilitacion/', views.list_clientes_rehabilitacion, name='list_clientes_rehabilitacion'),
-    path('list_clientes_mayores/', views.list_clientes_mayores, name='list_clientes_mayores'),
-    path('list_clientes_yoga/', views.list_clientes_yoga, name='list_clientes_yoga'),
-    path('list_clientes_gimnacia/', views.list_clientes_fitness, name='list_clientes_gimnacia'),
 
-    path('detalle_inscripcion_fitness/<int:coach_id>/', views.detalle_inscripcion_fitness, name='detalle_inscripcion_fitness'),
-    path('detalle_inscripcion_fitness/<int:coach_id>/', views.detalle_inscripcion_fitness, name='detalle_inscripcion_fitness'),
-    path('detalle_inscripcion_fitness/<int:coach_id>/', views.detalle_inscripcion_fitness, name='detalle_inscripcion_fitness'),
-    path('detalle_inscripcion_fitness/<int:coach_id>/', views.detalle_inscripcion_fitness, name='detalle_inscripcion_fitness'),
-    path('detalle_inscripcion_fitness/<int:coach_id>/', views.detalle_inscripcion_fitness, name='detalle_inscripcion_fitness'),
-    path('detalle_inscripcion_fitness/<int:coach_id>/', views.detalle_inscripcion_fitness, name='detalle_inscripcion_fitness'),
-
-  # vistas para clientes
-    path('index/list/coachs/fitness/', views.list_coachs_fitness, name='list_coachs_fitness'),
-    path('detalle/entrenador/fitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_fitness, name='detalle_coachs_fitness'),
-          
-    path('index/list/coachs/rehabilitacion/', views.list_coachs_rehabilitacion, name='list_coachs_rehabilitacion'),
-    path('detalle/entrenador/rehabilitacionfitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_rehabilitacion, name='detalle_coachs_rehabilitacion'),
-
-
-    path('index/list/coachs/pilates/', views.list_coachs_pilates, name='list_coachs_pilates'),
-    path('detalle/entrenador/pilatesfitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_pilates, name='detalle_coachs_pilates'),
-
-
-    path('index/list/coachs/gimnasia/', views.list_coachs_gimnasia, name='list_coachs_gimnasia'),
-    path('detalle/entrenador/gimnasiafitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_gimnasia, name='detalle_coachs_gimnasia'),
-
-    path('index/list/coachs/yoga/', views.list_coachs_yoga, name='list_coachs_yoga'),
-    path('detalle/entrenador/yogafitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_yoga, name='detalle_coachs_yoga'),
-
-    path('index/list/coachs/mayores/', views.list_coachs_mayores, name='list_coachs_mayores'),
-    path('detalle/entrenador/mayoresfitness/<str:especialization>/<int:coach_id>/', views.detalle_coachs_mayores, name='detalle_coachs_mayores'),
 
 
 

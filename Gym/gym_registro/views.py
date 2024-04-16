@@ -1,10 +1,10 @@
 from django.shortcuts import render,get_object_or_404,redirect
 # from django.http import HttpResponse
-from .forms import SignupAdmin,SignupCoach,SignupUser,InscripcionUser
+from .forms import SignupAdmin,SignupCoach,SignupUser, LoginFormAdmin
 from .models import Admin,Coach,User,Inscripcion
 from django.contrib import messages
 # from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 # from django.http import HttpResponseRedirect
 
 def signup_opcion(request):
@@ -57,12 +57,9 @@ def welcome_cl(request):
 def logeado_ad(request):
     coachs = Coach.objects.all()
     clientes = User.objects.all()
-    
+  
     # Renderizar la plantilla 'logeado/logeado_en.html' con los entrenadores en el contexto
     return render(request, 'logeado_ad/logeado_ad.html', {'coachs': coachs, 'clientes': clientes})
-
-
-
 
 def logeado_en(request):
     # Obtener todos los entrenadores de la base de datos
@@ -71,67 +68,58 @@ def logeado_en(request):
     # Renderizar la plantilla 'logeado/logeado_en.html' con los entrenadores en el contexto
     return render(request, 'logeado_en/logeado_en.html', {'clientes': clientes,'coachs': coachs,})
 
-
-
 def logeado_cl(request):
   coachs = Coach.objects.all()
   # Renderizar la plantilla 'logeado/logeado_en.html' con los entrenadores en el contexto
   return render(request, 'logeado_cl/logeado_cl.html', {'coachs': coachs})
-    
-    
+
+
+
+
+
 
 def login_ad(request):
     if request.method == 'POST':
-        identificacion_propietario = request.POST.get('identificacion_propietario')
-        contrasena_admin = request.POST.get('contrasena_admin')
+        form = LoginFormAdmin(request.POST)
+        if form.is_valid():
+            identificacion_propietario = form.cleaned_data['identificacion_propietario']
+            contrasena_admin = form.cleaned_data['contrasena_admin']
 
+            # Autenticar al administrador
+            admin = authenticate(request, identificacion_propietario=identificacion_propietario, contrasena_admin=contrasena_admin)
+            if admin is not None:
+                login(request, admin)
+                return redirect('logeado_ad')
+            else:
+                form.add_error(None, 'Las credenciales son inválidas. Por favor, inténtalo de nuevo.')
+    else:
+        form = LoginFormAdmin()
 
-        user = authenticate(identificacion_propietario=identificacion_propietario, contrasena_admin=contrasena_admin)
-        
-        if user is not None:
-
-            # login(request, user)
-            return redirect('logeado_ad') 
-        else:
-
-            return render(request, 'logins/login_administrador.html', {'error': True})
-
-    return render(request, 'logins/login_administrador.html', {})
-
+    return render(request, 'logins/login_administrador.html', {'form': form})
 
 def login_en(request):
     if request.method == 'POST':
         documento = request.POST.get('documento')
         contrasena = request.POST.get('contrasena')
-
-        # Verificar las credenciales del entrenador
-        try:
-            coach = Coach.objects.get(documento=documento, contrasena=contrasena)
-            # Si las credenciales son válidas, renderizar la página de bienvenida
+        coach = authenticate(request, documento=documento, contrasena=contrasena)
+        if coach is not None:
             return render(request, 'welcome/welcome_en.html')
-        except Coach.DoesNotExist:
-            # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
+        else:
             return render(request, 'logins/login_entrenador.html', {'error': True})
-
-    return render(request, 'logins/login_entrenador.html', {})
-
-
+    return render(request, 'logins/login_entrenador.html')
 
 def login_cl(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         contrasena = request.POST.get('contrasena')
-
-        # Verificar las credenciales del cliente
-        try:
-            user = User.objects.get(nombre=nombre, contrasena=contrasena)
-            # Si las credenciales son válidas, se puede redirigir o mostrar un mensaje de éxito
+        user = authenticate(request, nombre=nombre, contrasena=contrasena)
+        if user is not None:
             return render(request, 'welcome/welcome_cl.html')
-        except User.DoesNotExist:
-            # Si las credenciales son inválidas, puedes mostrar un mensaje de error o renderizar nuevamente el formulario de inicio de sesión
+        else:
             return render(request, 'logins/login_cliente.html', {'error': True})
 
-    return render(request, 'logins/login_cliente.html', {})
+    return render(request, 'logins/login_cliente.html')
+
 
 
 def index(request):
@@ -145,199 +133,48 @@ def profile_cl(request):
 def galeria_ver(request):
     return render(request, 'galeria_ver.html', {})
 
-#vista del adminisitrador lista entrenadores y clientes 
- 
-def list_all_fitness(request):
-    coachs_fitness = Coach.objects.filter(especializacion='Fitness')
-    inscripciones_fitness = Inscripcion.objects.filter(inscripcion='Fitness')
-    usuarios_fitness = [inscripcion.usuario for inscripcion in inscripciones_fitness]
-    return render(request, 'list/views_admin/list_all_fitness.html', {'coachs_fitness': coachs_fitness, 'usuarios_fitness': usuarios_fitness})
 
-def list_all_pilates(request):
-    coachs_pilates = Coach.objects.filter(especializacion='Pilates')
-    inscripciones_pilates = Inscripcion.objects.filter(inscripcion='Pilates')
-    usuarios_pilates = [inscripcion.usuario for inscripcion in inscripciones_pilates]
-    return render(request, 'list/views_admin/list_all_pilates.html', {'coachs_pilates': coachs_pilates, 'usuarios_pilates': usuarios_pilates})
 
-def list_all_rehabilitacion(request):
-    coachs_rehabilitacion = Coach.objects.filter(especializacion='Rehabilitacion fisica')
-    inscripciones_rehabilitacion = Inscripcion.objects.filter(inscripcion='Rehabilitacion fisica')
-    usuarios_rehabilitacion = [inscripcion.usuario for inscripcion in inscripciones_rehabilitacion]
-    return render(request, 'list/views_admin/list_all_rehabilitacion.html', {'coachs_rehabilitacion': coachs_rehabilitacion, 'usuarios_rehabilitacion': usuarios_rehabilitacion})
+def especializaciones(request, type_id):
+    # Filtrar los objetos de Coach por typo_id
+    especializaciones = Coach.objects.filter(typo_id=type_id)
 
-def list_all_mayores(request):
-    coachs_mayores = Coach.objects.filter(especializacion='Plan para mayores')
-    inscripciones_mayores = Inscripcion.objects.filter(inscripcion='Plan para mayores')
-    usuarios_mayores = [inscripcion.usuario for inscripcion in inscripciones_mayores]
-    return render(request, 'list/views_admin/list_all_mayores.html', {'coachs_mayores': coachs_mayores, 'usuarios_mayores': usuarios_mayores})
+    # Renderizar la plantilla con los objetos filtrados
+    return render(request, 'list/views_coachs/especializaciones.html', {'especializaciones': especializaciones})
 
-def list_all_yoga(request):
-    coachs_yoga = Coach.objects.filter(especializacion='Yoga')
-    inscripciones_yoga = Inscripcion.objects.filter(inscripcion='Yoga')
-    usuarios_yoga = [inscripcion.usuario for inscripcion in inscripciones_yoga]
-    return render(request, 'list/views_admin/list_all_yoga.html', {'coachs_yoga': coachs_yoga, 'usuarios_yoga': usuarios_yoga})
 
-def list_all_gimnacia(request):
-    coachs_fitness = Coach.objects.filter(especializacion='Gimnacia')
-    inscripciones_fitness = Inscripcion.objects.filter(inscripcion='Gimnacia')
-    usuarios_fitness = [inscripcion.usuario for inscripcion in inscripciones_fitness]
-    return render(request, 'list/views_admin/list_all_gimnacia.html', {'coachs_fitness': coachs_fitness, 'usuarios_fitness': usuarios_fitness})
+def especializacion_detalle(request, coach_id):
+    coach = get_object_or_404(Coach, id=coach_id)
+    user = None  # Define user como None, ya que no está disponible en esta vista
+    coaches = Coach.objects.all()
+    return render(request, 'list/views_coachs/especializacion_detalle.html', {'coach': coach, 'user': user, 'coaches': coaches})
 
 
 
+# from django.http import HttpResponse
 
-#vistas para listar clientes para entrenadores
+# def inscribir_user(request, user_id):
+#     if request.method == 'POST':
+#         documento = request.POST.get('documento')
+#         user = get_object_or_404(User, id=user_id)
+#         coach_id = request.POST.get('coach_id')
+#         coach = get_object_or_404(Coach, id=coach_id)
+        
+#         # Aquí deberías implementar la lógica para inscribir al usuario en el coach
+#         # Por ejemplo, podrías crear una nueva instancia de Inscripcion y guardarla en la base de datos
+#         # Esto es solo un ejemplo, ajusta la lógica según sea necesario
+#         inscripcion = Inscripcion.objects.create(usuario=user, entrenador=coach, documento=documento)
+#         inscripcion.save()
+        
+#         # Cambiar el retorno a HttpResponse
+#         return HttpResponse('Inscripción exitosa')
 
-def list_clientes_fitness(request):
-    inscripciones_fitness = Inscripcion.objects.filter(inscripcion='Fitness')
-    usuarios_fitness = [inscripcion.usuario for inscripcion in inscripciones_fitness]
-    return render(request, 'list/views_coachs/list_clientes_fitness.html', {'usuarios_fitness': usuarios_fitness}) 
-
-def detalle_cliente_fitness(request, inscripcion):
-    usuario = get_object_or_404(User, id=inscripcion)  # Suponiendo que 'Usuario' es el modelo para tus clientes de fitness
-    return render(request, 'list/views_coachs/detalle_cliente_fitness.html', {'usuario': usuario})
-
-def list_clientes_pilates(request):
-    inscripciones_pilates = Inscripcion.objects.filter(inscripcion='Pilates')
-    usuarios_piltes = [inscripcion.usuario for inscripcion in inscripciones_pilates]
-    return render(request, 'list/views_coachs/list_clientes_gimnacia.html', {'usuarios_piltes': usuarios_piltes})
-
-def list_clientes_rehabilitacion(request):
-    inscripciones_rehabilitacion = Inscripcion.objects.filter(inscripcion='Rehabilitacion fisica')
-    usuarios_rehabilitacion = [inscripcion.usuario for inscripcion in inscripciones_rehabilitacion]
-    return render(request, 'list/views_coachs/list_clientes_rehabilitacion.html', {'usuarios_rehabilitacion': usuarios_rehabilitacion})
-
-
-def list_clientes_mayores(request):
-    inscripciones_mayores = Inscripcion.objects.filter(inscripcion='Plan para mayores')
-    usuarios_mayores = [inscripcion.usuario for inscripcion in inscripciones_mayores]
-    return render(request, 'list/views_coachs/list_clientes_mayores.html', {'usuarios_mayores': usuarios_mayores})
-
-def list_clientes_yoga(request):
-    inscripciones_yoga = Inscripcion.objects.filter(inscripcion='Yoga')
-    usuarios_yoga = [inscripcion.usuario for inscripcion in inscripciones_yoga]
-    return render(request, 'list/views_coachs/list_clientes_yoga.html', {'usuarios_yoga': usuarios_yoga})
-
-def list_clientes_gimnacia(request):
-    inscripciones_gimnacia = Inscripcion.objects.filter(inscripcion='Gimnacia')
-    usuarios_gimnacia = [inscripcion.usuario for inscripcion in inscripciones_gimnacia]
-    return render(request, 'list/views_coachs/list_clientes_gimnacia.html', {'usuarios_gimnacia': usuarios_gimnacia})
-
-
-
-
-
-def detalle_inscripcion_gimnacia(request, usuario_id):
-    usuario = get_object_or_404(User, pk=usuario_id)
-    inscripcion = Inscripcion.objects.get(usuario=usuario)
-    return render(request, 'detalle_inscripcion_gimnacia.html', {'inscripcion': inscripcion})
-
-
-def detalle_inscripcion_mayores(request, usuario_id):
-    usuario = get_object_or_404(User, pk=usuario_id)
-    inscripcion = Inscripcion.objects.get(usuario=usuario)
-    return render(request, 'detalle_inscripcion_mayores.html', {'inscripcion': inscripcion})
-
-
-def detalle_inscripcion_fitness(request, usuario_id):
-    usuario = get_object_or_404(User, pk=usuario_id)
-    inscripcion = Inscripcion.objects.get(usuario=usuario)
-    return render(request, 'detalle_inscripcion_fitness.html', {'inscripcion': inscripcion})
-
-
-def detalle_inscripcion_pilates(request, usuario_id):
-    usuario = get_object_or_404(User, pk=usuario_id)
-    inscripcion = Inscripcion.objects.get(usuario=usuario)
-    return render(request, 'detalle_inscripcion_pilates.html', {'inscripcion': inscripcion})
-
-
-def detalle_inscripcion_rehabilitacion(request, usuario_id):
-    usuario = get_object_or_404(User, pk=usuario_id)
-    inscripcion = Inscripcion.objects.get(usuario=usuario)
-    return render(request, 'detalle_inscripcion_rehabilitacion.html', {'inscripcion': inscripcion})
-
-
-
-def detalle_inscripcion_yoga(request, usuario_id):
-    usuario = get_object_or_404(User, pk=usuario_id)
-    inscripcion = Inscripcion.objects.get(usuario=usuario)
-    return render(request, 'detalle_inscripcion_yoga.html', {'inscripcion': inscripcion})
-
-#vistas para listar entrenadores para clientes
-# En views.py
-
-
-def detalle_coachs_fitness(request, especialization, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
-
-    if request.method == 'POST':
-        inscripcion_form = InscripcionUser(request.POST)
-        if inscripcion_form.is_valid():
-            # Guarda la inscripción del usuario
-            inscripcion_form.save()
-            # Redirige a donde quieras después de la inscripción
-            return redirect('página_de_inicio')  
-    else:
-        inscripcion_form = InscripcionUser()
-
-    return render(request, 'list/views_cliente/detalle_coachs_fitness.html', {'coach': coach, 'inscripcion_form': inscripcion_form})
-
-
-
-
-def list_coachs_fitness(request, typo_id):
-    coachs_fitness = Coach.objects.filter(especializacion=typo_id)
-    return render(request, 'list/views_cliente/list_coachs_fitness.html', {'coachs_fitness': coachs_fitness})
-
-
-def detalle_coachs_fitness(request, especialization, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
-    return render(request, 'list/views_cliente/detalle_coachs_fitness.html', {'coach': coach})
-
-
-def list_coachs_pilates(request):
-    coachs_fitness = Coach.objects.filter(especializacion='Pilates')
-    return render(request, 'list/views_cliente/list_coachs_pilates.html', {'coachs_fitness': coachs_fitness})
-
-def detalle_coachs_pilates(request, especialization, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
-    return render(request, 'list/views_cliente/detalle_coachs_pilates.html', {'coach': coach})
-
-def list_coachs_rehabilitacion(request):
-    coachs_rehabilitacion = Coach.objects.filter(especializacion='Rehabilitacion fisica')
-    return render(request, 'list/views_cliente/list_coachs_rehabilitacion.html', {'coachs': coachs_rehabilitacion})
-
-def detalle_coachs_rehabilitacion(request, especialization, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
-    return render(request, 'list/views_cliente/detalle_coachs_rehabilitacion.html', {'coach': coach})
-
-def list_coachs_mayores(request):
-    coachs_mayores = Coach.objects.filter(especializacion='Plan para mayores')
-    return render(request, 'list/views_cliente/list_coachs_mayores.html', {'coachs_mayores': coachs_mayores})
-
-def detalle_coachs_mayores(request, especialization, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
-    return render(request, 'list/views_cliente/detalle_coachs_mayores.html', {'coach': coach})
-
-def list_coachs_yoga(request):
-    coachs_yoga = Coach.objects.filter(especializacion='Yoga')
-    return render(request, 'list/views_cliente/list_coachs_yoga.html', {'coachs_yoga': coachs_yoga})
-
-def detalle_coachs_yoga(request, especialization, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
-    return render(request, 'list/views_cliente/detalle_coachs_yoga.html', {'coach': coach})
-
-def list_coachs_gimnasia(request):
-    coachs_gimnasia = Coach.objects.filter(especializacion='Gimnasia')
-    return render(request, 'list/views_cliente/list_coachs_gimnasia.html', {'coachs_gimnasia': coachs_gimnasia})
-
-def detalle_coachs_gimnasia(request, especialization, coach_id):
-    coach = get_object_or_404(Coach, pk=coach_id, especializacion=especialization)
-    return render(request, 'list/views_cliente/detalle_coachs_gimnasia.html', {'coach': coach})
-
-
-
-
+#     else:
+#         user = get_object_or_404(User, id=user_id)
+#         coaches = Coach.objects.all()  # Obtener todos los coaches disponibles
+        
+#         # Cambiar el retorno a render con la plantilla correspondiente
+#         return render(request, 'list/views_coachs/especializacion_detalle.html', {'user': user, 'coaches': coaches})
 
 
 
@@ -476,7 +313,7 @@ def buscar_coach(request):
     if request.method == 'POST':
         ficha_de_ingreso = request.POST.get('ficha_de_ingreso')
         coach = Coach.objects.filter(ficha_de_ingreso=ficha_de_ingreso).first()
-        print(coach)
+
         if coach:
             return render(request, 'profile/profile_en.html', {'coach': coach})
         else:
@@ -527,7 +364,6 @@ def actualizar_coach(request):
 #                                                                                                                                                                          #
 # =========================================================================================================================================================================#
 
-
 def eliminar_user(request):
     if request.method == 'POST':
         documento = request.POST.get('documento')
@@ -540,25 +376,23 @@ def eliminar_user(request):
         return redirect('index')
     return redirect('index')
 
-
 def buscar_user(request):
     if request.method == 'POST':
         documento = request.POST.get('documento')
-        user = User.objects.filter(documento=documento).first()
-        print(user)
-        if user:
+        try:
+            user = User.objects.get(documento=documento)
+            print('no existe')
             return render(request, 'profile/profile_cl.html', {'user': user})
-        else:
+        except User.DoesNotExist:
+            
             messages.error(request, 'No se encontró ningún usuario con el documento proporcionado.')
-            return render(request, 'profile/profile_cl.html')
+            return redirect('buscar_user')
     else:
-        return render(request, 'profile/profile_cl.html')
+        # Proporcionar un contexto con un diccionario vacío cuando no se haya enviado ningún formulario
+        return render(request, 'profile/profile_cl.html', {})
 
 
 
-
-def ingresar_user(request):
-    return render(request, 'profile/profile_cl.html')
 
 
 def actualizar_user(request):
@@ -569,7 +403,6 @@ def actualizar_user(request):
             user.nombre = request.POST.get('nombre')
             user.apellido = request.POST.get('apellido')
             # Actualiza otros campos de manera similar
-
             user.save()
             messages.success(request, 'Información del usuario actualizada correctamente.')
             return redirect('index')
@@ -579,15 +412,8 @@ def actualizar_user(request):
     else:
         return render(request, 'profile/profile_cl.html')
 
-
-
-
-
-
-
-
-
-
+def ingresar_user(request):
+    return render(request, 'profile/profile_cl.html')
 
 
 

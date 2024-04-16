@@ -1,28 +1,16 @@
-<!-- login_administrador.html -->
-<main>
-  <form action="{% url 'login_ad' %}" method="post">
-    {% csrf_token %}
-    <input type="hidden" name="rol" value="admin"> <!-- Campo oculto para indicar que es un inicio de sesión de administrador -->
-    <div class="container">
-      <div class="bloquesito">
-        <div>
-          {% if error %}
-            <p class="error-message">Las credenciales de inicio de sesión son inválidas. Por favor, inténtalo de nuevo.</p>
-          {% endif %}
-          <label for="identificacion_propietario">Identificación del Propietario:
-            <input type="text" id="identificacion_propietario" name="identificacion_propietario" placeholder="Identificación del Propietario" maxlength="20" class="input_uni" required>
-          </label><br>
-          <label for="contrasena_admin">Contraseña de Administrador:
-            <input type="password" placeholder="Contraseña de Administrador" id="contrasena_admin" maxlength="40" class="input_uni" name="contrasena_admin" required>
-          </label>
-        </div>
-        <br>
-        <label>Recoradar datos:<input id="datos" name="datos" type="checkbox" checked></label>
-        <br>
-        <label><a href="reset-password.html">¿Olvidaste tu contraseña?</a></label>
-        <br>
-        <button type="submit" class="button">Iniciar Sesión</button>
-      </div>
-    </div>
-  </form>
-</main>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrador</title>
+</head>
+<body>
+    <h1>Login Administrador</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Iniciar sesión</button>
+    </form>
+</body>
+</html>
