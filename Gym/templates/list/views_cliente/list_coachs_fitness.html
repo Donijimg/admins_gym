@@ -10,7 +10,7 @@
 <body>
   <h1>Lista de Entrenadores</h1>
   <ul>
-    {% for coach in coachs %}
+    {% for coach in coachs_fitness %}
     <a href="{% url 'detalle_coachs_fitness' especialization='Fitness' coach_id=coach.id %}">{{coach.nombre }}</a>
     {% endfor %}
   </ul>

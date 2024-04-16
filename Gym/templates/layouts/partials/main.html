@@ -18,39 +18,61 @@
     <div class="carrusel__lista">
       <div class="container_miniimagen">
         <div class="miniimagen">
-          <i class="fa-solid fa-dumbbell fa-2x" style="color: #db0e0e;"></i>
+          <i class="fa-solid fa-dumbbell fa-2x" style="color: #db0e0e;"  data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
         </div><i>fitness</i>
       </div>
       <div class="container_miniimagen">
         <div class="miniimagen">
-          <i class="fa-solid fa-person-biking fa-2x" style="color: #db0e0e;"></i>
+          <i class="fa-solid fa-person-biking fa-2x" style="color: #db0e0e;"  data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
         </div><i>Pilates</i>
       </div>
       <div class="container_miniimagen">
         <div class="miniimagen">
-          <i class="fa-solid fa-wheelchair fa-2x" style="color: #db0e0e;"></i>
+          <i class="fa-solid fa-wheelchair fa-2x" style="color: #db0e0e;"  data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
         </div><i>rehabilitacion física</i>
       </div>
       <div class="container_miniimagen">
         <div class="miniimagen">
-          <i class="fa-solid fa-person-cane fa-2x" style="color: #db0e0e;"></i>
+          <i class="fa-solid fa-person-cane fa-2x" style="color: #db0e0e;"  data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
         </div><i>plan para mayores</i>
       </div>
       <div class="container_miniimagen">
         <div class="miniimagen">
-          <i class="fa-solid fa-hands-praying fa-2x" style="color: #db0e0e;"></i>
+          <i class="fa-solid fa-hands-praying fa-2x" style="color: #db0e0e;"  data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
         </div><i>yoga</i>
       </div>
       <div class="container_miniimagen">
         <div class="miniimagen">
-          <i class="fa-solid fa-person-running fa-2x" style="color: #db0e0e;"></i>
+          <i class="fa-solid fa-person-running fa-2x" style="color: #db0e0e;"  data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
         </div><i>gimnasia</i>
       </div>
-      <div class="container_miniimagen">
-        <div class="miniimagen">
-          <i class="fa-solid fa-carrot fa-2x" style="color: #db0e0e;"></i>
-        </div><i>plan de nutricion</i>
-      </div>
+
     </div>
   </div>
 </section>
+
+
+<!-- Button trigger modal -->
+
+
+{% comment %} coach uno a muchas espezilizacion una a muchos resultante muchos a uno user {% endcomment %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a  href="{% url 'signup_opcion' %}">Sign Up</a>
+        <a  href="{% url 'login_opcion' %}">Log In</a>
+      </div>
+    </div>
+  </div>
+</div>

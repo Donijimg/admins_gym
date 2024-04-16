@@ -48,7 +48,6 @@
           <button type="submit"class="button">Actualizar Información</button>
         </form>
 
-        <a href="{% url 'regresar' pagina_anterior=request.META.HTTP_REFERER %}">Regresar</a>
       {% else %}
         <h2>Ingrese la Identificación del Propietario</h2>
         <form action="{% url 'buscar_admin' %}" method="post">

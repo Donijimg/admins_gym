@@ -48,10 +48,10 @@
           <input type="text" id="apellido" name="apellido" value="{{ coach.apellido }}" required>
           <button type="submit" class="button">Actualizar Información</button>
         </form>
-        <a href="{% url 'regresar' pagina_anterior=request.META.HTTP_REFERER %}">Regresar</a>
+
       {% else %}
         <h2>Ingrese la Ficha de Ingreso del Coach</h2>
-        <form action="{% url 'buscar_coach' %}" method="post">
+        <form action="{% url 'buscar_coach' %}" method="get">
           {% csrf_token %}
           <label for="ficha_de_ingreso">Ficha de Ingreso:</label>
           <input type="text" id="ficha_de_ingreso" name="ficha_de_ingreso" required>

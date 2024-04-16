@@ -285,8 +285,8 @@ def detalle_coachs_fitness(request, especialization, coach_id):
 
 
 
-def list_coachs_fitness(request):
-    coachs_fitness = Coach.objects.filter(especializacion='Fitness')
+def list_coachs_fitness(request, typo_id):
+    coachs_fitness = Coach.objects.filter(especializacion=typo_id)
     return render(request, 'list/views_cliente/list_coachs_fitness.html', {'coachs_fitness': coachs_fitness})
 
 
@@ -386,8 +386,7 @@ def mostrar_mensaje(request, tipo):
     mensaje = 'Entrenador eliminado exitosamente.' if tipo == 'exito' else 'No se encontró ningún entrenador con el documento proporcionado.'
     return render(request, 'list/views_admin/mostrar_mensaje.html', {'mensaje': mensaje, 'tipo': tipo})
 
-def regresar(request, pagina_anterior):
-    return redirect(pagina_anterior)
+
 
 
 
@@ -477,6 +476,7 @@ def buscar_coach(request):
     if request.method == 'POST':
         ficha_de_ingreso = request.POST.get('ficha_de_ingreso')
         coach = Coach.objects.filter(ficha_de_ingreso=ficha_de_ingreso).first()
+        print(coach)
         if coach:
             return render(request, 'profile/profile_en.html', {'coach': coach})
         else:
@@ -545,6 +545,7 @@ def buscar_user(request):
     if request.method == 'POST':
         documento = request.POST.get('documento')
         user = User.objects.filter(documento=documento).first()
+        print(user)
         if user:
             return render(request, 'profile/profile_cl.html', {'user': user})
         else:

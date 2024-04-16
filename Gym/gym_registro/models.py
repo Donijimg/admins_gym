@@ -11,9 +11,6 @@ class Admin(models.Model):
     telefono = models.CharField(max_length=10, blank=False, null=False)
     direccion = models.CharField(max_length=100, blank=False, null=False)  
 
-    def __str__(self):
-        return f"{self.identificacion_propietario} {self.documento}"
-
 class Coach(models.Model):
     documento = models.CharField(max_length=10, blank=True, null=True) 
     nombre = models.CharField(max_length=15, blank=False, null=False)
@@ -72,11 +69,6 @@ class Inscripcion(models.Model):
     inscripcion = models.CharField(max_length=20, blank=True, null=True)
     entrenador = models.ForeignKey(Coach, on_delete=models.CASCADE, blank=True, null=True)
     horarios = models.CharField(max_length=20, blank=True, null=True)
-
-
-class historial(models.Model):
-    pago_membresia = models.BooleanField(default=False, null=True)
-    entrenador = models.ForeignKey(Coach, on_delete=models.CASCADE)
 
     
     
