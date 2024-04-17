@@ -27,11 +27,10 @@
             <p>Especialización: {{ coach.especializacion }}</p>
             <p>Horarios: {{ coach.horarios }}</p>
         </div>
-    </div>
-    <div class="card">
-        <h1>Formulario de Inscripción</h1>
-        <!-- Aquí iría el formulario de inscripción -->
-        <a href="{% url 'inscribir_user' %}">Inscripción</a>
-    </div>
+    
+<form action="{% url 'eliminar_coach' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="ficha_de_ingreso" value="{{ coach.ficha_de_ingreso }}">
+          <button type="submit" name="eliminar_coach" onclick="return confirm('¿Estás seguro de que deseas eliminar este coach?')">Eliminar Coach</button></div>
 </body>
 </html>

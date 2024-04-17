@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil del Coach</title>
+  <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+  <div class="card_cn">
+    <div class="card_one">
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      
+      <h2>Ingrese el documento</h2>
+      <form action="{% url 'buscar_user_view' %}" method="post">
+        {% csrf_token %}
+        <label for="documento">Documento:</label>
+        <input type="text" id="documento" name="documento" required>
+        <button class="button" type="submit">Buscar Usuario</button>
+      </form>
+      
+      {% if show_inscripcion_form %}
+        <h1>Información del Usuario</h1>
+        <p>Documento: {{ user.documento }}</p>
+        <p>Nombre: {{ user.nombre }}</p>
+        <p>Apellido: {{ user.apellido }}</p>
+        <p>Correo: {{ user.correo }}</p>
+
+        <h1>Formulario de Solicitud de Cliente</h1>
+        <form action="{% url 'inscribir_user' %}" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Enviar</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
+

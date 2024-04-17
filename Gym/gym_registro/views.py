@@ -1,11 +1,13 @@
 from django.shortcuts import render,get_object_or_404,redirect
-# from django.http import HttpResponse
-from .forms import SignupAdmin,SignupCoach,SignupUser, LoginFormAdmin
-from .models import Admin,Coach,User,Inscripcion
+from .forms import SignupAdmin,SignupCoach,SignupUser,SolicitudesClienteForm
+from .models import Admin,Coach,User,SolicitudesCliente
 from django.contrib import messages
-# from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-# from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
+
+from django.http import HttpResponse
+
+ 
+
 
 def signup_opcion(request):
     return render(request, 'opcions/signup_opcion.html', {})
@@ -77,48 +79,23 @@ def logeado_cl(request):
 
 
 
-
 def login_ad(request):
     if request.method == 'POST':
-        form = LoginFormAdmin(request.POST)
-        if form.is_valid():
-            identificacion_propietario = form.cleaned_data['identificacion_propietario']
-            contrasena_admin = form.cleaned_data['contrasena_admin']
+        try:
+            detalle_usuario = Admin.objects.get(correo=request.POST['correo'], contrasena_admin=request.POST['contrasena_admin'])
+            request.session['correo'] = detalle_usuario.correo
+            return render(request, 'logeado_ad.html')
+        except Admin.DoesNotExist:
+            messages.error(request, 'Correo o contraseña incorrectos.')
+    return render(request, 'logins/login_ad.html')
 
-            # Autenticar al administrador
-            admin = authenticate(request, identificacion_propietario=identificacion_propietario, contrasena_admin=contrasena_admin)
-            if admin is not None:
-                login(request, admin)
-                return redirect('logeado_ad')
-            else:
-                form.add_error(None, 'Las credenciales son inválidas. Por favor, inténtalo de nuevo.')
-    else:
-        form = LoginFormAdmin()
+def cerrar_session(request):
+    try:
+        del request.session['correo']
+    except KeyError:
+        pass
+    return render(request, 'layouts/app.html')
 
-    return render(request, 'logins/login_administrador.html', {'form': form})
-
-def login_en(request):
-    if request.method == 'POST':
-        documento = request.POST.get('documento')
-        contrasena = request.POST.get('contrasena')
-        coach = authenticate(request, documento=documento, contrasena=contrasena)
-        if coach is not None:
-            return render(request, 'welcome/welcome_en.html')
-        else:
-            return render(request, 'logins/login_entrenador.html', {'error': True})
-    return render(request, 'logins/login_entrenador.html')
-
-def login_cl(request):
-    if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        contrasena = request.POST.get('contrasena')
-        user = authenticate(request, nombre=nombre, contrasena=contrasena)
-        if user is not None:
-            return render(request, 'welcome/welcome_cl.html')
-        else:
-            return render(request, 'logins/login_cliente.html', {'error': True})
-
-    return render(request, 'logins/login_cliente.html')
 
 
 
@@ -141,61 +118,89 @@ def especializaciones(request, type_id):
 
     # Renderizar la plantilla con los objetos filtrados
     return render(request, 'views_especializaion/especializaciones.html', {'especializaciones': especializaciones})
-  
-  
-def client(request,user_id):
-    # Filtrar los objetos de Coach por typo_id
-  users = User.objects.filter(user_id=id)
 
-  # Renderizar la plantilla con los objetos filtrados
-  return render(request, 'views_especializaion/cline.html', {'especializaciones': especializaciones})
+
+def ad_coach(request, type_id):
+    # Filtrar los objetos de Coach por typo_id
+    especializaciones = Coach.objects.filter(typo_id=type_id)
+    # Renderizar la plantilla con los objetos filtrados
+    return render(request, 'views_ad/ad_coach.html', {'especializaciones': especializaciones})
+
+def ad_user(request):
+    # Obtener todos los usuarios
+    users = User.objects.all()
+    return render(request, 'profile/ad_user.html', {'users': users})
+
+def user_detail(request, user_id):
+    # Obtener el usuario específico o devolver 404 si no existe
+    user = get_object_or_404(User, id=user_id)
+    return render(request, 'profile/user_detail.html', {'user': user})
 
 
 def especializacion_detalle(request, coach_id):
     coach = get_object_or_404(Coach, id=coach_id)
  # Define user como None, ya que no está disponible en esta vista
-    coaches = Coach.objects.all()
     return render(request, 'views_especializaion/especializacion_detalle.html', {'coach': coach})
 
 
+def eliminar_detalle(request, coach_id):
+    coach = get_object_or_404(Coach, id=coach_id)
+ # Define user como None, ya que no está disponible en esta vista
+    coaches = Coach.objects.all()
+    return render(request, 'views_ad/eliminar_detalle.html', {'coach': coach})
 
-from django.http import HttpResponse
 
-def inscribir_user(request, user_id):
+
+
+def inscribir_user(request):
+    if request.method == 'POST':
+        form = SolicitudesClienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            # Obtener los datos del usuario
+            documento = request.POST.get('documento')
+            nombre = request.POST.get('nombre')
+            apellido = request.POST.get('apellido')
+            # Obtener otros campos del usuario de manera similar
+
+            # Enviar correo electrónico con los datos del usuario y del formulario
+            subject = 'Nueva solicitud de cliente'
+            message = f'Solicitud de cliente:\n\nDocumento: {documento}\nNombre: {nombre}\nApellido: {apellido}\n\n{form.cleaned_data}'
+            sender_email = 'dojigo555@gmail.com'
+            recipient_list = ['dojigo555@gmail.com', 'otracorreo@email.com']
+            send_mail(subject, message, sender_email, recipient_list)
+
+            messages.success(request, 'Tu solicitud ha sido enviada correctamente.')
+            return redirect('logeado_cl')  # Redirige a la página de perfil del coach o a donde necesites
+        else:
+            messages.error(request, 'Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo.')
+    else:
+        form = SolicitudesClienteForm()
+        return render(request,'views_especializaion/inscripciones.html', {'form': form} )
+    
+
+
+
+
+
+
+def buscar_user_view(request):
+    show_inscripcion_form = False
+    
     if request.method == 'POST':
         documento = request.POST.get('documento')
-        user = get_object_or_404(User, id=user_id)
-        coach_id = request.POST.get('coach_id')
-        coach = get_object_or_404(Coach, id=coach_id)
+        user = Coach.objects.filter(documento=documento).first()
 
-
-        inscripcion = Inscripcion.objects.create(usuario=user, entrenador=coach, documento=documento)
-        inscripcion.save()
-        
-        # Cambiar el retorno a HttpResponse
-        return HttpResponse('Inscripción exitosa')
-
+        if user:
+            show_inscripcion_form = True
+            return render(request, 'views_especializaion/inscripciones.html', {'user': user, 'show_inscripcion_form': show_inscripcion_form})
+        else:
+            messages.error(request, 'No se encontró ningún coach con el documento proporcionado.')
+            return render(request, 'views_especializaion/inscripciones.html', {'show_inscripcion_form': show_inscripcion_form})
     else:
-          user = get_object_or_404(User, id=user_id)
-          coaches = Coach.objects.all()  # Obtener todos los coaches disponibles
-          
-          # Pasar el objeto User a la plantilla en el contexto
-          return render(request, 'list/views_coachs/especializacion_detalle.html', {'user': user, 'coaches': coaches, 'user_id': user_id})
+        return render(request, 'views_especializaion/inscripciones.html', {'show_inscripcion_form': show_inscripcion_form})
 
-
-
-
-
-
-def inscripcion(request):
-  user 
-  return render(request, 'views_especializaion/inscipcions.html', {})
-
-
-
-
-
-# En tus vistas
 
 
 

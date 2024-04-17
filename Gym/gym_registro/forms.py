@@ -1,6 +1,30 @@
 # forms.py
 from django import forms
-from .models import Admin, Coach, User
+from .models import Admin, Coach, User,SolicitudesCliente
+from django.core.mail import send_mail
+
+
+class SolicitudesClienteForm(forms.ModelForm):
+    class Meta:
+        model = SolicitudesCliente
+        fields = [ 'peso', 'estatura', 'objetivos','correo']
+        labels = {
+ 
+            'peso': 'Peso:',
+            'estatura': 'Estatura:',
+            'correo': 'Correo',
+            'objetivos': 'objetivos'
+        }
+        
+        widgets = {
+            'peso': forms.TextInput(attrs={'class': 'input_uni'}),
+            'estatura': forms.TextInput(attrs={'class': 'input_uni'}),
+            'objetivos': forms.Textarea(attrs={'class': 'input_uni'}),
+            'correo': forms.EmailInput(attrs={'class': 'input_uni'}),
+         }
+
+
+
 
 class SignupAdmin(forms.ModelForm):
     class Meta:
@@ -72,6 +96,7 @@ class SignupUser(forms.ModelForm):
             'edad': 'Edad:',
             'contrasena': 'Contraseña:',
             'genero': 'Género:',
+            'correo': 'E-mail:',
         }
         widgets = {
             'documento': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de Documento'}),
@@ -81,6 +106,7 @@ class SignupUser(forms.ModelForm):
             'edad': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Edad'}),
             'contrasena': forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Contraseña'}),
             'genero': forms.TextInput(attrs={'class':'input_radio'}),
+            'correo': forms.EmailInput(attrs={'class':'input_uni', 'placeholder': 'E-mail'}),
         }
 
 
@@ -88,25 +114,19 @@ class SignupUser(forms.ModelForm):
         
 
 
-class LoginFormAdmin(forms.ModelForm):
-    contrasena_admin = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
 
-    class Meta:
-        model = Admin
-        fields = ['identificacion_propietario', 'contrasena_admin']
 
-    def clean(self):
-        cleaned_data = super().clean()
-        identificacion_propietario = cleaned_data.get('identificacion_propietario')
-        contrasena_admin = cleaned_data.get('contrasena_admin')
 
-        if identificacion_propietario and contrasena_admin:
-            try:
-                admin = Admin.objects.get(identificacion_propietario=identificacion_propietario)
-            except Admin.DoesNotExist:
-                raise forms.ValidationError('Las credenciales son inválidas. Por favor, inténtalo de nuevo.')
 
-            if not admin.check_password(contrasena_admin):
-                raise forms.ValidationError('Las credenciales son inválidas. Por favor, inténtalo de nuevo.')
-        
-        return cleaned_data
+
+
+
+
+
+
+
+
+
+
+
+

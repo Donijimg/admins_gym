@@ -17,8 +17,8 @@
       <div class=bloquesito>
         {% csrf_token %}
         <a class="border1" href="{% url 'login_ad' %}">Administrador</a>
-        <a href="{% url 'login_en' %}">Entrenador</a>
-        <a class="border2" href="{% url 'login_cl' %}">cliente</a>
+        {% comment %} <a href="{% url 'login_en' %}">Entrenador</a>
+        <a class="border2" href="{% url 'login_cl' %}">cliente</a> {% endcomment %}
       </div>
     </div>
   </main>

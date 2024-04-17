@@ -10,10 +10,9 @@
     <h1>Especializaciones</h1>
     <ul>
         {% for especializacion in especializaciones %}
-        <li><a href="{% url 'especializacion_detalle' coach_id=especializacion.id %}">{{ especializacion.nombre }} - {{ especializacion.get_typo_id_display }}</a></li>
+        <li><a href="{% url 'eliminar_detalle' coach_id=especializacion.id %}">{{ especializacion.nombre }} - {{ especializacion.get_typo_id_display }}</a></li>
         {% endfor %}
-
-        <a href="{% url 'inscribir_user' %}">Inscribir Usuario</a>
+        
     </ul>
 </body>
 </html>

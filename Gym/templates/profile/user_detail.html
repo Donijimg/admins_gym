@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Usuario</title>
+</head>
+<body>
+    <h1>Detalles del Usuario</h1>
+    <p>Username: {{ user.nombre }}</p>
+    <p>Email: {{ user.correo }}</p>
+    <p>Email: {{ user.documento }}</p>
+    <!-- Añade más detalles según sea necesario -->
+    <form action="{% url 'eliminar_user' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="documento" value="{{ user.documento }}">
+          <button type="submit" name="eliminar_user" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">Eliminar Usuario</button>
+        </form>
+</body>
+</html>

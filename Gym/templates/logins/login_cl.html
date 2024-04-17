@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - User</title>
+</head>
+<body>
+    <h2>Login - User</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ error_message }}
+        <input type="text" name="documento" placeholder="Documento"><br>
+        <input type="password" name="contrasena" placeholder="Contraseña"><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

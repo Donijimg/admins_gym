@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Usuarios</title>
+</head>
+<body>
+    <h1>Listado de Usuarios</h1>
+    <ul>
+        {% for user in users %}
+            <!-- Agrega un espacio vacío para que el enlace se pueda hacer clic -->
+            <li><a href="{% url 'user_detail' user_id=user.id %}">{{ user.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

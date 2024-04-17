@@ -48,6 +48,8 @@
           <button type="submit"class="button">Actualizar Información</button>
         </form>
 
+        <a href="{% url 'ad_user' %}">user</a>
+
       {% else %}
         <h2>Ingrese la Identificación del Propietario</h2>
         <form action="{% url 'buscar_admin' %}" method="post">
