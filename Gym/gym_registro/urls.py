@@ -38,7 +38,10 @@ urlpatterns = [
 
 
 
-  #  path('inscribir_user/<int:coach_id>/', views.inscribir_user, name='inscribir_user'),
+
+  path('inscribir_user/<int:user_id>/', views.inscribir_user, name='inscribir_user'),
+
+   path('inscripcion/', views.inscripcion, name='inscripcion'),
 
 
 

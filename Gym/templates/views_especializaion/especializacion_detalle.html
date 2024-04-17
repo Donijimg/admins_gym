@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Especialización y Formulario de Inscripción</title>
+</head>
+<body>
+    <h1>Detalle de Especialización</h1>
+    <h2>Información del Coach</h2>
+    <p>Ficha de Ingreso: {{ coach.ficha_de_ingreso }}</p>
+    <p>Documento: {{ coach.documento }}</p>
+    <p>Nombre: {{ coach.nombre }}</p>
+    <p>Apellido: {{ coach.apellido }}</p>
+    <p>Edad: {{ coach.edad }}</p>
+    <p>Género: {{ coach.genero }}</p>
+    <p>Teléfono: {{ coach.telefono }}</p>
+    <p>Correo: {{ coach.correo }}</p>
+    <p>Dirección: {{ coach.direccion }}</p>
+    <p>Experiencia: {{ coach.experiencia }}</p>
+    <p>Especialización: {{ coach.especializacion }}</p>
+    <p>Horarios: {{ coach.horarios }}</p>
+<a href="{% url 'inscripcion' %}">inscripcion</a>
+
+

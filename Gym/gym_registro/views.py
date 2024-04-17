@@ -140,47 +140,56 @@ def especializaciones(request, type_id):
     especializaciones = Coach.objects.filter(typo_id=type_id)
 
     # Renderizar la plantilla con los objetos filtrados
-    return render(request, 'list/views_coachs/especializaciones.html', {'especializaciones': especializaciones})
+    return render(request, 'views_especializaion/especializaciones.html', {'especializaciones': especializaciones})
+  
+  
+def client(request,user_id):
+    # Filtrar los objetos de Coach por typo_id
+  users = User.objects.filter(user_id=id)
+
+  # Renderizar la plantilla con los objetos filtrados
+  return render(request, 'views_especializaion/cline.html', {'especializaciones': especializaciones})
 
 
 def especializacion_detalle(request, coach_id):
     coach = get_object_or_404(Coach, id=coach_id)
-    user = None  # Define user como None, ya que no está disponible en esta vista
+ # Define user como None, ya que no está disponible en esta vista
     coaches = Coach.objects.all()
-    return render(request, 'list/views_coachs/especializacion_detalle.html', {'coach': coach, 'user': user, 'coaches': coaches})
+    return render(request, 'views_especializaion/especializacion_detalle.html', {'coach': coach})
 
 
 
-# from django.http import HttpResponse
+from django.http import HttpResponse
 
-# def inscribir_user(request, user_id):
-#     if request.method == 'POST':
-#         documento = request.POST.get('documento')
-#         user = get_object_or_404(User, id=user_id)
-#         coach_id = request.POST.get('coach_id')
-#         coach = get_object_or_404(Coach, id=coach_id)
+def inscribir_user(request, user_id):
+    if request.method == 'POST':
+        documento = request.POST.get('documento')
+        user = get_object_or_404(User, id=user_id)
+        coach_id = request.POST.get('coach_id')
+        coach = get_object_or_404(Coach, id=coach_id)
+
+
+        inscripcion = Inscripcion.objects.create(usuario=user, entrenador=coach, documento=documento)
+        inscripcion.save()
         
-#         # Aquí deberías implementar la lógica para inscribir al usuario en el coach
-#         # Por ejemplo, podrías crear una nueva instancia de Inscripcion y guardarla en la base de datos
-#         # Esto es solo un ejemplo, ajusta la lógica según sea necesario
-#         inscripcion = Inscripcion.objects.create(usuario=user, entrenador=coach, documento=documento)
-#         inscripcion.save()
-        
-#         # Cambiar el retorno a HttpResponse
-#         return HttpResponse('Inscripción exitosa')
+        # Cambiar el retorno a HttpResponse
+        return HttpResponse('Inscripción exitosa')
 
-#     else:
-#         user = get_object_or_404(User, id=user_id)
-#         coaches = Coach.objects.all()  # Obtener todos los coaches disponibles
-        
-#         # Cambiar el retorno a render con la plantilla correspondiente
-#         return render(request, 'list/views_coachs/especializacion_detalle.html', {'user': user, 'coaches': coaches})
+    else:
+          user = get_object_or_404(User, id=user_id)
+          coaches = Coach.objects.all()  # Obtener todos los coaches disponibles
+          
+          # Pasar el objeto User a la plantilla en el contexto
+          return render(request, 'list/views_coachs/especializacion_detalle.html', {'user': user, 'coaches': coaches, 'user_id': user_id})
 
 
 
 
 
 
+def inscripcion(request):
+  user 
+  return render(request, 'views_especializaion/inscipcions.html', {})
 
 
 
@@ -375,6 +384,7 @@ def eliminar_user(request):
             messages.error(request, 'No se encontró ningún usuario con el documento proporcionado.')
         return redirect('index')
     return redirect('index')
+
 
 def buscar_user(request):
     if request.method == 'POST':

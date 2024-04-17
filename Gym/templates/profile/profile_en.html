@@ -51,7 +51,7 @@
 
       {% else %}
         <h2>Ingrese la Ficha de Ingreso del Coach</h2>
-        <form action="{% url 'buscar_coach' %}" method="get">
+        <form action="{% url 'buscar_coach' %}" method="post">
           {% csrf_token %}
           <label for="ficha_de_ingreso">Ficha de Ingreso:</label>
           <input type="text" id="ficha_de_ingreso" name="ficha_de_ingreso" required>

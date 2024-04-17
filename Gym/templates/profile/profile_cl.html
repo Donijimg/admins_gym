@@ -11,16 +11,10 @@
 <body>
   <div class="card_cn">
     <div class="card_one">
-      {% if user %}
+      
         <!-- Formulario para buscar usuario -->
-        <h2>Ingrese el Documento del Usuario</h2>
-        <form action="{% url 'buscar_user' %}" method="post">
-          {% csrf_token %}
-          <label for="documento">Documento:</label>
-          <input type="text" id="documento" name="documento" required>
-          <button class="button" type="submit">Mostrar información del Usuario</button>
-        </form>
-      {% else %}
+        
+        {% if user %}
         <h2>Información del Usuario</h2>
         <p>Documento: {{ user.documento }}</p>
         <p>Nombre: {{ user.nombre }}</p>
@@ -45,7 +39,24 @@
           <!-- Agrega más campos según sea necesario -->
           <button type="submit" class="button">Actualizar Información</button>
         </form>
+        <h2>Ingrese el Documento del Usuario</h2>
+        <form action="{% url 'buscar_user' %}" method="post">
+          {% csrf_token %}
+          <label for="documento">Documento:</label>
+          <input type="text" id="documento" name="documento" required>
+          <button class="button" type="submit">Mostrar información del Usuario</button>
+        </form>
+
+      {% else %}
+        <h2>Ingrese el Documento del Usuario</h2>
+        <form action="{% url 'buscar_user' %}" method="post">
+          {% csrf_token %}
+          <label for="documento">Documento:</label>
+          <input type="text" id="documento" name="documento" required>
+          <button class="button" type="submit">Mostrar información del Usuario</button>
+        </form>
       {% endif %}
+    
     </div>
   </div>
 </body>

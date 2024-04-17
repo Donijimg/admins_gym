@@ -43,6 +43,7 @@ class User(models.Model):
     edad = models.IntegerField(blank=False, null=False)
     telefono = models.CharField(max_length=15, blank=False, null=False)
     contrasena = models.CharField(max_length=128, blank=False, null=False)
+    # entrenador = models.ManyToManyField(Coach, related_name='entrenadores', blank=True)
 
 class Inscripcion(models.Model):
     usuario = models.ManyToManyField(User, related_name='inscripciones', blank=True)
