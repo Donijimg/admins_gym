@@ -3,7 +3,6 @@ from .forms import SignupAdmin,SignupCoach,SignupUser,SolicitudesClienteForm
 from .models import Admin,Coach,User,SolicitudesCliente
 from django.contrib import messages
 from django.core.mail import send_mail
-
 from django.http import HttpResponse
 
  
@@ -79,22 +78,22 @@ def logeado_cl(request):
 
 
 
-def login_ad(request):
-    if request.method == 'POST':
-        try:
-            detalle_usuario = Admin.objects.get(correo=request.POST['correo'], contrasena_admin=request.POST['contrasena_admin'])
-            request.session['correo'] = detalle_usuario.correo
-            return render(request, 'logeado_ad.html')
-        except Admin.DoesNotExist:
-            messages.error(request, 'Correo o contraseña incorrectos.')
-    return render(request, 'logins/login_ad.html')
+# def login_ad(request):
+#     if request.method == 'POST':
+#         try:
+#             detalle_usuario = Admin.objects.get(correo=request.POST['correo'], contrasena_admin=request.POST['contrasena_admin'])
+#             request.session['correo'] = detalle_usuario.correo
+#             return render(request, 'logeado_ad.html')
+#         except Admin.DoesNotExist:
+#             messages.error(request, 'Correo o contraseña incorrectos.')
+#     return render(request, 'logins/login_ad.html')
 
-def cerrar_session(request):
-    try:
-        del request.session['correo']
-    except KeyError:
-        pass
-    return render(request, 'layouts/app.html')
+# def cerrar_session(request):
+#     try:
+#         del request.session['correo']
+#     except KeyError:
+#         pass
+#     return render(request, 'layouts/app.html')
 
 
 
@@ -152,55 +151,51 @@ def eliminar_detalle(request, coach_id):
 
 
 
+
+
+
+from django.conf import settings
+# views.py
+
+def buscar_user_view(request):
+    if request.method == 'POST':
+        documento = request.POST.get('documento')
+        user = User.objects.filter(documento=documento).first()
+
+        if user:
+            form_inscripcion = SolicitudesClienteForm()
+            return render(request, 'views_especializaion/inscripciones.html', {'show_inscripcion_form': True, 'form_inscripcion': form_inscripcion})
+        else:
+            messages.error(request, 'No se encontró ningún usuario con el documento proporcionado.')
+    return render(request, 'views_especializaion/inscripciones.html', {'show_inscripcion_form': False})
+
+
+
+
 def inscribir_user(request):
     if request.method == 'POST':
         form = SolicitudesClienteForm(request.POST)
         if form.is_valid():
             form.save()
 
-            # Obtener los datos del usuario
-            documento = request.POST.get('documento')
-            nombre = request.POST.get('nombre')
-            apellido = request.POST.get('apellido')
-            # Obtener otros campos del usuario de manera similar
 
-            # Enviar correo electrónico con los datos del usuario y del formulario
+            # Enviar correo electrónico con los datos del formulario
             subject = 'Nueva solicitud de cliente'
-            message = f'Solicitud de cliente:\n\nDocumento: {documento}\nNombre: {nombre}\nApellido: {apellido}\n\n{form.cleaned_data}'
-            sender_email = 'dojigo555@gmail.com'
-            recipient_list = ['dojigo555@gmail.com', 'otracorreo@email.com']
+            message = f'Solicitud de cliente'
+            sender_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [settings.DEFAULT_FROM_EMAIL]
             send_mail(subject, message, sender_email, recipient_list)
 
             messages.success(request, 'Tu solicitud ha sido enviada correctamente.')
-            return redirect('logeado_cl')  # Redirige a la página de perfil del coach o a donde necesites
-        else:
-            messages.error(request, 'Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo.')
+            return redirect('logeado_cl')
     else:
         form = SolicitudesClienteForm()
-        return render(request,'views_especializaion/inscripciones.html', {'form': form} )
     
-
-
-
-
-
-
-def buscar_user_view(request):
-    show_inscripcion_form = False
-    
+    # Si la solicitud es POST y el formulario no es válido, mostrar los errores en la plantilla
     if request.method == 'POST':
-        documento = request.POST.get('documento')
-        user = Coach.objects.filter(documento=documento).first()
-
-        if user:
-            show_inscripcion_form = True
-            return render(request, 'views_especializaion/inscripciones.html', {'user': user, 'show_inscripcion_form': show_inscripcion_form})
-        else:
-            messages.error(request, 'No se encontró ningún coach con el documento proporcionado.')
-            return render(request, 'views_especializaion/inscripciones.html', {'show_inscripcion_form': show_inscripcion_form})
-    else:
-        return render(request, 'views_especializaion/inscripciones.html', {'show_inscripcion_form': show_inscripcion_form})
-
+        messages.error(request, 'Hubo un error al procesar tu solicitud. Por favor, corrige los errores en el formulario.')
+    
+    return render(request, 'views_especializaion/inscripciones.html', {'form': form})
 
 
 

@@ -14,8 +14,8 @@ urlpatterns = [
   path('signup_opcion/signup/cl/',views.signup_cl,name='signup_cl'),
   path('signup_opcion/signup/en/',views.signup_en,name='signup_en'),
   
-  path('cerrar_session/',views.cerrar_session, name='cerrar_session'),
-  path('login_ad/login_opcion/', views.login_ad, name='login_ad'),
+  # path('cerrar_session/',views.cerrar_session, name='cerrar_session'),
+  # path('login_ad/login_opcion/', views.login_ad, name='login_ad'),
   # path('login_en/login_opcion/', views.login_en, name='login_en'),
   # path('login_cl/login_opcion/', views.login_cl, name='login_cl'),
   

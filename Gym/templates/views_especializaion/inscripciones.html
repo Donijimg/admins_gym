@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,16 +27,20 @@
       </form>
       
       {% if show_inscripcion_form %}
-        <h1>Información del Usuario</h1>
-        <p>Documento: {{ user.documento }}</p>
-        <p>Nombre: {{ user.nombre }}</p>
-        <p>Apellido: {{ user.apellido }}</p>
-        <p>Correo: {{ user.correo }}</p>
 
         <h1>Formulario de Solicitud de Cliente</h1>
         <form action="{% url 'inscribir_user' %}" method="post">
           {% csrf_token %}
-          {{ form.as_p }}
+
+          {{ form_inscripcion.objetivos.label_tag }}
+          {{ form_inscripcion.objetivos }}
+          {{ form_inscripcion.estatura.label_tag }}
+          {{ form_inscripcion.estatura }}
+          {{ form_inscripcion.peso.label_tag }}
+          {{ form_inscripcion.peso }} 
+          {{ form_inscripcion.correo.label_tag }}
+          {{ form_inscripcion.correo }} 
+          
           <button type="submit">Enviar</button>
         </form>
       {% endif %}
@@ -45,4 +48,3 @@
   </div>
 </body>
 </html>
-
