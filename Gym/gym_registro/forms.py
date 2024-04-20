@@ -1,32 +1,31 @@
-# forms.py
 from django import forms
-from .models import Admin, Coach, User,SolicitudesCliente
-from django.core.mail import send_mail
+from .models import Admin, Coach, User, SolicitudesCliente
 
+class BaseForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'input_uni'
+            field.widget.attrs['placeholder'] = field.label
 
-class SolicitudesClienteForm(forms.ModelForm):
+class SolicitudesClienteForm(BaseForm):
     class Meta:
         model = SolicitudesCliente
-        fields = [ 'peso', 'estatura', 'objetivos','correo']
+        fields = ['peso', 'estatura', 'objetivos', 'correo']
         labels = {
- 
             'peso': 'Peso:',
             'estatura': 'Estatura:',
             'correo': 'Correo',
-            'objetivos': 'objetivos'
+            'objetivos': 'Objetivos'
         }
-        
         widgets = {
-            'peso': forms.TextInput(attrs={'class': 'input_uni'}),
-            'estatura': forms.TextInput(attrs={'class': 'input_uni'}),
-            'objetivos': forms.Textarea(attrs={'class': 'input_uni'}),
-            'correo': forms.EmailInput(attrs={'class': 'input_uni'}),
-         }
+            'peso': forms.TextInput(),
+            'estatura': forms.TextInput(),
+            'objetivos': forms.Textarea(),
+            'correo': forms.EmailInput(),
+        }
 
-
-
-
-class SignupAdmin(forms.ModelForm):
+class SignupAdmin(BaseForm):
     class Meta:
         model = Admin
         fields = '__all__'
@@ -39,19 +38,18 @@ class SignupAdmin(forms.ModelForm):
             'correo': 'Correo Electrónico:'
         }
         widgets = {
-            'identificacion_propietario': forms.TextInput(attrs={'class': 'input_uni'}),
-            'documento': forms.TextInput(attrs={'class': 'input_uni'}),
-            'nombre_admin': forms.TextInput(attrs={'class': 'input_uni'}),
-            'apellido_admin': forms.TextInput(attrs={'class': 'input_uni'}),
-            'contrasena_admin': forms.PasswordInput(attrs={'class': 'input_uni'}),
-            'correo': forms.EmailInput(attrs={'class': 'input_uni'}),
+            'identificacion_propietario': forms.TextInput(),
+            'documento': forms.TextInput(),
+            'nombre_admin': forms.TextInput(),
+            'apellido_admin': forms.TextInput(),
+            'contrasena_admin': forms.PasswordInput(),
+            'correo': forms.EmailInput(),
         }
 
-
-
-class SignupCoach(forms.ModelForm):
-    # Define el campo typo_id como ChoiceField
-    typo_id = forms.ChoiceField(choices=Coach.ESPECIALIZACIONES_CHOICES, label='Especialización', widget=forms.Select(attrs={'class': 'input_uni'}))
+class SignupCoach(BaseForm):
+    typo_id = forms.ChoiceField(choices=Coach.ESPECIALIZACIONES_CHOICES, label='Especialización')
+    turno = forms.ChoiceField(choices=Coach.TURNO_CHOICES, label='Turno')
+    genero = forms.ChoiceField(choices=Coach.GENE_CHOICES, label='Género')  # Agregar campo genero
 
     class Meta:
         model = Coach
@@ -61,30 +59,32 @@ class SignupCoach(forms.ModelForm):
             'nombre': 'Nombre:',
             'apellido': 'Apellido:',
             'edad': 'Edad:',
-            'genero': 'Género:',
             'telefono': 'Teléfono:',
             'correo': 'Correo Electrónico:',
             'experiencia': 'Experiencia:',
             'contrasena': 'Contraseña:',
             'ficha_de_ingreso': 'Ficha de Entrenador:',
             'horarios': 'Horarios:',
-            'typo_id': 'Especialización:',  # Cambiar type_id a typo_id
+            'typo_id': 'Especialización:',
+            'turno': 'Turno:',  # Agregar etiqueta para el campo turno
+            'genero': 'Género:',  # Agregar etiqueta para el campo genero
         }
         widgets = {
-            'documento': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de Documento'}),
-            'nombre': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Nombre'}),
-            'apellido': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Apellido'}),
-            'edad': forms.NumberInput(attrs={'class': 'input_uni', 'placeholder': 'Edad'}),
-            'genero': forms.TextInput(attrs={'class': 'input_uni'}),
-            'telefono': forms.TextInput(attrs={'class':'input_uni', 'placeholder': 'Teléfono'}),
-            'correo': forms.EmailInput(attrs={'class':'input_uni', 'placeholder': 'E-mail'}),
-            'experiencia': forms.NumberInput(attrs={'class': 'input_uni', 'placeholder': 'Experiencia'}),
-            'contrasena': forms.PasswordInput(attrs={'class':'input_uni', 'placeholder': 'Contraseña'}),
-            'ficha_de_ingreso': forms.TextInput(attrs={'class':'input_uni', 'placeholder': 'Ficha de Entrenador'}),
-            'horarios': forms.TextInput(attrs={'class': 'input_uni'}),
+            'documento': forms.TextInput(),
+            'nombre': forms.TextInput(),
+            'apellido': forms.TextInput(),
+            'edad': forms.NumberInput(),
+            'telefono': forms.TextInput(),
+            'correo': forms.EmailInput(),
+            'experiencia': forms.NumberInput(),
+            'contrasena': forms.PasswordInput(),
+            'ficha_de_ingreso': forms.TextInput(),
+            'horarios': forms.TextInput(),
         }
 
-class SignupUser(forms.ModelForm):
+class SignupUser(BaseForm):
+    genero = forms.ChoiceField(choices=User.GENE_CHOICES, label='Género')  # Agregar campo genero
+
     class Meta:
         model = User
         exclude = ['admin']
@@ -95,37 +95,18 @@ class SignupUser(forms.ModelForm):
             'telefono': 'Número de teléfono:',
             'edad': 'Edad:',
             'contrasena': 'Contraseña:',
-            'genero': 'Género:',
-            'correo': 'E-mail:',
+            'correo': 'Correo:',
+            'genero': 'Género:',  # Agregar etiqueta para el campo genero
         }
         widgets = {
-            'documento': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de Documento'}),
-            'nombre': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Nombre'}),
-            'apellido': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Apellido'}),
-            'telefono': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Número de teléfono'}),
-            'edad': forms.TextInput(attrs={'class':'input_uni', 'placeholder':'Edad'}),
-            'contrasena': forms.PasswordInput(attrs={'class':'input_uni', 'placeholder':'Contraseña'}),
-            'genero': forms.TextInput(attrs={'class':'input_radio'}),
-            'correo': forms.EmailInput(attrs={'class':'input_uni', 'placeholder': 'E-mail'}),
+            'documento': forms.TextInput(),
+            'nombre': forms.TextInput(),
+            'apellido': forms.TextInput(),
+            'telefono': forms.TextInput(),
+            'edad': forms.TextInput(),
+            'contrasena': forms.PasswordInput(),
+            'correo': forms.EmailInput(),
         }
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

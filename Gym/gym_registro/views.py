@@ -24,15 +24,19 @@ def signup_ad(request):
         admin_form = SignupAdmin() 
     return render(request, 'signups/signup_administrador.html', {'admin_form': admin_form})
 
+
 def signup_en(request):
     if request.method == 'POST':
         coach_form = SignupCoach(request.POST)
         if coach_form.is_valid():
             coach_form.save()  # Guarda el objeto Coach en la base de datos
             return redirect('welcome_en')  # Redirigir al usuario a la página de bienvenida para entrenadores
+        else:
+            print(coach_form.errors)  # Imprimir los errores en la consola para depuración
     else:
         coach_form = SignupCoach()
     return render(request, 'signups/signup_entrenador.html', {'coach_form': coach_form})
+
 
 
 def signup_cl(request):
@@ -52,6 +56,7 @@ def welcome_en(request):
 def welcome_cl(request):
     return render(request, 'welcome/welcome_cl.html')
 
+# views.py
 
 
 
@@ -78,22 +83,8 @@ def logeado_cl(request):
 
 
 
-# def login_ad(request):
-#     if request.method == 'POST':
-#         try:
-#             detalle_usuario = Admin.objects.get(correo=request.POST['correo'], contrasena_admin=request.POST['contrasena_admin'])
-#             request.session['correo'] = detalle_usuario.correo
-#             return render(request, 'logeado_ad.html')
-#         except Admin.DoesNotExist:
-#             messages.error(request, 'Correo o contraseña incorrectos.')
-#     return render(request, 'logins/login_ad.html')
-
-# def cerrar_session(request):
-#     try:
-#         del request.session['correo']
-#     except KeyError:
-#         pass
-#     return render(request, 'layouts/app.html')
+def login(request):
+    return render(request, 'logeado_cl/logeado_cl.html')
 
 
 
@@ -266,7 +257,7 @@ def buscar_admin(request):
             return render(request, 'profile/profile_ad.html', {'admin': admin})
         else:
             messages.error(request, 'No se encontró ningún administrador con la identificación proporcionada.')
-            return redirect('info_admin')
+            return redirect('buscar_admin')
     else:
         return render(request, 'profile/profile_ad.html')
 
@@ -470,16 +461,9 @@ def ampliada_eliminar(request):
 
 
 
-def galeria_one(request):
-    return render(request,'galeria/galeria1.html',{})
-def galeria_two(request):
-    return render(request,'galeria/galeria2.html',{})
-def galeria_three(request):
-    return render(request,'galeria/galeria3.html',{})
-def galeria_four(request):
-    return render(request,'galeria/galeria4.html',{})
-def galeria_five(request):
-    return render(request,'galeria/galeria5.html',{})
+def galeria(request):
+    return render(request,'galeria/galeria.html',{})
+
 
 
 

@@ -12,34 +12,35 @@
 </head>
 <body>
   <main class="container">
-    <form action="{% url 'signup_ad' %}" method="post">
+    <form id="formulario_admin" action="{% url 'signup_ad' %}" method="post">
       {% csrf_token %}
       <div class="p_bloque">
         <h3 class="title">Signup Administrador</h3>
+
         <div class="bloquesito">
           <div class="block">
             {{ admin_form.identificacion_propietario.label_tag }}
             {{ admin_form.identificacion_propietario }}
-            <br>
+
             {{ admin_form.documento.label_tag }}
             {{ admin_form.documento }}
-            <br>
+   
             {{ admin_form.nombre_admin.label_tag }}
             {{ admin_form.nombre_admin }}
-            <br>
+          </div>
+          
+          <div class="block">
             {{ admin_form.apellido_admin.label_tag }}
             {{ admin_form.apellido_admin }}
-          </div>
-          <div class="block">
             {{ admin_form.telefono.label_tag }}
             {{ admin_form.telefono }}
-            <br>
+       
             {{ admin_form.correo.label_tag }}
             {{ admin_form.correo }}
-            <br>
+  
             {{ admin_form.direccion.label_tag }}
             {{ admin_form.direccion }}
-            <br>
+ 
             {{ admin_form.contrasena_admin.label_tag }}
             {{ admin_form.contrasena_admin }}
           </div>
@@ -48,5 +49,8 @@
       </div>
     </form>
   </main>
+
+  <!-- Enlace al archivo JavaScript estático -->
+
 </body>
 </html>

@@ -16,9 +16,9 @@
       <h3 class="title">¿ que rol asumes?</h3>
       <div class=bloquesito>
         {% csrf_token %}
-        <a class="border1" href="{% url 'login_ad' %}">Administrador</a>
-        {% comment %} <a href="{% url 'login_en' %}">Entrenador</a>
-        <a class="border2" href="{% url 'login_cl' %}">cliente</a> {% endcomment %}
+        <a class="border1" href="{% url 'logeado_ad' %}">login</a>
+        <a href="{% url 'login_en' %}">Entrenador</a>
+        <a class="border2" href="{% url 'login_cl' %}">cliente</a>
       </div>
     </div>
   </main>

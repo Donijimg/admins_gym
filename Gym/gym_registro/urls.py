@@ -15,9 +15,8 @@ urlpatterns = [
   path('signup_opcion/signup/en/',views.signup_en,name='signup_en'),
   
   # path('cerrar_session/',views.cerrar_session, name='cerrar_session'),
-  # path('login_ad/login_opcion/', views.login_ad, name='login_ad'),
-  # path('login_en/login_opcion/', views.login_en, name='login_en'),
-  # path('login_cl/login_opcion/', views.login_cl, name='login_cl'),
+  path('login_ad/login_opcion/', views.login, name='login_ad'),
+
   
   path('logeado_ad/', views.logeado_ad, name='logeado_ad'), 
   path('logeado_en/', views.logeado_en, name='logeado_en'), 
@@ -66,11 +65,8 @@ urlpatterns = [
   path('profile_en/', views.profile_en, name='profile_en'),
   path('profile_cl/', views.profile_cl, name='profile_cl'),
   
-  path('galeria_one/', views.galeria_one, name='galeria_one'),
-  path('galeria_two/', views.galeria_two, name='galeria_two'),
-  path('galeria_three/', views.galeria_three, name='galeria_three'),
-  path('galeria_four/', views.galeria_four, name='galeria_four'),
-  path('galeria_five/', views.galeria_five, name='galeria_five'),
+  path('galeria/', views.galeria, name='galeria'),
+
 
 ]
 

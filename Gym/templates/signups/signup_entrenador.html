@@ -28,42 +28,37 @@
                         {{ coach_form.nombre }}
                         {{ coach_form.apellido.label_tag }}
                         {{ coach_form.apellido }}
+                        {{ coach_form.edad.label_tag }}
+                        {{ coach_form.edad }}
                     </div>
                 </div>
                 <div class="block">
-                    <div>
-                        {{ coach_form.edad.label_tag }}
-                        {{ coach_form.edad }}
+                    <div>             
                         {{ coach_form.telefono.label_tag }}
                         {{ coach_form.telefono }}
                         {{ coach_form.correo.label_tag }}
                         {{ coach_form.correo }}
-                    </div>
-                </div>
-                <div class="block">
-                    <div>
                         {{ coach_form.genero.label_tag }}
                         {{ coach_form.genero }}
                         {{ coach_form.contrasena.label_tag }}
                         {{ coach_form.contrasena }}
-                        {{ coach_form.ficha_de_ingreso.label_tag }}
-                        {{ coach_form.ficha_de_ingreso }}
                     </div>
                 </div>
                 <div class="block">
                     <div>
+                      {{ coach_form.ficha_de_ingreso.label_tag }}
+                        {{ coach_form.ficha_de_ingreso }}
                         {{ coach_form.experiencia.label_tag }}
                         {{ coach_form.experiencia }}
-                        {{ coach_form.horarios.label_tag }}
-                        {{ coach_form.horarios }}
-                    </div>
-                    <div class="block">
+                        {{ coach_form.turno.label_tag }}
+                        {{ coach_form.turno }}
                      {{ coach_form.typo_id.label_tag }}
                       {{ coach_form.typo_id }}
                     </div>
                 </div>
-                <button type="submit" class="button">Registrarse</button>
             </div>
+            
+            <button type="submit" class="button">Registrarse</button>
         </div>
     </form>
   </main>

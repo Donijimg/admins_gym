@@ -100,7 +100,8 @@ border: none;
 
 
 .button:hover {
-  background-color:#ffff00;
+  background-color:crimson;
+  color: #ffffff;
 }
 .button {
   width: 88px;

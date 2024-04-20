@@ -26,7 +26,8 @@
         {% csrf_token %}
         <label for="documento">Documento:</label>
         <input type="text" id="documento" name="documento" required>
-        <button class="button" type="submit">Mostrar información del Usuario</button>
+        <br>
+        <button class="button" type="submit">Mostrar</button>
       </form>
       {% else %}
       <h1>Información del Usuario</h1>
@@ -49,7 +50,8 @@
         <input type="text" id="nombre" name="nombre" value="{{ user.nombre }}" required>
         <label for="apellido">Apellido:</label>
         <input type="text" id="apellido" name="apellido" value="{{ user.apellido }}" required>
-        <!-- Agrega más campos según sea necesario -->
+        
+
         <button type="submit" class="button">Actualizar Información</button>
         {% endif %}
     </div>

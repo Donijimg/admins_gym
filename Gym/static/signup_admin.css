@@ -48,7 +48,7 @@ body {
   background-color:#000000b6;
   border-radius: 50px;
   color: aliceblue;
-  gap: 2rem;
+  gap: 1rem;
   padding: 20px;
   margin:0px 30px 0px 30px;
 
@@ -85,7 +85,8 @@ border: none;
 
 
 .button:hover {
-  background-color:#ffff00;
+  background-color:crimson;
+  color: #ffffff;
 }
 .button {
   width: 88px;

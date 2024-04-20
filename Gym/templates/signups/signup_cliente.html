@@ -20,6 +20,7 @@
         <h3 class="title">signup de usuario</h3>
         <div class="bloquesito">
           {% csrf_token %}
+
           <div class="block">
             <div>
               {{ user_form.nombre.label_tag }}
@@ -27,35 +28,31 @@
               {{ user_form.apellido.label_tag }}
               {{ user_form.apellido }}
               {{ user_form.edad.label_tag }}
-              {{ user_form.edad }} 
+              {{ user_form.edad }}
+              {{ user_form.genero.label_tag }}
+              {{ user_form.genero }}
+
               
             </div>
           </div>
           <div class="block">
             <div>
-              {{ user_form.telefono.label_tag }}
-              {{ user_form.telefono }}
+              
               {{ user_form.contrasena.label_tag }}
               {{ user_form.contrasena }}
-              <!-- Si hay confirmación de contraseña -->
- 
-              {{ user.form.label_tag }}
+
+              {{ user_form.correo.label_tag }}
               {{ user_form.correo }}
+
               {{ user_form.documento.label_tag }}
               {{ user_form.documento }}
-            </div>
+              {{ user_form.telefono.label_tag }}
+              {{ user_form.telefono }}
           </div>
         </div>
-        <div class="block2">
-          <div>
-            <div class="Gener">
-              {{ user_form.genero.label_tag }}
-              {{ user_form.genero }}
-            </div>
-          </div>
-        </div>
-        <button type="submit" class="button">Registrarse</button>
-      </div>
+
+        
+      </div><button type="submit" class="button">Registrarse</button>
     </form>
   </main>
 </body>

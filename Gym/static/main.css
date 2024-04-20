@@ -557,16 +557,15 @@ border-radius: 4px;
       display: flex;
       align-items: center;
       flex-direction: column;
+      text-align: center;
+      gap: 1rem;
     }
 
-    .card_one img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 24px;
-    }
 
     .button {
-      background-color: #4CAF50;
+      width: 96px;
+      height: 48px;
+      background-color: #000000;
       border: none;
       color: white;
       padding: 10px 20px;
