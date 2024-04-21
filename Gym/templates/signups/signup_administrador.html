@@ -50,7 +50,31 @@
     </form>
   </main>
 
-  <!-- Enlace al archivo JavaScript estático -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#formulario_admin').submit(function(e) {
+    // Evitar que el formulario se envíe por defecto
+    e.preventDefault();
+
+    // Validación de campos aquí
+    var nombreAdmin = $('#id_nombre_admin').val();
+    if (nombreAdmin.trim() == '') {
+      $('#nombre_admin_error').text('Por favor ingresa un nombre.');
+      return false; // Detener el envío del formulario si hay un error
+    } else {
+      $('#nombre_admin_error').text('');
+    }
+
+    // Agrega validación para los otros campos
+
+    // Si todos los campos son válidos, envía el formulario
+    this.submit();
+  });
+});
+</script>
 
 </body>
 </html>
+
+

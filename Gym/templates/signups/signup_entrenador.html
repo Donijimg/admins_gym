@@ -15,7 +15,7 @@
 
 <body>
   <main class="container">
-    <form action="{% url 'signup_en' %}" method="post">
+    <form action="{% url 'signup_en' %}" method="post" id="formulario_coach">
         {% csrf_token %}
         <div class="p_bloque">
             <h3 class="title">Registro</h3>
@@ -62,6 +62,29 @@
         </div>
     </form>
   </main>
+
+  <script>
+$(document).ready(function() {
+  $('#formulario_coach').submit(function(e) {
+    // Evitar que el formulario se envíe por defecto
+    e.preventDefault();
+
+    // Validación de campos aquí
+    var nombreAdmin = $('#id_nombre_coach').val();
+    if (nombreAdmin.trim() == '') {
+      $('#nombre_coach_error').text('Por favor ingresa un nombre.');
+      return false; // Detener el envío del formulario si hay un error
+    } else {
+      $('#nombre_coach_error').text('');
+    }
+
+    // Agrega validación para los otros campos
+
+    // Si todos los campos son válidos, envía el formulario
+    this.submit();
+  });
+});
+</script>
 </body>
 
 </html>

@@ -1,14 +1,13 @@
+
 {% load static %}
+
 <nav class="log_in">
   <div class="logotipo">
     <img src="{% static 'images/gym.png' %}" alt="">
   </div>
   <div class="navcontent">
-    {% if request.session.correo %}
-      {{ request.session.correo }} &nbsp;&nbsp; <a href="{% url 'cerrar_session' %}">Cerrar sesión</a>
-    {% else %}
-      <span class="boder-right"></span>
-      <a href="{% url 'profile_ad' %}">Perfil</a>
-    {% endif %}
+    <a href="{% url 'index' %}">Cerrar seccion</a>
+    <span class="boder-right"></span>
+    <a href="{% url 'profile_ad' %}">profile</a>
   </div>
 </nav>

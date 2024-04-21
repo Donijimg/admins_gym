@@ -1,61 +1,66 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfil del Coach</title>
+  <title>Perfil del Administrador</title>
   <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
-
 <body>
   <div class="card_cn">
     <div class="card_one">
       {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
           {% endfor %}
-      </ul>
+        </ul>
       {% endif %}
-      {% if user %}
-      </form>
-      <h2>Ingrese el Documento del Usuario</h2>
-      <form action="{% url 'buscar_user' %}" method="post">
-        {% csrf_token %}
-        <label for="documento">Documento:</label>
-        <input type="text" id="documento" name="documento" required>
-        <br>
-        <button class="button" type="submit">Mostrar</button>
-      </form>
-      {% else %}
-      <h1>Información del Usuario</h1>
-      <p>Documento: {{ user.documento }}</p>
-      <p>Nombre: {{ user.nombre }}</p>
-      <p>Apellido: {{ user.apellido }}</p>
-      <p>Correo: {{ user.correo }}</p>
-      <h3>Eliminar Usuario</h3>
-      <form action="{% url 'eliminar_user' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="documento" value="{{ user.documento }}">
-        <button type="submit" name="eliminar_user"
-          onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">Eliminar Usuario</button>
-      </form>
-      <h3>Actualizar Información del Usuario</h3>
-      <form action="{% url 'actualizar_user' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="documento" value="{{ user.documento }}">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="{{ user.nombre }}" required>
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" value="{{ user.apellido }}" required>
-        
+      {% if admin %}
+        <h2>Información del Administrador</h2>
+        <p>Identificación Propietario: {{ admin.identificacion_propietario }}</p>
+        <p>Documento: {{ admin.documento }}</p>
+        <p>Nombre: {{ admin.nombre_admin }}</p>
+        <p>Apellido: {{ admin.apellido_admin }}</p>
+        <p>Correo: {{ admin.correo }}</p>
+        <p>Teléfono: {{ admin.telefono }}</p>
+        <p>Dirección: {{ admin.direccion }}</p>
+        <!-- Add more fields here based on your Admin model -->
 
-        <button type="submit" class="button">Actualizar Información</button>
-        {% endif %}
+        <!-- Formulario para eliminar el administrador -->
+        <h3>Eliminar Administrador</h3>
+        <form action="{% url 'eliminar_admin' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="identificacion_propietario" value="{{ admin.identificacion_propietario }}">
+          <button type="submit" name="eliminar_admin" onclick="return confirm('¿Estás seguro de que deseas eliminar este administrador?')">Eliminar Administrador</button>
+        </form>
+
+        <h3>Actualizar Información del Administrador</h3>
+        <form action="{% url 'actualizar_admin' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="identificacion_propietario" value="{{ admin.identificacion_propietario }}">
+          <label for="nombre_admin">Nombre:</label>
+          <input type="text" id="nombre_admin" name="nombre_admin" value="{{ admin.nombre_admin }}" required>
+          <label for="apellido_admin">Apellido:</label>
+          <input type="text" id="apellido_admin" name="apellido_admin" value="{{ admin.apellido_admin }}" required>
+          <!-- Add more fields here based on your Admin model -->
+          <button type="submit"class="button">Actualizar Información</button>
+        </form>
+
+        <a href="{% url 'ad_user' %}">user</a>
+
+      {% else %}
+        <h2>Ingrese la Identificación del Propietario</h2>
+        <form action="{% url 'buscar_user' %}" method="post">
+          {% csrf_token %}
+          <label for="identificacion_propietario">Identificación Propietario:</label>
+          <input type="text" id="identificacion_propietario" name="identificacion_propietario" required>
+          <br>
+          <button class="button" type="submit">Mostrar</button>
+        </form>
+      {% endif %}
     </div>
   </div>
 </body>
-
 </html>

@@ -60,6 +60,72 @@ def welcome_cl(request):
 
 
 
+
+def login_ad(request):
+    return render(request, 'logings/login_ad.html')
+
+def login_en(request):
+    return render(request, 'logings/login_en.html')
+  
+  
+def login_cl(request):
+    return render(request, 'logings/login_cl.html')
+
+
+def buscar_login_ad(request):
+    if request.method == 'POST':  
+        identificacion_propietario = request.POST.get('identificacion_propietario')
+        admin = Admin.objects.filter(identificacion_propietario=identificacion_propietario).first()
+        if admin:
+            return render(request, 'logeado_ad/logeado_ad.html', {'admin': admin})
+        else:
+
+            messages.error(request, 'No se encontró ningún administrador con la identificación proporcionada.')
+            return redirect('buscar_login_ad')
+    else:
+
+        return render(request, 'logings/login_ad.html')  # Mostrar el formulario de búsqueda
+      
+      
+      
+      
+def buscar_login_cl(request):
+    if request.method == 'POST':  
+        documento = request.POST.get('documento')
+        user = User.objects.filter(documento=documento).first()
+        if user:
+            return render(request, 'logeado_cl/logeado_cl.html', {'user': user})
+        else:
+
+            messages.error(request, 'No se encontró ningún administrador con la identificación proporcionada.')
+            return redirect('buscar_login_cl')
+    else:
+
+        return render(request, 'logings/login_cl.html')  # Mostrar el formulario de búsqueda
+
+
+
+ 
+def buscar_login_en(request):
+    if request.method == 'POST':  
+         ficha_de_ingreso = request.POST.get('ficha_de_ingreso')
+         coach = Coach.objects.filter(ficha_de_ingreso=ficha_de_ingreso).first()
+         if coach:
+            return render(request, 'logeado_en/logeado_en.html', {'coach': coach})
+         else:
+           messages.error(request, 'No se encontró ningún administrador con la identificación proporcionada.')
+           return redirect('buscar_login_en')
+    else:
+      return render(request, 'logings/login_en.html')  # Mostrar el formulario de búsqueda
+
+
+
+
+
+
+
+
+
 def logeado_ad(request):
     coachs = Coach.objects.all()
     clientes = User.objects.all()
@@ -116,6 +182,12 @@ def ad_coach(request, type_id):
     # Renderizar la plantilla con los objetos filtrados
     return render(request, 'views_ad/ad_coach.html', {'especializaciones': especializaciones})
 
+def coach_admin(request, type_id):
+    # Filtrar los objetos de Coach por typo_id
+    especializaciones = Coach.objects.filter(typo_id=type_id)
+    # Renderizar la plantilla con los objetos filtrados
+    return render(request, 'views_en/coach_admin.html', {'especializaciones': especializaciones})
+
 def ad_user(request):
     # Obtener todos los usuarios
     users = User.objects.all()
@@ -138,6 +210,14 @@ def eliminar_detalle(request, coach_id):
  # Define user como None, ya que no está disponible en esta vista
     coaches = Coach.objects.all()
     return render(request, 'views_ad/eliminar_detalle.html', {'coach': coach})
+  
+
+
+def detalle_coach(request, coach_id):
+    coach = get_object_or_404(Coach, id=coach_id)
+ # Define user como None, ya que no está disponible en esta vista
+    coaches = Coach.objects.all()
+    return render(request, 'views_en/detalle_coach.html', {'coach': coach})
 
 
 
@@ -167,12 +247,16 @@ def inscribir_user(request):
     if request.method == 'POST':
         form = SolicitudesClienteForm(request.POST)
         if form.is_valid():
-            form.save()
+            # form.save()
+            peso      = request.POST['peso']
+            estatura  = request.POST['estatura']
+            correo    = request.POST['correo']
+            objetivos =request.POST['objetivos']
 
 
             # Enviar correo electrónico con los datos del formulario
             subject = 'Nueva solicitud de cliente'
-            message = f'Solicitud de cliente'
+            message = f' se solicito una inscripcion es usuario proporciona los siguientes datos: { peso }kl , su estatura es de :{estatura} cm, correo procionado para dar repuesta: {correo}, obejtivos del usurio: {objetivos}'
             sender_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [settings.DEFAULT_FROM_EMAIL]
             send_mail(subject, message, sender_email, recipient_list)
@@ -246,7 +330,7 @@ def eliminar_admin(request):
             messages.error(request, 'No se encontró ningún administrador con la identificación proporcionada.')
         return redirect('index')
 
-    return redirect('index')#<===============================================================================  # MENTERIO EJEMPLO
+    return redirect('index')
 
 
 def buscar_admin(request):
@@ -415,8 +499,6 @@ def actualizar_user(request):
 
 def ingresar_user(request):
     return render(request, 'profile/profile_cl.html')
-
-
 
 
 

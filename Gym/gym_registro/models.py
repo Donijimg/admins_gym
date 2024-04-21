@@ -64,8 +64,8 @@ class User(models.Model):
     genero = models.IntegerField(choices=GENE_CHOICES, blank=True, null=True)
 
 class SolicitudesCliente(models.Model):
-    peso = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
-    estatura = models.DecimalField(max_digits=4, decimal_places=2, blank=True)
+    peso = models.CharField(max_length=5, blank=True)
+    estatura = models.CharField(max_length=4, blank=True)
     objetivos = models.TextField(blank=True)
     correo = models.EmailField(max_length=100, blank=False, null=False)
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE, related_name='solicitudes_clientes', blank=True, null=True)

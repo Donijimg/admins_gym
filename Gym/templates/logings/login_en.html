@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil del Administrador</title>
+  <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+  <div class="card_cn">
+    <div class="card_one">
+        <h2>Ficha de entrendor</h2>
+        <form action="{% url 'buscar_login_en' %}" method="post">
+          {% csrf_token %}
+          <label for="ficha_de_ingreso">Ficha de entrendor</label>
+          <input type="text" id="ficha_de_ingreso" name="ficha_de_ingreso" required>
+          <br>
+          <button class="button" type="submit">Mostrar</button>
+        </form>
+        
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        
+    </div>
+  </div>
+</body>
+</html>
+
+
+

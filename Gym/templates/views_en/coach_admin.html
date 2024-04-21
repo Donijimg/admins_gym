@@ -1,0 +1,18 @@
+<!-- especializaciones.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especializaciones</title>
+</head>
+<body>
+    <h1>Especializaciones</h1>
+    <ul>
+        {% for especializacion in especializaciones %}
+        <li><a href="{% url 'detalle_coach' coach_id=especializacion.id %}">{{ especializacion.nombre }} - {{ especializacion.get_typo_id_display }}</a></li>
+        {% endfor %}
+        
+    </ul>
+</body>
+</html>

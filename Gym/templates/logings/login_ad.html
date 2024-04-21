@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil del Administrador</title>
+  <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+  <div class="card_cn">
+    <div class="card_one">
+        <h2>Ingrese la Identificación del Propietario</h2>
+        <form action="{% url 'buscar_login_ad' %}" method="post">
+          {% csrf_token %}
+          <label for="identificacion_propietario">Identificación Propietario:</label>
+          <input type="text" id="identificacion_propietario" name="identificacion_propietario" required>
+          <br>
+          <button class="button" type="submit">Mostrar</button>
+        </form>
+        
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+

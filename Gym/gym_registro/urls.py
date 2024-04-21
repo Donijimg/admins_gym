@@ -17,6 +17,16 @@ urlpatterns = [
   # path('cerrar_session/',views.cerrar_session, name='cerrar_session'),
   path('login_ad/login_opcion/', views.login, name='login_ad'),
 
+  path('login_ad/', views.login_ad, name='login_ad'), 
+  path('login_en/', views.login_en, name='login_en'), 
+  path('login_cl/', views.login_cl, name='login_cl'), 
+  
+  path('buscar_login_ad/', views.buscar_login_ad, name='buscar_login_ad'),
+  path('buscar_login_cl/', views.buscar_login_cl, name='buscar_login_cl'),
+  path('buscar_login_en/', views.buscar_login_en, name='buscar_login_en'),
+  
+  path('coach_admin/<int:type_id>/', views.coach_admin, name='coach_admin'),
+  path('detalle_coach/<int:coach_id>/', views.detalle_coach, name='detalle_coach'),
   
   path('logeado_ad/', views.logeado_ad, name='logeado_ad'), 
   path('logeado_en/', views.logeado_en, name='logeado_en'), 
@@ -29,12 +39,13 @@ urlpatterns = [
   path('ad_coach/<int:type_id>/',views.ad_coach, name='ad_coach'),
   path('especializaciones/<int:type_id>/',views.especializaciones, name='especializaciones'),
   path('especializacion_detalle/<int:coach_id>/', views.especializacion_detalle, name='especializacion_detalle'),
+  
   path('eliminar_detalle/<int:coach_id>/', views.eliminar_detalle, name='eliminar_detalle'),
   path('ad_user/', views.ad_user, name='ad_user'),
   path('ad_user/<int:user_id>/', views.user_detail, name='user_detail'),
 
-  path('inscribir_user', views.inscribir_user, name='inscribir_user'),
-  path('buscar_user_view', views.buscar_user_view, name='buscar_user_view'),
+  path('inscribir_user/', views.inscribir_user, name='inscribir_user'),
+  path('buscar_user_view/', views.buscar_user_view, name='buscar_user_view'),
 
   #vistas para entrenadores 
   path('vista_dietas_fitness/', views.vista_dietas_fitness, name='vista_dietas_fitness'),

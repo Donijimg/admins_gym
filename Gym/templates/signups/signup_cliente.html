@@ -15,7 +15,7 @@
 
 <body>
   <main class="container">
-    <form action="{% url 'signup_cl' %}" method="post">
+    <form id="formulario_user" action="{% url 'signup_cl' %}" method="post">
       <div class="p_bloque">
         <h3 class="title">signup de usuario</h3>
         <div class="bloquesito">
@@ -55,6 +55,28 @@
       </div><button type="submit" class="button">Registrarse</button>
     </form>
   </main>
+  <script>
+$(document).ready(function() {
+  $('#formulario_user').submit(function(e) {
+    // Evitar que el formulario se envíe por defecto
+    e.preventDefault();
+
+    // Validación de campos aquí
+    var nombreAdmin = $('#id_nombre_user').val();
+    if (nombreAdmin.trim() == '') {
+      $('#nombre_user_error').text('Por favor ingresa un nombre.');
+      return false; // Detener el envío del formulario si hay un error
+    } else {
+      $('#nombre_user_error').text('');
+    }
+
+    // Agrega validación para los otros campos
+
+    // Si todos los campos son válidos, envía el formulario
+    this.submit();
+  });
+});
+</script>
 </body>
 
 </html>
